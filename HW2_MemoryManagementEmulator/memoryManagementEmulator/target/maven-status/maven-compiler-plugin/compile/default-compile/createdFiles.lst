@@ -1,0 +1,15 @@
+Core\Fixed.class
+Views\MainMenu$3.class
+Views\MainMenu$4.class
+Views\BrotherSeg.class
+Views\MainMenu.class
+Views\MainMenu$2.class
+Views\MainMenu$5.class
+Views\MainMenu$1.class
+Views\FixedDistSeg.class
+Core\Dynamic.class
+Core\FixedDistint.class
+Views\DynamicSeg.class
+Views\FixedSeg.class
+Core\Segmentation.class
+Core\Brother.class
