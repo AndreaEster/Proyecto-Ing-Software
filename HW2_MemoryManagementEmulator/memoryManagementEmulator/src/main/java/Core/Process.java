@@ -8,6 +8,7 @@ package Core;
  *
  * @author Marco Tulio Work
  */
-public class Brother extends Partition{
+public class Process {
     
+     
 }

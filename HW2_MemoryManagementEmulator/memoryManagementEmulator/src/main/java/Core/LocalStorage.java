@@ -8,6 +8,9 @@ package Core;
  *
  * @author Marco Tulio Work
  */
-public class Dynamic extends Segmentation{
+public class LocalStorage extends Memory{
     
+    public LocalStorage(int memorySize){
+        super(memorySize);
+    }
 }

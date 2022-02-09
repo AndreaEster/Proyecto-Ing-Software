@@ -8,6 +8,6 @@ package Core;
  *
  * @author Marco Tulio Work
  */
-public class Segmentation {
+public class Partition {
     
 }

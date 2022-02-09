@@ -8,6 +8,6 @@ package Core;
  *
  * @author Marco Tulio Work
  */
-public class FixedDistint extends Segmentation{
+public class FixedDistint extends Partition{
     
 }

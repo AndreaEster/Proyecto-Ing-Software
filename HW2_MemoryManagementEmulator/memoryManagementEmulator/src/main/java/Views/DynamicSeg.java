@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Views;
+package Core;
 
 /**
  *
@@ -13,8 +14,16 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
     /**
      * Creates new form DynamicSeg
      */
+    public Core.DynamicPartitionEngine dpeOS;
+    
     public DynamicSeg() {
         initComponents();
+        this.dpeOS = new Core.DynamicPartitionEngine();
+        //drawMemory
+    }
+    
+    public void drawMemory(){
+        //Este metodo utilizara la Lista enlazada para generar el dibujo actual de la Memoria Principal.
     }
 
     /**
