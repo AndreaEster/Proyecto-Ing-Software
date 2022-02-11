@@ -3,14 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Views;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 /**
  *
  * @author Marco Tulio Work
  */
-public class DynamicSeg extends javax.swing.JInternalFrame implements WindowListener{
+public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFrameListener{
 
     /**
      * Creates new form DynamicSeg
@@ -23,8 +28,7 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements WindowList
     public DynamicSeg() {
         initComponents();
         this.dpeOS = new Core.DynamicPartitionEngine();
-        //this.mainMemoryPanel.updateUI();
-        //drawMemory();
+        this.addInternalFrameListener(this);
     }
     
     
@@ -33,22 +37,20 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements WindowList
     }
     
     public void drawPartition(Core.Node partition, int location){
+        
         JPanel jpanel = new JPanel();
         JLabel jlabel = new JLabel();
         
+        jpanel.setLayout(new BorderLayout());
         jpanel.setSize(
                 (this.mainMemoryPanel.getWidth()*partition.getNodeSize())/100, 
                 this.mainMemoryPanel.getHeight()
         );
-        jpanel.setBackground(Color.LIGHT_GRAY);
+        jpanel.setBackground(Color.yellow);
         jlabel.setText(Integer.toString(partition.getNodeSize()));
-        jlabel.setSize(jpanel.getWidth(), jpanel.getHeight());
-        System.out.println(jpanel.getWidth());
-        jlabel.setBackground(Color.GREEN);
-        jpanel.add(jlabel, SwingConstants.CENTER);
+        jpanel.add(jlabel);
         
-        this.mainMemoryPanel.add(jpanel,location);
-        this.mainMemoryPanel.repaint();
+        this.mainMemoryPanel.add(jpanel);
         
         if( partition.getNext() != null ){
             drawPartition(partition.getNext(), location + 1);
@@ -270,39 +272,38 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements WindowList
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void windowClosing(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void windowOpened(WindowEvent e) {
+    public void internalFrameOpened(InternalFrameEvent e) {
         drawMemory();
-        System.out.println("Se ah abierto");
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+        
     }
 
 }
