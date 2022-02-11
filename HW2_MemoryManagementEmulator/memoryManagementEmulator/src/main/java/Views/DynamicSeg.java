@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Views;
-
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.event.*;
 /**
  *
  * @author Marco Tulio Work
  */
-public class DynamicSeg extends javax.swing.JInternalFrame {
+public class DynamicSeg extends javax.swing.JInternalFrame implements WindowListener{
 
     /**
      * Creates new form DynamicSeg
@@ -16,21 +18,41 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
     private Core.DynamicPartitionEngine dpeOS;
     private int mainMemoryPanelWidth;
     private int mainMemoryPanelHeight;
+    private int processSize;
     
     public DynamicSeg() {
         initComponents();
         this.dpeOS = new Core.DynamicPartitionEngine();
-        this.mainMemoryPanelWidth = this.mainMemoryPanel.getWidth();
-        this.mainMemoryPanelHeight  = this.mainMemoryPanel.getHeight();
-        //drawMemory
+        //this.mainMemoryPanel.updateUI();
+        //drawMemory();
     }
+    
     
     public void drawMemory(){
-        drawPartition(this.dpeOS.getMainMemory().getFirst());
+        drawPartition(this.dpeOS.getMainMemory().getFirst(),0);
     }
     
-    public void drawPartition(Core.Node partition){
+    public void drawPartition(Core.Node partition, int location){
+        JPanel jpanel = new JPanel();
+        JLabel jlabel = new JLabel();
         
+        jpanel.setSize(
+                (this.mainMemoryPanel.getWidth()*partition.getNodeSize())/100, 
+                this.mainMemoryPanel.getHeight()
+        );
+        jpanel.setBackground(Color.LIGHT_GRAY);
+        jlabel.setText(Integer.toString(partition.getNodeSize()));
+        jlabel.setSize(jpanel.getWidth(), jpanel.getHeight());
+        System.out.println(jpanel.getWidth());
+        jlabel.setBackground(Color.GREEN);
+        jpanel.add(jlabel, SwingConstants.CENTER);
+        
+        this.mainMemoryPanel.add(jpanel,location);
+        this.mainMemoryPanel.repaint();
+        
+        if( partition.getNext() != null ){
+            drawPartition(partition.getNext(), location + 1);
+        }
     }
 
     /**
@@ -65,6 +87,11 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
         setTitle("Segmentacion Dinamica");
 
         mainMemoryPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        mainMemoryPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                mainMemoryPanelComponentShown(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainMemoryPanelLayout = new javax.swing.GroupLayout(mainMemoryPanel);
         mainMemoryPanel.setLayout(mainMemoryPanelLayout);
@@ -124,6 +151,11 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
         addBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Agregar");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,6 +240,15 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        this.processSize = Integer.parseInt(this.processSizeInput.getText().strip());
+        drawMemory();
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void mainMemoryPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mainMemoryPanelComponentShown
+
+    }//GEN-LAST:event_mainMemoryPanelComponentShown
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
@@ -227,4 +268,41 @@ public class DynamicSeg extends javax.swing.JInternalFrame {
     private javax.swing.JPanel mainMemoryPanel;
     private javax.swing.JTextField processSizeInput;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        drawMemory();
+        System.out.println("Se ah abierto");
+    }
+
 }

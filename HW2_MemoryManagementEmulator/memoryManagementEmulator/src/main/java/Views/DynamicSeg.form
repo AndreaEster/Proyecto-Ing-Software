@@ -127,6 +127,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="mainMemoryPanelComponentShown"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -262,6 +265,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
