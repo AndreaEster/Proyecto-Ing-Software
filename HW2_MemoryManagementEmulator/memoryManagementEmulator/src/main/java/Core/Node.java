@@ -15,15 +15,45 @@ public class Node {
         y si está contenido por un objeto de tipo “Proceso” quiere decir que dicho nodo 
         se encuentra cubierto.
     */
+    private int identifier;
     private int nodeSize;
     private Process item;
     private Node next;
+    private Node previous;
     
     public Node(Process item, Node next, int nodeSize){
         this.item = item;
         this.next = next;
         this.nodeSize = nodeSize;
     }
+
+    public Node getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node previous) {
+        this.previous = previous;
+    }
+    
+    
+
+    public int getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
+    }
+
+    public int getNodeSize() {
+        return nodeSize;
+    }
+
+    public void setNodeSize(int nodeSize) {
+        this.nodeSize = nodeSize;
+    }
+    
+    
     
     public Process getItem(){
         return this.item;

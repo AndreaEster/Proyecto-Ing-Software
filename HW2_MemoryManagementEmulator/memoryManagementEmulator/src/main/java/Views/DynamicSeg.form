@@ -48,9 +48,9 @@
                               <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="mainMemoryPanel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="localStoragePanel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -63,10 +63,10 @@
                       <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="217" max="-2" attributes="0"/>
+                          <Component id="processSizeInput" min="-2" pref="217" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="103" max="-2" attributes="0"/>
+                      <Component id="addBtn" min="-2" pref="103" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
@@ -97,8 +97,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jPanel3" max="32767" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="localStoragePanel" max="32767" attributes="0"/>
+                  <Component id="mainMemoryPanel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -109,9 +109,9 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel10" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="processSizeInput" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton1" min="-2" pref="86" max="-2" attributes="0"/>
+                  <Component id="addBtn" min="-2" pref="86" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="32" pref="50" max="32767" attributes="0"/>
           </Group>
@@ -119,7 +119,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="mainMemoryPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -217,7 +217,7 @@
         <Property name="text" type="java.lang.String" value="AREA DE EMULACION"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="localStoragePanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -247,9 +247,9 @@
         <Property name="text" type="java.lang.String" value="Indicar el tamano del proceso (en MB):"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="processSizeInput">
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="addBtn">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="99" red="0" type="rgb"/>

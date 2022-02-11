@@ -30,4 +30,8 @@ public class DynamicPartitionEngine extends Partition{
         
     }
     
+    public MainMemory getMainMemory(){
+        return this.mainMemory;
+    }
+    
 }
