@@ -35,25 +35,35 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
     }
      
     public void drawMemory(){
+        //Declaracion de instancias
+        List<JPanel> panelList = new ArrayList<>();
+        List<JLabel> labelList = new ArrayList<>();
+        FlowLayout experimentLayout = new FlowLayout();
+        
+        //Metodos que aseguran la actualizacion del panel de la Memoria Principal
         this.mainMemoryPanel.removeAll();
         this.mainMemoryPanel.revalidate();
         this.mainMemoryPanel.repaint();
-        FlowLayout experimentLayout = new FlowLayout();
         this.mainMemoryPanel.setLayout(experimentLayout);
-        List<JPanel> panelList = new ArrayList<>();
-        List<JLabel> labelList = new ArrayList<>();
+        
+        //Llamado de la funcion interior
         drawPartition(this.dpeOS.getMainMemory().getFirst(),0, panelList, labelList);
     }
     
     public void drawPartition(Core.Node partition, int location, List<JPanel> panelList, List<JLabel> labelList){
-        float memoryPercent = (partition.getNodeSize()/this.dpeOS.getMainMemory().getMemorySize())*100;
-        float panelPercent = (this.mainMemoryPanelWidth*memoryPercent)/100;
+        //Estas variables son utilizadas para calcular el tamano que debe tener la particion en la interfaz
+        float memoryAverage = (partition.getNodeSize()/this.dpeOS.getMainMemory().getMemorySize())*100;
+        float sizeInMemory = (this.mainMemoryPanelWidth*memoryAverage)/100;
+        
+        //Se agrega el respectivo panel y etiqueta de la particion que se esta dibujando.
         panelList.add(new JPanel());
         labelList.add(new JLabel());
+        
+        //Instrucciones que agregan apariencia al panel y etiqueta de la particion
         panelList.get(location).setLayout(new BorderLayout());
         
         panelList.get(location).setPreferredSize(new Dimension(
-                (int)panelPercent, 
+                (int)sizeInMemory, 
                 (int)this.mainMemoryPanelHeight
         ));
         if(partition.getItem() == null){
@@ -63,9 +73,12 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
         }   
         labelList.get(location).setText(Integer.toString((int)partition.getNodeSize()));   
         
+        //Aqui se mete la etiqueta dentro del panel de la particion
         panelList.get(location).add(labelList.get(location));
+        //El panel de la particion se mete dentro del panel de la Memoria principal
         this.mainMemoryPanel.add(panelList.get(location),location);
         
+        //
         if( partition.getNext() != null ){
             drawPartition(partition.getNext(), location + 1, panelList, labelList);
         }
@@ -281,9 +294,11 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
         
         if(this.processSizeInput.getText().strip()!= ""){
             this.processSize = Integer.parseInt(this.processSizeInput.getText().strip());
+            //Metodo estatico de la clase Validator que permite verificar que el valor insertado en el input de agregar proceso sea valido
             validation = Core.Validator.validateDinamycProcessSize(this.processSize, (int)this.dpeOS.getMainMemory().getMemorySize());
             if(validation.equals("valid")){
                 if(this.algorithmComboBox.getSelectedIndex() == 0){
+                    //Aqui se manda a llamar al metodo que se encarga de implementar el algoritmo de colocacion First-fit
                     boolean addState = this.dpeOS.addProcessByFirstFit(this.processSize);
                     if(addState == false){
                         JOptionPane.showMessageDialog(this,

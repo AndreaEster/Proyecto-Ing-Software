@@ -22,6 +22,7 @@ public class Memory{
         this.numElements = 1;
     }
     
+    //Este metodo sera el encargado de decidir que algoritmo de colocacion usar y luego lo ejecutara.
     public boolean locateProcess(float size){
         Node partition = getFirstCanBeLocated(
                 size,
@@ -44,6 +45,12 @@ public class Memory{
         }       
     }
     
+    /*
+         Este metodo sera llamado unicamente si el algoritmo de colocacion seleccionado es el First-Fit.
+        El metodo getFirstCanBeLocated recibe el primer nodo o particion que se encuentra en la MemoriaPrincipal
+        junto al tamano del nuevo proceso que se quiere agregar. La finalidad de este metodo es la de retornar un nodo
+        o particion apto en el cual se puede agregar el nuevo proceso.
+    */
     public Node getFirstCanBeLocated(float size, Node partition){
         if(partition.getNodeSize()> size && partition.getItem() == null){
             return partition;
