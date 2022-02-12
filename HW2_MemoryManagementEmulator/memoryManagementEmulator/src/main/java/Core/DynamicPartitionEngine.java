@@ -26,8 +26,8 @@ public class DynamicPartitionEngine extends Partition{
         this.localStorage = new LocalStorage(4096);
     }
     
-    public void addProcessByFirstFit(int processSize){
-        
+    public boolean addProcessByFirstFit(int processSize){
+        return this.mainMemory.locateProcess(processSize);
     }
     
     public MainMemory getMainMemory(){

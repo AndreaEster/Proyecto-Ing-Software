@@ -13,7 +13,7 @@ public class Memory{
     Node first;
     private Node last;
     private int numElements;
-    int memorySize;
+    float memorySize;
     
     public Memory(int memorySize){
         this.memorySize = memorySize;
@@ -21,6 +21,42 @@ public class Memory{
         this.last = null;
         this.numElements = 1;
     }
+    
+    public boolean locateProcess(float size){
+        Node partition = getFirstCanBeLocated(
+                size,
+                this.getFirst()
+        );      
+        if(partition != null){
+            Node nextPartition = partition.getNext();
+            Node newPartition = new Node(
+                null,
+                nextPartition,
+                partition.getNodeSize()-size
+            );          
+            partition.setItem(new Process());
+            partition.setNext(newPartition);
+            partition.setNodeSize(size);
+            this.setNumElements(numElements+1);
+            return true;
+        }else{
+            return false;
+        }       
+    }
+    
+    public Node getFirstCanBeLocated(float size, Node partition){
+        if(partition.getNodeSize()> size && partition.getItem() == null){
+            return partition;
+        }else{
+            if(partition.getNext() != null){
+                return getFirstCanBeLocated(size, partition.getNext());
+            }else{
+                return null;
+            }
+        }           
+    }
+    
+    
 
     public Node getFirst() {
         return first;
@@ -46,7 +82,7 @@ public class Memory{
         this.numElements = numElements;
     }
 
-    public int getMemorySize() {
+    public float getMemorySize() {
         return memorySize;
     }
 

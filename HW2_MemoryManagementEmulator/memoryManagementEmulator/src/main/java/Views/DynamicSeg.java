@@ -5,9 +5,12 @@
 package Views;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
@@ -21,39 +24,50 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
      * Creates new form DynamicSeg
      */
     private Core.DynamicPartitionEngine dpeOS;
-    private int mainMemoryPanelWidth;
-    private int mainMemoryPanelHeight;
     private int processSize;
+    private float mainMemoryPanelWidth = 281;
+    private float mainMemoryPanelHeight = 62;
     
     public DynamicSeg() {
         initComponents();
         this.dpeOS = new Core.DynamicPartitionEngine();
         this.addInternalFrameListener(this);
     }
-    
-    
+     
     public void drawMemory(){
-        drawPartition(this.dpeOS.getMainMemory().getFirst(),0);
+        this.mainMemoryPanel.removeAll();
+        this.mainMemoryPanel.revalidate();
+        this.mainMemoryPanel.repaint();
+        FlowLayout experimentLayout = new FlowLayout();
+        this.mainMemoryPanel.setLayout(experimentLayout);
+        List<JPanel> panelList = new ArrayList<>();
+        List<JLabel> labelList = new ArrayList<>();
+        drawPartition(this.dpeOS.getMainMemory().getFirst(),0, panelList, labelList);
     }
     
-    public void drawPartition(Core.Node partition, int location){
+    public void drawPartition(Core.Node partition, int location, List<JPanel> panelList, List<JLabel> labelList){
+        float memoryPercent = (partition.getNodeSize()/this.dpeOS.getMainMemory().getMemorySize())*100;
+        float panelPercent = (this.mainMemoryPanelWidth*memoryPercent)/100;
+        panelList.add(new JPanel());
+        labelList.add(new JLabel());
+        panelList.get(location).setLayout(new BorderLayout());
         
-        JPanel jpanel = new JPanel();
-        JLabel jlabel = new JLabel();
+        panelList.get(location).setPreferredSize(new Dimension(
+                (int)panelPercent, 
+                (int)this.mainMemoryPanelHeight
+        ));
+        if(partition.getItem() == null){
+            panelList.get(location).setBackground(Color.LIGHT_GRAY);
+        }else{
+            panelList.get(location).setBackground(Color.YELLOW);
+        }   
+        labelList.get(location).setText(Integer.toString((int)partition.getNodeSize()));   
         
-        jpanel.setLayout(new BorderLayout());
-        jpanel.setSize(
-                (this.mainMemoryPanel.getWidth()*partition.getNodeSize())/100, 
-                this.mainMemoryPanel.getHeight()
-        );
-        jpanel.setBackground(Color.yellow);
-        jlabel.setText(Integer.toString(partition.getNodeSize()));
-        jpanel.add(jlabel);
-        
-        this.mainMemoryPanel.add(jpanel);
+        panelList.get(location).add(labelList.get(location));
+        this.mainMemoryPanel.add(panelList.get(location),location);
         
         if( partition.getNext() != null ){
-            drawPartition(partition.getNext(), location + 1);
+            drawPartition(partition.getNext(), location + 1, panelList, labelList);
         }
     }
 
@@ -82,6 +96,8 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
         jLabel10 = new javax.swing.JLabel();
         processSizeInput = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        algorithmComboBox = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -159,6 +175,11 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel11.setText("Indicar el tamano del proceso (en MB):");
+
+        algorithmComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "first", "next", "best", " " }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,13 +213,17 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
                         .addGap(292, 292, 292)
                         .addComponent(jLabel9))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(88, 88, 88)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(processSizeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(algorithmComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,23 +253,62 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
                 .addGap(38, 38, 38)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(processSizeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 50, Short.MAX_VALUE))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(processSizeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(algorithmComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1)))
+                .addGap(32, 54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        this.processSize = Integer.parseInt(this.processSizeInput.getText().strip());
-        drawMemory();
+        String validation;
+        
+        if(this.processSizeInput.getText().strip()!= ""){
+            this.processSize = Integer.parseInt(this.processSizeInput.getText().strip());
+            validation = Core.Validator.validateDinamycProcessSize(this.processSize, (int)this.dpeOS.getMainMemory().getMemorySize());
+            if(validation.equals("valid")){
+                if(this.algorithmComboBox.getSelectedIndex() == 0){
+                    boolean addState = this.dpeOS.addProcessByFirstFit(this.processSize);
+                    if(addState == false){
+                        JOptionPane.showMessageDialog(this,
+                            "No se encontro una particion con espacio suficiente en la memoria, libere espacio.",
+                            "ATENCION!",
+                            JOptionPane.WARNING_MESSAGE
+                        );
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(this,
+                    validation,
+                    "ATENCION!",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                this.processSizeInput.setText("");
+            }
+            drawMemory();
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Debe especificar un tamano de proceso.",
+                    "ATENCION!",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void mainMemoryPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_mainMemoryPanelComponentShown
@@ -254,8 +318,10 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
+    private javax.swing.JComboBox<String> algorithmComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

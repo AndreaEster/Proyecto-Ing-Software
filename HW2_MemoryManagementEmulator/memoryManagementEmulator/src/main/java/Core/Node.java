@@ -16,12 +16,12 @@ public class Node {
         se encuentra cubierto.
     */
     private int identifier;
-    private int nodeSize;
+    private float nodeSize;
     private Process item;
     private Node next;
     private Node previous;
     
-    public Node(Process item, Node next, int nodeSize){
+    public Node(Process item, Node next, float nodeSize){
         this.item = item;
         this.next = next;
         this.nodeSize = nodeSize;
@@ -33,9 +33,7 @@ public class Node {
 
     public void setPrevious(Node previous) {
         this.previous = previous;
-    }
-    
-    
+    } 
 
     public int getIdentifier() {
         return identifier;
@@ -45,16 +43,14 @@ public class Node {
         this.identifier = identifier;
     }
 
-    public int getNodeSize() {
+    public float getNodeSize() {
         return nodeSize;
     }
 
-    public void setNodeSize(int nodeSize) {
+    public void setNodeSize(float nodeSize) {
         this.nodeSize = nodeSize;
     }
-    
-    
-    
+        
     public Process getItem(){
         return this.item;
     }
