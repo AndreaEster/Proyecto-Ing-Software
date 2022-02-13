@@ -436,13 +436,42 @@ public class DynamicSeg extends javax.swing.JInternalFrame implements InternalFr
             if(validation.equals("valid")){
                 if(this.algorithmComboBox.getSelectedIndex() == 0){
                     //Aqui se manda a llamar al metodo que se encarga de implementar el algoritmo de colocacion First-fit
-                    boolean addState = this.dpeOS.addProcessByFirstFit(this.processSize);
+                    boolean addState = this.dpeOS.addProcess(this.processSize, "First-fit");
                     if(addState == false){
                         JOptionPane.showMessageDialog(this,
                             "No se encontro una particion con espacio suficiente en la memoria, libere espacio.",
                             "ATENCION!",
                             JOptionPane.WARNING_MESSAGE
                         );
+                    }
+                }else{
+                    if(this.algorithmComboBox.getSelectedIndex() == 2){
+                        //Aqui se manda a llamar al metodo que se encarga de implementar el algoritmo de colocacion First-fit
+                        boolean addState = this.dpeOS.addProcess(this.processSize, "Best-fit");
+                        if(addState == false){
+                            JOptionPane.showMessageDialog(this,
+                                "No se encontro una particion con espacio suficiente en la memoria, libere espacio.",
+                                "ATENCION!",
+                                JOptionPane.WARNING_MESSAGE
+                            );
+                        }
+                    }else{
+                        if(this.dpeOS.getMainMemory().getLastPlacement()!= null){
+                            boolean addState = this.dpeOS.addProcess(this.processSize, "Next-fit");
+                            if(addState == false){
+                                JOptionPane.showMessageDialog(this,
+                                    "No se encontro una particion con espacio suficiente en la memoria, libere espacio.",
+                                    "ATENCION!",
+                                    JOptionPane.WARNING_MESSAGE
+                                );
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(this,
+                                "No se ah registrado una colocacion de proceso aun, por lo que no se puede utilizar el algoritmo Next-fit.",
+                                "ATENCION!",
+                                JOptionPane.WARNING_MESSAGE
+                            );
+                        }
                     }
                 }
             }else{

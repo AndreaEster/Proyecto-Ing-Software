@@ -14,23 +14,40 @@ import java.util.List;
 public class Memory{
     
     Node first;
-    private Node last;
+    private Node lastPlacement;
     private int numElements;
     float memorySize;
     
     public Memory(int memorySize){
         this.memorySize = memorySize;
         this.first = new Node(null,null, this.memorySize);
-        this.last = null;
+        this.lastPlacement = null;
         this.numElements = 1;
     }
     
     //Este metodo sera el encargado de decidir que algoritmo de colocacion usar y luego lo ejecutara.
-    public boolean locateProcess(float size){
-        Node partition = getFirstCanBeLocated(
-                size,
-                this.getFirst()
-        );      
+    public boolean locateProcess(float size, String algorithm){
+        Node partition;
+        if(algorithm.equals("First-fit")){
+            partition = getFirstCanBeLocated(
+                    size,
+                    this.getFirst()
+            ); 
+        }else{
+            if(algorithm.equals("Best-fit")){
+                partition = getBestCanBeLocated(
+                        size,
+                        this.getFirst(),
+                        null
+                ); 
+            }else{
+                partition = getFirstCanBeLocated(
+                    size,
+                    this.getLastPlacement()
+            );
+            }
+        }
+             
         if(partition != null){
             if(partition.getNodeSize() != size){
                 Node nextPartition = partition.getNext();
@@ -43,15 +60,16 @@ public class Memory{
                 partition.setItem(new Process());
                 partition.setNext(newPartition);
                 partition.setNodeSize(size);
+                this.setLastPlacement(partition);
                 this.setNumElements(numElements+1);
                 return true;
             }else{
                 partition.setItem(new Process());
                 partition.setNodeSize(size);
                 this.setNumElements(numElements+1);
+                this.setLastPlacement(partition);
                 return true;
             }
-            
         }else{
             return false;
         }       
@@ -75,6 +93,37 @@ public class Memory{
         }           
     }
     
+    public Node getBestCanBeLocated(float size, Node partition, Node best){
+        if(best == null){
+            if(partition.getNext() == null){
+                if(partition.getNodeSize() >= size && partition.getItem() == null){
+                    return partition;
+                }else{
+                    return null;
+                } 
+            }else{
+                if(partition.getNodeSize() >= size && partition.getItem() == null){
+                    best = partition;
+                }
+                return this.getBestCanBeLocated(size, partition.getNext(), best);
+            }
+            
+            
+        }else{
+            if(partition.getNext() == null){
+                if(partition.getNodeSize() >= size && partition.getItem() == null && partition.getNodeSize() < best.getNodeSize()){
+                    best = partition;
+                }
+                return best;
+            }else{
+                if(partition.getNodeSize() >= size && partition.getItem() == null && partition.getNodeSize() < best.getNodeSize()){
+                    best = partition;
+                }
+                return this.getBestCanBeLocated(size, partition.getNext(), best);
+            }
+        }          
+    }
+    
     public boolean swapProcess(int partitionNumber, Memory destinatedMemory){
         Node partition = this.getPartitionByNumber(partitionNumber, this.first, 0);
         
@@ -82,7 +131,7 @@ public class Memory{
             return false;
         }else{
             float size = partition.getNodeSize();
-            destinatedMemory.locateProcess(size);
+            destinatedMemory.locateProcess(size, "First-fit");
             partition.setItem(null);
             return true;
         }
@@ -113,7 +162,11 @@ public class Memory{
             if(partition.getItem() == null){
                 holes.add(partition);
                 Node hole = this.mergeHoles(holes);
-                previousPartition.setNext(hole);
+                if(previousPartition == null){
+                    this.getLastPartitionWithProcess(this.first).setNext(hole);
+                }else{
+                    previousPartition.setNext(hole);
+                }
             }else{
                 Node hole = this.mergeHoles(holes);
                 partition.setNext(hole);
@@ -141,6 +194,14 @@ public class Memory{
         }
         return new Node(null, null, nodeSize);
     }
+    
+    public Node getLastPartitionWithProcess(Node partition){
+        if(partition.getNext().getItem() == null){
+            return partition;
+        }else{
+            return this.getLastPartitionWithProcess(partition.getNext());
+        }
+    }
 
     public Node getFirst() {
         return first;
@@ -150,12 +211,12 @@ public class Memory{
         this.first = first;
     }
 
-    public Node getLast() {
-        return last;
+    public Node getLastPlacement() {
+        return lastPlacement;
     }
 
-    public void setLast(Node last) {
-        this.last = last;
+    public void setLastPlacement(Node last) {
+        this.lastPlacement = last;
     }
 
     public int getNumElements() {
