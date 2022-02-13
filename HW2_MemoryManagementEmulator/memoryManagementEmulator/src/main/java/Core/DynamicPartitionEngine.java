@@ -23,15 +23,36 @@ public class DynamicPartitionEngine extends Partition{
     public DynamicPartitionEngine(){   
         this.os = new OperativeSystem();
         this.mainMemory = new MainMemory(1024);
-        this.localStorage = new LocalStorage(4096);
+        this.localStorage = new LocalStorage(10240);
     }
     
     public boolean addProcessByFirstFit(int processSize){
         return this.mainMemory.locateProcess(processSize);
     }
     
+    public boolean changeProcessMemory(int partitionNumber, String memoryLocation){
+        if(memoryLocation.equals("toLocalStorage")){
+            return this.mainMemory.swapProcess(partitionNumber, this.localStorage);
+        }else{
+            return this.localStorage.swapProcess(partitionNumber, this.mainMemory);
+        }
+        
+    }
+    
+    public boolean compactMemory(String memory){
+        if(memory.equals("MainMemory")){
+            return this.mainMemory.compact();
+        }else{
+            return this.localStorage.compact();
+        }
+    }
+    
     public MainMemory getMainMemory(){
         return this.mainMemory;
+    }
+    
+    public LocalStorage getLocalStorage(){
+        return this.localStorage;
     }
     
 }

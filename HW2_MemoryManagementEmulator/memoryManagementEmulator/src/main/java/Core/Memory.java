@@ -4,6 +4,9 @@
  */
 package Core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Marco Tulio Work
@@ -29,17 +32,26 @@ public class Memory{
                 this.getFirst()
         );      
         if(partition != null){
-            Node nextPartition = partition.getNext();
-            Node newPartition = new Node(
-                null,
-                nextPartition,
-                partition.getNodeSize()-size
-            );          
-            partition.setItem(new Process());
-            partition.setNext(newPartition);
-            partition.setNodeSize(size);
-            this.setNumElements(numElements+1);
-            return true;
+            if(partition.getNodeSize() != size){
+                Node nextPartition = partition.getNext();
+                Node newPartition = new Node(
+                    null,
+                    nextPartition,
+                    partition.getNodeSize()-size
+                );
+                newPartition.setPrevious(partition);
+                partition.setItem(new Process());
+                partition.setNext(newPartition);
+                partition.setNodeSize(size);
+                this.setNumElements(numElements+1);
+                return true;
+            }else{
+                partition.setItem(new Process());
+                partition.setNodeSize(size);
+                this.setNumElements(numElements+1);
+                return true;
+            }
+            
         }else{
             return false;
         }       
@@ -52,7 +64,7 @@ public class Memory{
         o particion apto en el cual se puede agregar el nuevo proceso.
     */
     public Node getFirstCanBeLocated(float size, Node partition){
-        if(partition.getNodeSize()> size && partition.getItem() == null){
+        if(partition.getNodeSize() >= size && partition.getItem() == null){
             return partition;
         }else{
             if(partition.getNext() != null){
@@ -63,7 +75,72 @@ public class Memory{
         }           
     }
     
+    public boolean swapProcess(int partitionNumber, Memory destinatedMemory){
+        Node partition = this.getPartitionByNumber(partitionNumber, this.first, 0);
+        
+        if(partition.getItem() == null){
+            return false;
+        }else{
+            float size = partition.getNodeSize();
+            destinatedMemory.locateProcess(size);
+            partition.setItem(null);
+            return true;
+        }
+    }
     
+    public Node getPartitionByNumber(int partitionNumber, Node partition, int location){
+        if((partitionNumber-1) == location){
+            return partition;
+        }else{
+            return getPartitionByNumber(partitionNumber, partition.getNext(), location+1);
+        }
+    }
+    
+    public boolean compact(){
+        List<Node> holes = new ArrayList<>();
+        this.innerCompact(this.first, holes);
+        return true;
+    }
+    
+    public void innerCompact(Node partition, List<Node> holes){
+        
+        
+        Node previousPartition = partition.getPrevious();
+        Node nextPartition = partition.getNext();
+        
+        
+        if(partition.getNext() == null){
+            if(partition.getItem() == null){
+                holes.add(partition);
+                Node hole = this.mergeHoles(holes);
+                previousPartition.setNext(hole);
+            }else{
+                Node hole = this.mergeHoles(holes);
+                partition.setNext(hole);
+            }
+        }else{
+            if(partition.getItem() == null){  
+                if(previousPartition == null){
+                    nextPartition.setPrevious(null);
+                    this.first = nextPartition;
+                }else{
+                    previousPartition.setNext(nextPartition);
+                    nextPartition.setPrevious(previousPartition);
+                }
+
+                holes.add(partition);
+            }
+            innerCompact(partition.getNext(), holes);
+        }
+    }
+    
+    public Node mergeHoles(List<Node> holes){
+        float nodeSize = 0;
+        for (int i = 0; i < holes.size(); i++) {
+            nodeSize = nodeSize + holes.get(i).getNodeSize();
+        }
+        return new Node(null, null, nodeSize);
+    }
 
     public Node getFirst() {
         return first;
