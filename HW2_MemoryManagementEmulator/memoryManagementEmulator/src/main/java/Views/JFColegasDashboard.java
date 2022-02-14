@@ -325,6 +325,8 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
     }
 
     public boolean eliminarProceso(int id) {
+        //error al eliminar proceso
+        
         boolean status = false;
         if (this.procesos.getProceso(id).isCorriendo()) {
 
