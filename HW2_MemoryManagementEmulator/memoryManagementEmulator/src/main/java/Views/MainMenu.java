@@ -220,7 +220,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnDynamicSeg;
     private javax.swing.JButton btnFixedDistSeg;
     private javax.swing.JButton btnFixedSeg;
-    private javax.swing.JDesktopPane desktopControlPanel;
+    public static javax.swing.JDesktopPane desktopControlPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
