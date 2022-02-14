@@ -4,6 +4,8 @@
  */
 package Core;
 
+import java.awt.Color;
+
 /**
  *
  * @author RDragon197 Esta clase recivira todos los procesos asignado por el
@@ -16,6 +18,7 @@ public class ProcesoColegas {
     private int tamaño;
     private boolean existente = false;
     private boolean corriendo = false;
+    private Color color = Color.red;
 
     /**
      * @return the id
@@ -85,6 +88,20 @@ public class ProcesoColegas {
      */
     public void setCorriendo(boolean corriendo) {
         this.corriendo = corriendo;
+    }
+
+    /**
+     * @return the color
+     */
+    public Color getColor() {
+        return (this.isCorriendo()) ? Color.green : Color.gray;
+    }
+
+    /**
+     * @param color the color to set
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 
 }

@@ -17,7 +17,7 @@ public class ProcesoColegasAdmin {
     /**
      * @return the procesos
      */
-    public LinkedList getProcesos() {
+    public LinkedList<ProcesoColegas> getProcesos() {
         return procesos;
     }
 

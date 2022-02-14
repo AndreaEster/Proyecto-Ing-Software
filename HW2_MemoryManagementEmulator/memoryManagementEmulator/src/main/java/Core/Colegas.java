@@ -4,6 +4,8 @@
  */
 package Core;
 
+import java.awt.Color;
+
 /**
  *
  * @author RDragon197
@@ -68,6 +70,8 @@ public class Colegas {
 
             }
         }
+
+        this.memoria.getProcesos().add(proceso);
     }
 
     public void primeraEjecucion(int tmPrograma, ProcesoColegas proceso) {
@@ -123,4 +127,15 @@ public class Colegas {
     public int getL(int Tmemoria) {
         return (int) (Math.log(Tmemoria) / Math.log(2));
     }
+
+    public boolean hayMemoriaLibre() {
+        boolean centinela = false;
+        for (ParticionColegas particione : this.memoria.getParticiones()) {
+            if (particione.ispExiste()) {
+                centinela = true;
+            }
+        }
+        return centinela;
+    }
+
 }

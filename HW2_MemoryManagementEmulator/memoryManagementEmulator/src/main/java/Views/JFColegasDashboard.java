@@ -12,6 +12,7 @@ import Core.ProcesoColegas;
 import Core.ProcesoColegasAdmin;
 import java.awt.Color;
 import java.awt.Event;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -27,6 +28,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
     int U = 0;
     int L = 0;
     int ej = 0;
+
     ProcesoColegasAdmin procesos = new ProcesoColegasAdmin();
     ProcesoColegas proceso = new ProcesoColegas();
     ParticionColegas particion = new ParticionColegas();
@@ -204,6 +206,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         this.jPanelMemoria.removeAll();
         this.jPanelProcesos.removeAll();
         ProcesoColegas proceso = new ProcesoColegas();
@@ -219,18 +222,21 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
             this.colegas.nEjecucion(tmPrograma, proceso);
         }
 
+        this.procesos.agregarProceso(proceso);
+
         int x = 0;
         for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
             graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()), (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
             x = x + getPixelesDeParticion(this.memoria.getParticion(i).getTmemoria(), this.memoria.getTmemoria(), this.jPanelMemoria.getWidth());
         }
 
+        if (!proceso.isCorriendo()) {
+            JOptionPane.showMessageDialog(rootPane, "No hay memoria disponible para el proceso:'" + proceso.getNombre() + "' Puesto en espera");
+        }
         int y = 20;
-        for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
-            if (this.memoria.getParticion(i).ispExiste()) {
-                graficarPanel(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 35, this.memoria.getParticion(i).getProceso().getNombre(), Color.green, false);
-                y = y + 36;
-            }
+        for (ProcesoColegas proceso1 : this.procesos.getProcesos()) {
+            graficarPanel(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 35, proceso1.getNombre(), proceso1.getColor(), false);
+            y = y + 36;
         }
 
 
