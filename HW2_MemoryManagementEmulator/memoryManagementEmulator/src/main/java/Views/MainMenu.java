@@ -158,7 +158,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnFixedSegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFixedSegActionPerformed
         this.desktopControlPanel.removeAll();
-        FixedSeg fixedSegFrame = new FixedSeg();
+        FixedPartitionInterface fixedSegFrame = new FixedPartitionInterface();
         this.desktopControlPanel.add(fixedSegFrame).setVisible(true);
     }//GEN-LAST:event_btnFixedSegActionPerformed
 
@@ -170,7 +170,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnDynamicSegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDynamicSegActionPerformed
         this.desktopControlPanel.removeAll();
-        DynamicSeg dynamicSegFrame = new DynamicSeg();
+        DynamicPartitionInterface dynamicSegFrame = new DynamicPartitionInterface();
         this.desktopControlPanel.add(dynamicSegFrame).setVisible(true);
     }//GEN-LAST:event_btnDynamicSegActionPerformed
 
