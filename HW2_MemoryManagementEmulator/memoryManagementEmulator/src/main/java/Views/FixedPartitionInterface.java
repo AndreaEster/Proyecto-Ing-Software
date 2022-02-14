@@ -4,17 +4,105 @@
  */
 package Views;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SpringLayout;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+
 /**
  *
  * @author Marco Tulio Work
  */
-public class FixedPartitionInterface extends javax.swing.JInternalFrame {
+public class FixedPartitionInterface extends javax.swing.JInternalFrame implements InternalFrameListener{
 
     /**
      * Creates new form FixedSeg
      */
+    private Core.FixedPartitionClasses.FixedPartitionEngine fpeOS;
+    private float mainMemoryPanelWidth = 1140;
+    private float mainMemoryPanelHeight = 180;
+    
     public FixedPartitionInterface() {
         initComponents();
+        this.fpeOS = new Core.FixedPartitionClasses.FixedPartitionEngine();
+        this.addInternalFrameListener(this);
+    }
+    
+    public void drawMemory(){
+        //Declaracion de instancias y variables
+        float memoryAverage;
+        float sizeInMemory ;
+        float partitionAverage;
+        float sizeInPartition ;
+        List<JPanel> panelListMainMemory = new ArrayList<>();
+        List<JLabel> labelListMainMemory = new ArrayList<>();
+        List<JPanel> panelProcessListMainMemory = new ArrayList<>();
+        List<JLabel> labelProcessListMainMemory = new ArrayList<>();
+        FlowLayout experimentLayout = new FlowLayout();
+        
+        //Metodos que aseguran la actualizacion del panel de la Memoria Principal
+        this.mainMemoryPanel.removeAll();
+        this.mainMemoryPanel.revalidate();
+        this.mainMemoryPanel.repaint();
+        this.mainMemoryPanel.setLayout(experimentLayout);
+        
+        //Llamado de la funcion interior para dibujar las particiones en el panel de Memoria Principal
+        for (int i = 0; i < this.fpeOS.getMainMemory().size(); i++) {
+            memoryAverage = (this.fpeOS.getMainMemory().get(i).getNodeSize()/16384)*100;
+            sizeInMemory = (mainMemoryPanelWidth*memoryAverage)/100;
+            
+            panelListMainMemory.add(new JPanel());
+            labelListMainMemory.add(new JLabel());
+            
+            panelListMainMemory.get(i).setLayout(new BorderLayout());
+        
+            panelListMainMemory.get(i).setPreferredSize(new Dimension(
+                    (int)sizeInMemory, 
+                    (int)this.mainMemoryPanelHeight
+            ));
+            panelListMainMemory.get(i).setBackground(Color.LIGHT_GRAY);
+   
+            labelListMainMemory.get(i).setText(Integer.toString((int)this.fpeOS.getMainMemory().get(i).getNodeSize()));   
+
+            //Aqui se mete la etiqueta dentro del panel de la particion
+            panelListMainMemory.get(i).add(labelListMainMemory.get(i));
+            //El panel de la particion se mete dentro del panel de la Memoria principal
+            this.mainMemoryPanel.add(panelListMainMemory.get(i),i);
+            
+            if(this.fpeOS.getMainMemory().get(i).getItem() != null){
+                partitionAverage = (this.fpeOS.getMainMemory().get(i).getItem().getProcessSize()/2048)*100;
+                sizeInPartition = (sizeInMemory*partitionAverage)/100;
+                
+                panelProcessListMainMemory.add(new JPanel());
+                labelProcessListMainMemory.add(new JLabel());
+                
+                //panelProcessListMainMemory.get(i).setLayout(new BorderLayout());
+                
+                panelProcessListMainMemory.get(i).setPreferredSize(new Dimension(
+                    (int)sizeInPartition, 
+                    (int)this.mainMemoryPanelHeight
+                ));
+                
+                panelProcessListMainMemory.get(i).setMaximumSize(new Dimension(
+                    (int)sizeInPartition, 
+                    (int)this.mainMemoryPanelHeight
+                ));
+                panelProcessListMainMemory.get(i).setBackground(Color.YELLOW);
+   
+                labelProcessListMainMemory.get(i).setText(Integer.toString((int)this.fpeOS.getMainMemory().get(i).getItem().getProcessSize())); 
+                
+                panelProcessListMainMemory.get(i).add(labelProcessListMainMemory.get(i));
+                panelListMainMemory.get(i).add(panelProcessListMainMemory.get(i),i);
+            }
+        }
     }
 
     /**
@@ -76,11 +164,11 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
         mainMemoryPanel.setLayout(mainMemoryPanelLayout);
         mainMemoryPanelLayout.setHorizontalGroup(
             mainMemoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1133, Short.MAX_VALUE)
+            .addGap(0, 1138, Short.MAX_VALUE)
         );
         mainMemoryPanelLayout.setVerticalGroup(
             mainMemoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 179, Short.MAX_VALUE)
+            .addGap(0, 178, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -110,9 +198,10 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,7 +210,6 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 1211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -170,22 +258,20 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainMemoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(processSizeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,7 +282,34 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_mainMemoryPanelComponentShown
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        
+        int processSize;
+        if(this.processSizeInput.getText().strip()!=""){
+            processSize = Integer.parseInt(this.processSizeInput.getText().strip());
+            
+            if(processSize <= 2048){
+                boolean addState = this.fpeOS.addProcess(processSize);
+                if(addState == false){
+                        JOptionPane.showMessageDialog(this,
+                            "No se encontro una particion disponible, libere alguna.",
+                            "ATENCION!",
+                            JOptionPane.WARNING_MESSAGE
+                        );
+                }
+                this.drawMemory();
+            }else{
+                JOptionPane.showMessageDialog(this,
+                    "El tamano del proceso supera el limite de cada particion, ingrese un tamano menor o igual a 2048.",
+                    "ATENCION!",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Debe especificar un tamano de proceso.",
+                    "ATENCION!",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
     }//GEN-LAST:event_addBtnActionPerformed
 
 
@@ -217,4 +330,39 @@ public class FixedPartitionInterface extends javax.swing.JInternalFrame {
     private javax.swing.JPanel mainMemoryPanel;
     private javax.swing.JTextField processSizeInput;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+        this.drawMemory();
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+        
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+        
+    }
 }
