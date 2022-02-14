@@ -415,7 +415,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
             graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()) + "MB", (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
             x = x + getPixelesDeParticion(this.memoria.getParticion(i).getTmemoria(), this.memoria.getTmemoria(), this.jPanelMemoria.getWidth());
-            
+            JOptionPane.showMessageDialog(rootPane, "Tmemoria:" + this.colegas.getMemoria().getParticion(i).getTmemoria());
         }
 
         int y = 20;

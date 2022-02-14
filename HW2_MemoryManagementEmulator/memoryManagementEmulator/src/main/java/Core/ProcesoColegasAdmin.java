@@ -21,6 +21,18 @@ public class ProcesoColegasAdmin {
         return procesos;
     }
 
+    public int indexProcesoID(int id) {
+        int i = 0;
+        int index = -1;
+        for (ProcesoColegas proceso : this.procesos) {
+            if (proceso.getId() == id) {
+                index = i;
+            }
+            i++;
+        }
+        return index;
+    }
+
     /**
      * @param procesos the procesos to set
      */
@@ -32,7 +44,8 @@ public class ProcesoColegasAdmin {
 
         return this.procesos.add(proceso);
     }
-    public ProcesoColegas getProceso(int id){
+
+    public ProcesoColegas getProceso(int id) {
         return this.procesos.get(id);
     }
 }
