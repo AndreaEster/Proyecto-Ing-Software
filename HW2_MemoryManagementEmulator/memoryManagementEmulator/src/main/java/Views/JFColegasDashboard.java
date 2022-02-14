@@ -28,14 +28,14 @@ import javax.swing.event.MouseInputAdapter;
  * @author RDragon197
  */
 public class JFColegasDashboard extends javax.swing.JInternalFrame {
-    
+
     public int Tmemoria;
     int idProceso = 0;
     int idParticion = 0;
     int U = 0;
     int L = 0;
     int ej = 0;
-    
+
     ProcesoColegasAdmin procesos = new ProcesoColegasAdmin();
     ProcesoColegas proceso = new ProcesoColegas();
     ParticionColegas particion = new ParticionColegas();
@@ -48,13 +48,13 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
      */
     public JFColegasDashboard() {
         initComponents();
-        
+
     }
-    
+
     public void setLabel(int Tmemoria) {
         this.U = (int) (Math.log(Tmemoria) / Math.log(2));
         this.Tmemoria = (int) Math.pow(2, U);
-        
+
         this.particion.setId(0);
         this.particion.setProceso(null);
         this.particion.setTmemoria(Tmemoria);
@@ -218,7 +218,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         this.jPanelMemoria.removeAll();
         this.jPanelProcesos.removeAll();
         ProcesoColegas proceso = new ProcesoColegas();
@@ -226,22 +226,22 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         proceso.setId(idProceso++);
         proceso.setNombre(this.jComboBoxProgramas.getSelectedItem().toString());
         proceso.setTamaño(tmPrograma);
-        
+
         if (ej == 0) {
             this.colegas.primeraEjecucion(tmPrograma, proceso);
             ej++;
         } else {
             this.colegas.nEjecucion(tmPrograma, proceso);
         }
-        
+
         this.procesos.agregarProceso(proceso);
-        
+
         int x = 0;
         for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
-            graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()), (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
+            graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()) + "MB", (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
             x = x + getPixelesDeParticion(this.memoria.getParticion(i).getTmemoria(), this.memoria.getTmemoria(), this.jPanelMemoria.getWidth());
         }
-        
+
         if (!proceso.isCorriendo()) {
             JOptionPane.showMessageDialog(rootPane, "No hay memoria disponible para el proceso:'" + proceso.getNombre() + "' Puesto en espera");
         }
@@ -250,10 +250,10 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
             graficarPanelProcesos(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 70, proceso1.getNombre(), proceso1.getColor(), String.valueOf(proceso1.getId()));
             y = y + 66;
         }
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     public void graficarPanel(JPanel thisPanel, int x, int y, int width, int heigth, String nameProgram, Color color, boolean frack) {
         JPanel jParticion = new JPanel();
         JPanel jPFrack = new JPanel();
@@ -261,7 +261,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         jParticion.setLocation(x, y);
         jParticion.setBorder(new TitledBorder(nameProgram));
         jParticion.setBackground(color);
-        
+
         jPFrack.setBackground(Color.red);
         jPFrack.setSize(50, 50);
         jPFrack.setLocation(jParticion.getLocation().x + 44, jParticion.getLocation().y + 40);
@@ -273,16 +273,16 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         thisPanel.add(jParticion);
         thisPanel.revalidate();
         thisPanel.repaint();
-        
+
     }
-    
+
     public void graficarPanelProcesos(JPanel thisPanel, int x, int y, int width, int heigth, String nameProgram, Color color, String id) {
         JPanel jParticion = new JPanel();
         jParticion.setSize(width, heigth);
         jParticion.setLocation(x, y);
         jParticion.setBorder(new TitledBorder(nameProgram));
         jParticion.setBackground(color);
-        
+
         JButton btn = new JButton();
         btn.setVisible(true);
         btn.setText("Eliminar");
@@ -292,24 +292,79 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                JOptionPane.showMessageDialog(rootPane, "Prueba de ID:" + btn.getName());
-                
+
+                int opcion = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO QUE DESEA FINALIZAR ESTE PROCESO?",
+                        procesos.getProceso(Integer.valueOf(btn.getName())).getNombre(), JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                if (opcion == 0) {
+                    if (eliminarProceso(Integer.valueOf(btn.getName()))) {
+                        JOptionPane.showMessageDialog(rootPane, "Se elimino el proceso correctamente :)");
+
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Error al eliminar proceso");
+
+                    }
+                }
+
             }
         });
-        
+
         jParticion.add(btn);
         thisPanel.add(jParticion);
         thisPanel.revalidate();
         thisPanel.repaint();
-        
+
     }
-    
+
     public int getPixelesDeParticion(float TPrograma, float TMemoria, int parPanel) {
         //JOptionPane.showMessageDialog(rootPane, "Tprograma:" + TPrograma + "TMemoria:" + TMemoria);
         float resultado = (float) (TPrograma / TMemoria) * parPanel;
         //JOptionPane.showMessageDialog(rootPane, "Resultado pixeles:" + resultado);
         return (int) Math.round(resultado);
+    }
+
+    public boolean eliminarProceso(int id) {
+        boolean status = false;
+        if (this.procesos.getProceso(id).isCorriendo()) {
+
+            ParticionColegas par = new ParticionColegas();
+            par = this.colegas.buscarPArticionProceso(id);
+
+            if (this.colegas.buscarColegaIndex(par) != -1) {
+                if (!this.colegas.getMemoria().getParticion(this.colegas.buscarColegaIndex(par)).ispExiste()) {
+                    ParticionColegas npar = new ParticionColegas();
+                    npar.setId(id);
+                    npar.setIdHder(id + 1);
+                    npar.setProceso(null);
+                    npar.setTmemoria(par.getTmemoria() * 2);
+                    npar.setpExiste(false);
+
+                    int index = this.colegas.buscarColegaIndex(par);
+                    int indexProceso = this.colegas.buscarParIndexProceso(par, id);
+                    this.colegas.getMemoria().remplazePartition(indexProceso, npar);
+                    this.colegas.getMemoria().getParticiones().remove(index);
+                    this.procesos.getProcesos().remove(id);
+
+                    status = true;
+                }
+
+            }
+
+        } else {
+            //como el proceso no esta en la memoria no hay que tocar las particiones
+            JOptionPane.showMessageDialog(rootPane, "Se elimino el proceso en espera");
+            this.procesos.getProcesos().remove(id);
+            this.memoria.getProcesos().remove(id);
+            status = true;
+
+        }
+
+        if (status) {
+            graficar();
+        }
+
+        return status;
     }
 
     private void jFormattedTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jFormattedTextField1MouseClicked
@@ -321,23 +376,22 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         jPanelProcesos.removeAll();
         int x = 0;
         for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
-            graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()), (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
+            graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()) + "MB", (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
             x = x + getPixelesDeParticion(this.memoria.getParticion(i).getTmemoria(), this.memoria.getTmemoria(), this.jPanelMemoria.getWidth());
+
         }
-        
+
         int y = 20;
-        for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
-            if (this.memoria.getParticion(i).ispExiste()) {
-                graficarPanel(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 35, this.memoria.getParticion(i).getProceso().getNombre(), Color.green, false);
-                y = y + 36;
-            }
+        for (ProcesoColegas proceso1 : this.procesos.getProcesos()) {
+            graficarPanelProcesos(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 70, proceso1.getNombre(), proceso1.getColor(), String.valueOf(proceso1.getId()));
+            y = y + 66;
         }
     }//GEN-LAST:event_formComponentResized
 
     private void jPanelProcesosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelProcesosMouseClicked
 //        JOptionPane.showMessageDialog(rootPane, "Hola mundo");
     }//GEN-LAST:event_jPanelProcesosMouseClicked
-    
+
     @Override
     public boolean action(Event evt, Object what) {
         return super.action(evt, what); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
@@ -354,4 +408,20 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelProcesos;
     // End of variables declaration//GEN-END:variables
 
+    public void graficar() {
+        jPanelMemoria.removeAll();
+        jPanelProcesos.removeAll();
+        int x = 0;
+        for (int i = 0; i < this.memoria.getParticiones().size(); i++) {
+            graficarPanel(jPanelMemoria, x + 15, 20, getPixelesDeParticion((float) this.memoria.getParticion(i).getTmemoria(), (float) this.memoria.getTmemoria(), this.jPanelMemoria.getSize().width), 105, String.valueOf(this.memoria.getParticion(i).getTmemoria()) + "MB", (this.memoria.getParticion(i).ispExiste()) ? Color.green : Color.GRAY, false);
+            x = x + getPixelesDeParticion(this.memoria.getParticion(i).getTmemoria(), this.memoria.getTmemoria(), this.jPanelMemoria.getWidth());
+            
+        }
+
+        int y = 20;
+        for (ProcesoColegas proceso1 : this.procesos.getProcesos()) {
+            graficarPanelProcesos(jPanelProcesos, 12, y, this.jPanelProcesos.getSize().width - 20, 70, proceso1.getNombre(), proceso1.getColor(), String.valueOf(proceso1.getId()));
+            y = y + 66;
+        }
+    }
 }
