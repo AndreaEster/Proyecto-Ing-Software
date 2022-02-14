@@ -9,15 +9,18 @@ package Core;
  * @author RDragon197
  */
 public class ParticionColegas {
+
     private int id;
     private int l;
     private int Tmemoria;
     private ProcesoColegas proceso;
     private boolean pExiste = false;
+    private int idHder = -1;
 
-    public int getL(){
-    return (int) (Math.log(Tmemoria) / Math.log(2));
+    public int getL() {
+        return (int) (Math.log(Tmemoria) / Math.log(2));
     }
+
     /**
      * @return the id
      */
@@ -63,7 +66,6 @@ public class ParticionColegas {
     /**
      * @return the l
      */
-
     /**
      * @param l the l to set
      */
@@ -84,7 +86,20 @@ public class ParticionColegas {
     public void setpExiste(boolean pExiste) {
         this.pExiste = pExiste;
     }
-    
-   
-    
+
+
+    /**
+     * @return the idHder
+     */
+    public int getIdHder() {
+        return idHder;
+    }
+
+    /**
+     * @param idHder the idHder to set
+     */
+    public void setIdHder(int idHder) {
+        this.idHder = idHder;
+    }
+
 }

@@ -4,7 +4,7 @@
  */
 package Views;
 
-
+import Core.Colegas;
 import Core.MemoriaColegas;
 import Core.ParticionColegas;
 import Core.ParticionColegasAdmin;
@@ -32,6 +32,7 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
     ParticionColegas particion = new ParticionColegas();
     ParticionColegasAdmin particiones = new ParticionColegasAdmin();
     MemoriaColegas memoria = new MemoriaColegas();
+    Colegas colegas = new Colegas(memoria);
 
     /**
      * Creates new form JFColegasDashboard
@@ -55,10 +56,6 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         //vamos a asumir que ya existe una particion de tamaño Tmemoria
         this.jLabel1.setText("La memoria escogida es: " + Tmemoria + " MB");
         graficarPanel(this.jPanelMemoria, 10, 22, 430, 105, String.valueOf(Tmemoria) + " MB", Color.orange, false);
-    }
-
-    public int getL(int Tmemoria) {
-        return (int) (Math.log(Tmemoria) / Math.log(2));
     }
 
     /**
@@ -216,10 +213,10 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
         proceso.setTamaño(tmPrograma);
 
         if (ej == 0) {
-            primeraEjecucion(tmPrograma, proceso);
+            this.colegas.primeraEjecucion(tmPrograma, proceso);
             ej++;
         } else {
-            nEjecucion(tmPrograma, proceso);
+            this.colegas.nEjecucion(tmPrograma, proceso);
         }
 
         int x = 0;
@@ -238,113 +235,6 @@ public class JFColegasDashboard extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void nEjecucion(int tmPrograma, ProcesoColegas proceso) {
-        int i = this.memoria.getParticiones().size() - 1;
-        int r = 0;
-
-        boolean centinela = true;
-        if (!this.memoria.getParticiones().isEmpty()) {
-            while (centinela) {
-                ParticionColegas NParticion = new ParticionColegas();
-                NParticion.setId(idParticion++);
-
-                if (tmPrograma == this.memoria.getParticion(i).getTmemoria() && false == this.memoria.getParticion(i).ispExiste()) {
-                    r = -1;
-                    proceso.setCorriendo(true);
-                    this.memoria.getParticion(i).setpExiste(true);
-                    this.memoria.getParticion(i).setProceso(proceso);
-                }
-
-                if (tmPrograma <= this.memoria.getParticion(i).getTmemoria() && false == this.memoria.getParticion(i).ispExiste()) {
-                    ParticionColegas Nparticion2 = new ParticionColegas();
-                    int ParMem = this.memoria.getParticion(i).getTmemoria();
-                    int sPar = ParMem / 2;
-                    int l = getL(sPar);
-                    Nparticion2.setL(l);
-                    Nparticion2.setProceso(null);
-                    Nparticion2.setTmemoria(sPar);
-                    Nparticion2.setpExiste(false);
-                    NParticion.setpExiste(false);
-                    NParticion.setTmemoria(sPar);
-                    this.memoria.remplazePartition(i, NParticion);
-                    Nparticion2.setId(idParticion++);
-                    this.memoria.setParticion(Nparticion2);
-
-                }
-
-                if (((int) this.memoria.getParticion(i).getTmemoria() / 2) < tmPrograma && tmPrograma <= ((int) this.memoria.getParticion(i).getTmemoria())) {
-                    if (!this.memoria.getParticion(i).ispExiste()) {
-                        //JOptionPane.showMessageDialog(rootPane, "No hay procesos afileados");
-                        r = -1;
-                        this.proceso.setCorriendo(true);
-                        this.memoria.getParticion(i).setpExiste(true);
-                        this.memoria.getParticion(i).setProceso(proceso);
-                    }
-                }
-
-                i--;
-                if (i < 0 || r == -1) {
-                    centinela = false;
-                }
-
-            }
-
-            //JOptionPane.showMessageDialog(rootPane, "Finalizo la operacion correctamente: " + this.memoria.getTMParticiones());
-//            for (int j = 0; j < this.memoria.getParticiones().size(); j++) {
-//                JOptionPane.showMessageDialog(rootPane, "Tamaño: " + this.memoria.getParticion(j).getTmemoria() + " estado:" + this.memoria.getParticion(j).ispExiste());
-//            }
-        }
-    }
-
-    public void primeraEjecucion(int tmPrograma, ProcesoColegas proceso) {
-        int i = 0;
-        int r = 0;
-
-        boolean centinela = true;
-        if (!this.memoria.getParticiones().isEmpty()) {
-            while (centinela) {
-                ParticionColegas NParticion = new ParticionColegas();
-                NParticion.setId(idParticion++);
-
-                if (((int) this.memoria.getParticion(i).getTmemoria() / 2) < tmPrograma && tmPrograma <= ((int) this.memoria.getParticion(i).getTmemoria())) {
-                    if (!this.memoria.getParticion(i).ispExiste()) {
-                        //JOptionPane.showMessageDialog(rootPane, "No hay procesos afileados");
-                        r = -1;
-                        proceso.setCorriendo(true);
-                        this.memoria.getParticion(i).setpExiste(true);
-                        this.memoria.getParticion(i).setProceso(proceso);
-                    }
-                } else if (this.memoria.getParticion(i).getProceso() == null && this.memoria.isparDis()) {
-                    ParticionColegas Nparticion2 = new ParticionColegas();
-                    int ParMem = this.memoria.getParticion(i).getTmemoria();
-                    int sPar = ParMem / 2;
-                    int l = getL(sPar);
-                    Nparticion2.setL(l);
-                    Nparticion2.setProceso(null);
-                    Nparticion2.setTmemoria(sPar);
-                    Nparticion2.setpExiste(false);
-                    NParticion.setpExiste(false);
-                    NParticion.setTmemoria(sPar);
-                    this.memoria.remplazePartition(i, NParticion);
-                    Nparticion2.setId(idParticion++);
-                    this.memoria.setParticion(Nparticion2);
-
-                }
-
-                i++;
-
-                if (this.memoria.getParticiones().size() - 1 < i || r == -1) {
-                    centinela = false;
-                }
-            }
-//
-//            JOptionPane.showMessageDialog(rootPane, "Finalizo la operacion correctamente: " + this.memoria.getTMParticiones());
-//
-//            for (int j = 0; j < this.memoria.getParticiones().size(); j++) {
-//                JOptionPane.showMessageDialog(rootPane, "Tamaño: " + this.memoria.getParticion(j).getTmemoria() + " estado:" + this.memoria.getParticion(j).ispExiste());
-//            }
-        }
-    }
 
     public void graficarPanel(JPanel thisPanel, int x, int y, int width, int heigth, String nameProgram, Color color, boolean frack) {
         JPanel jParticion = new JPanel();
