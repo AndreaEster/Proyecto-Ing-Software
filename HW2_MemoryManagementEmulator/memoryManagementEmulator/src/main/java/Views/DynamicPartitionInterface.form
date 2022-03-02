@@ -328,6 +328,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="processSizeInput">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="processSizeInputActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="addBtn">
       <Properties>
@@ -365,6 +368,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="algorithmComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

@@ -1,10 +1,11 @@
 
 package Views;
 
-import Core.NodoCola;
+import Core.FidexdDistSeg.NodoCola;
+import javax.swing.JOptionPane;
 
 public class FixedDistSeg extends javax.swing.JInternalFrame {
-
+     String dos;
     NodoCola particion;
     
     public FixedDistSeg() {
@@ -102,7 +103,7 @@ public class FixedDistSeg extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Instruccines:");
 
-        BoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una Occion.", "Dos", "Tres", "Cuatro", "Cinco" }));
+        BoxSeleccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una Occion.", "2", "3", "4", "5" }));
         BoxSeleccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoxSeleccionActionPerformed(evt);
@@ -282,11 +283,14 @@ public class FixedDistSeg extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
     
     private void BoxSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoxSeleccionActionPerformed
-        String TamaParticion = BoxSeleccion.getSelectedItem().toString();
+        
     }//GEN-LAST:event_BoxSeleccionActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+        String tamanoPar = BoxSeleccion.getSelectedItem().toString();
+        if(tamanoPar.equals(dos)){
+            JOptionPane.showMessageDialog(null, "prueva");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

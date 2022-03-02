@@ -221,6 +221,12 @@ public class DynamicPartitionInterface extends javax.swing.JInternalFrame implem
         jLabel10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel10.setText("Indicar el tamano del proceso (en MB):");
 
+        processSizeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processSizeInputActionPerformed(evt);
+            }
+        });
+
         addBtn.setBackground(new java.awt.Color(0, 153, 102));
         addBtn.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,6 +241,11 @@ public class DynamicPartitionInterface extends javax.swing.JInternalFrame implem
         jLabel11.setText("Indicar el algoritmo de colocacion:");
 
         algorithmComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "first", "next", "best", " " }));
+        algorithmComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                algorithmComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel12.setText("COLOCACION");
@@ -574,6 +585,14 @@ public class DynamicPartitionInterface extends javax.swing.JInternalFrame implem
     private void memoryComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryComboBox2ActionPerformed
   
     }//GEN-LAST:event_memoryComboBox2ActionPerformed
+
+    private void processSizeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processSizeInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_processSizeInputActionPerformed
+
+    private void algorithmComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_algorithmComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_algorithmComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
