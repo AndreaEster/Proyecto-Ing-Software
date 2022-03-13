@@ -186,7 +186,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnRoundRobinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoundRobinActionPerformed
         this.panelPrincipal.removeAll();
-        RoundRobin panelRoundRobin = new RoundRobin();
+        periodoQuantum panelRoundRobin = new periodoQuantum();
         this.panelPrincipal.add(panelRoundRobin).setVisible(true);
     }//GEN-LAST:event_btnRoundRobinActionPerformed
 
