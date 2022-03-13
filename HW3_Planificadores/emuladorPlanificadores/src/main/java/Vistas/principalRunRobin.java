@@ -201,8 +201,8 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         proceso.setStatus(false);
 
         procesos.setProceso(proceso);
-        
-        graficar(procesos.getProcesos());
+
+        graficarListo(procesos.getProcesos());
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -211,7 +211,6 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         this.jPanelMemoria.removeAll();
         int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
         int desplazamientoX = 0;
-        JOptionPane.showMessageDialog(rootPane, "Tamano de las partciones:" + width);
 
         for (Proceso proceso : procesos) {
             JPanel jProceso = new JPanel();
@@ -220,8 +219,34 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
             jlbR.setText(estado);
 
             jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
-            jProceso.setSize(width,100);
+            jProceso.setSize(width, 100);
             jProceso.setBackground((proceso.isRun()) ? Color.red : Color.orange);
+            jProceso.setBorder(new TitledBorder(proceso.getNombre()));
+            jProceso.add(jlbR);
+
+            desplazamientoX = desplazamientoX + width;
+
+            this.jPanelMemoria.add(jProceso);
+            this.jPanelMemoria.revalidate();
+            this.jPanelMemoria.repaint();
+        }
+
+    }
+
+    public void graficarListo(LinkedList<Proceso> procesos) {
+        this.jPanelMemoria.removeAll();
+        int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
+        int desplazamientoX = 0;
+
+        for (Proceso proceso : procesos) {
+            JPanel jProceso = new JPanel();
+            JLabel jlbR = new JLabel();
+            String estado = (proceso.isListo()) ? "Listo" : "Espera";
+            jlbR.setText(estado);
+
+            jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
+            jProceso.setSize(width, 100);
+            jProceso.setBackground((proceso.isListo()) ? Color.gray : Color.orange);
             jProceso.setBorder(new TitledBorder(proceso.getNombre()));
             jProceso.add(jlbR);
 

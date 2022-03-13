@@ -14,6 +14,7 @@ public class Proceso {
     private String nombre;
     private int quantum;
     private boolean Status;
+    private boolean listo = true;
 
     /**
      * @return the id
@@ -72,7 +73,21 @@ public class Proceso {
     }
 
     public boolean isRun() {
-        return this.Status;
+        return this.isStatus();
+    }
+
+    /**
+     * @return the listo
+     */
+    public boolean isListo() {
+        return listo;
+    }
+
+    /**
+     * @param listo the listo to set
+     */
+    public void setListo(boolean listo) {
+        this.listo = listo;
     }
 
 }
