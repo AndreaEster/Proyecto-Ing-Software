@@ -204,7 +204,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnPrimeroProcesoMasCortoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroProcesoMasCortoActionPerformed
         this.panelPrincipal.removeAll();
-        PrimeroProcesoMasCorto panelPrimeroProcesoMasCorto = new PrimeroProcesoMasCorto();
+        principalPrimeroProcesoMasCorto panelPrimeroProcesoMasCorto = new principalPrimeroProcesoMasCorto();
         this.panelPrincipal.add(panelPrimeroProcesoMasCorto).setVisible(true);
     }//GEN-LAST:event_btnPrimeroProcesoMasCortoActionPerformed
 

@@ -5,8 +5,11 @@
 package Vistas;
 
 import clases.AdminProceso;
+import clases.AdminProcesoMCorto;
 import clases.Hilos;
+import clases.HilosPMCorto;
 import clases.Proceso;
+import clases.ProcesoPMCorto;
 import java.awt.Color;
 import java.awt.Event;
 import java.util.LinkedList;
@@ -19,24 +22,23 @@ import javax.swing.border.TitledBorder;
  *
  * @author RDragon197
  */
-public class principalRunRobin extends javax.swing.JInternalFrame {
+public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame {
 
-    int periodoQuantum = 1;
+    int periodoQuantum = 10;
 //    int desplazamientoX = 0;
     int id = 0;
-    AdminProceso procesos = new AdminProceso();
+    AdminProcesoMCorto procesos = new AdminProcesoMCorto();
 
     /**
      * Creates new form JFColegasDashboard
      */
-    public principalRunRobin() {
+    public principalPrimeroProcesoMasCorto() {
         initComponents();
 
     }
 
     public void setLabel(int quantum) {
         this.periodoQuantum = quantum;
-        this.jLabel1.setText("El periodo seleccionado es: " + String.valueOf(this.periodoQuantum) + " Unidades de tiempo");
     }
 
     /**
@@ -53,7 +55,6 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         jComboBoxProgramas = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jButton2 = new javax.swing.JButton();
@@ -64,7 +65,7 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("PLANIFICADOR RUNROBYN\n");
+        setTitle("PLANIFICADOR PRIMERO PROCESO MAS CORTO\n");
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -101,9 +102,6 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("UT");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("JLABEL");
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("SELECCIONE UN PROGRAMA Y ASIGNE EL QUANTUM A UTILIZAR");
 
@@ -137,8 +135,6 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
                     .addComponent(jPanelMemoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jComboBoxProgramas, 0, 256, Short.MAX_VALUE)
@@ -154,18 +150,19 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
                                     .addComponent(jButton2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanelMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
@@ -192,7 +189,7 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
 
         int tmQuantum = Integer.valueOf(this.jTextField1.getText());
 
-        Proceso proceso = new Proceso();
+        ProcesoPMCorto proceso = new ProcesoPMCorto();
         proceso.setId(id);
         proceso.setNombre((String) this.jComboBoxProgramas.getSelectedItem());
         proceso.setQuantum(tmQuantum);
@@ -208,37 +205,12 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-//    public void graficar(LinkedList<Proceso> procesos) {
-//        this.jPanelMemoria.removeAll();
-//        int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
-//        int desplazamientoX = 0;
-//        
-//        for (Proceso proceso : procesos) {
-//            JPanel jProceso = new JPanel();
-//            JLabel jlbR = new JLabel();
-//            String estado = (proceso.isStatus()) ? "Run" : "Espera";
-//            jlbR.setText(estado);
-//            
-//            jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
-//            jProceso.setSize(width, 100);
-//            jProceso.setBackground((proceso.isStatus()) ? Color.red : Color.orange);
-//            jProceso.setBorder(new TitledBorder(proceso.getNombre()));
-//            jProceso.add(jlbR);
-//            
-//            desplazamientoX = desplazamientoX + width;
-//            
-//            this.jPanelMemoria.add(jProceso);
-//            this.jPanelMemoria.revalidate();
-//            this.jPanelMemoria.repaint();
-//        }
-//        
-//    }
-    public void graficarListo(LinkedList<Proceso> procesos) {
+    public void graficarListo(LinkedList<ProcesoPMCorto> procesos) {
         this.jPanelMemoria.removeAll();
         int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
         int desplazamientoX = 0;
 
-        for (Proceso proceso : procesos) {
+        for (ProcesoPMCorto proceso : procesos) {
             JPanel jProceso = new JPanel();
             JLabel jlbR = new JLabel();
             String estado = (proceso.isStatus()) ? "Espera" : "Listo";
@@ -258,7 +230,7 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         }
     }
 
-    public int getTParticiones(LinkedList<Proceso> procesos, int tPanel) {
+    public int getTParticiones(LinkedList<ProcesoPMCorto> procesos, int tPanel) {
 
         return (int) tPanel / procesos.size();
     }
@@ -273,7 +245,7 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
 
         JOptionPane.showMessageDialog(rootPane, "Comienza la simulacion");
 
-        Hilos hilo = new Hilos();
+        HilosPMCorto hilo = new HilosPMCorto();
         hilo.setBarradeProceso(jProgressBar1);
         hilo.setProcesos(this.procesos.getProcesos());
         hilo.setjPanelMemoria(jPanelMemoria);
@@ -297,7 +269,6 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBoxProgramas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

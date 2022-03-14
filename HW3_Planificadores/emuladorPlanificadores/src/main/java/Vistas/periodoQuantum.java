@@ -43,7 +43,7 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Segmentacion colega");
+        setTitle("PLANIFICADOR RUNROBYN PERIODO QUANTUM\n");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
