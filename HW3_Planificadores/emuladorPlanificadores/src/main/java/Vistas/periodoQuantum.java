@@ -19,8 +19,8 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
      */
     public periodoQuantum() {
         initComponents();
-        this.RButton1024.requestFocus();
-        this.RButton1024.setSelected(true);
+        this.RButton1T.requestFocus();
+        this.RButton1T.setSelected(true);
     }
 
     /**
@@ -35,9 +35,9 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        RButton1024 = new javax.swing.JRadioButton();
-        RButton4096 = new javax.swing.JRadioButton();
-        RButton2048 = new javax.swing.JRadioButton();
+        RButton1T = new javax.swing.JRadioButton();
+        RButton10T = new javax.swing.JRadioButton();
+        RButton5T = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
 
         setClosable(true);
@@ -53,30 +53,30 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("¿ QUE PERIODO DEL QUANTUM DESEAS USAR ?");
 
-        RButton1024.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RButton1024.setText("1 T");
-        RButton1024.setName("RButton1024"); // NOI18N
-        RButton1024.addActionListener(new java.awt.event.ActionListener() {
+        RButton1T.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RButton1T.setText("1 T");
+        RButton1T.setName("RButton1T"); // NOI18N
+        RButton1T.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RButton1024ActionPerformed(evt);
+                RButton1TActionPerformed(evt);
             }
         });
 
-        RButton4096.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RButton4096.setText("10 T");
-        RButton4096.setName("RButton4096"); // NOI18N
-        RButton4096.addActionListener(new java.awt.event.ActionListener() {
+        RButton10T.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RButton10T.setText("10 T");
+        RButton10T.setName("RButton10T"); // NOI18N
+        RButton10T.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RButton4096ActionPerformed(evt);
+                RButton10TActionPerformed(evt);
             }
         });
 
-        RButton2048.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        RButton2048.setText("5 T");
-        RButton2048.setName("RButton2048"); // NOI18N
-        RButton2048.addActionListener(new java.awt.event.ActionListener() {
+        RButton5T.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RButton5T.setText("5 T");
+        RButton5T.setName("RButton5T"); // NOI18N
+        RButton5T.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RButton2048ActionPerformed(evt);
+                RButton5TActionPerformed(evt);
             }
         });
 
@@ -100,11 +100,11 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addComponent(RButton1024)
+                        .addComponent(RButton1T)
                         .addGap(182, 182, 182)
-                        .addComponent(RButton2048)
+                        .addComponent(RButton5T)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RButton4096)
+                        .addComponent(RButton10T)
                         .addGap(37, 37, 37)))
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -121,9 +121,9 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RButton1024)
-                    .addComponent(RButton4096)
-                    .addComponent(RButton2048))
+                    .addComponent(RButton1T)
+                    .addComponent(RButton10T)
+                    .addComponent(RButton5T))
                 .addGap(37, 37, 37)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -156,10 +156,10 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
      * los radiobuttons que esten anterior mente seleccionados al momento de dar
      * click
      */
-    private void RButton2048ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton2048ActionPerformed
-        this.RButton1024.setSelected(false);
-        this.RButton4096.setSelected(false);
-    }//GEN-LAST:event_RButton2048ActionPerformed
+    private void RButton5TActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton5TActionPerformed
+        this.RButton1T.setSelected(false);
+        this.RButton10T.setSelected(false);
+    }//GEN-LAST:event_RButton5TActionPerformed
 
     /**
      * Author: Ramon Rivera
@@ -168,10 +168,10 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
      * los radiobuttons que esten anterior mente seleccionados al momento de dar
      * click
      */
-    private void RButton4096ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton4096ActionPerformed
-        this.RButton2048.setSelected(false);
-        this.RButton1024.setSelected(false);
-    }//GEN-LAST:event_RButton4096ActionPerformed
+    private void RButton10TActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton10TActionPerformed
+        this.RButton5T.setSelected(false);
+        this.RButton1T.setSelected(false);
+    }//GEN-LAST:event_RButton10TActionPerformed
 
     /**
      * Author: Ramon Rivera
@@ -180,10 +180,10 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
      * los radiobuttons que esten anterior mente seleccionados al momento de dar
      * click
      */
-    private void RButton1024ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton1024ActionPerformed
-        this.RButton4096.setSelected(false);
-        this.RButton2048.setSelected(false);
-    }//GEN-LAST:event_RButton1024ActionPerformed
+    private void RButton1TActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RButton1TActionPerformed
+        this.RButton10T.setSelected(false);
+        this.RButton5T.setSelected(false);
+    }//GEN-LAST:event_RButton1TActionPerformed
 
     /**
      * Author: Ramon Rivera
@@ -196,7 +196,7 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int Tmemoria;
-        Tmemoria = (this.RButton1024.isSelected()) ? 1 : (this.RButton4096.isSelected()) ? 10 : (this.RButton2048.isSelected()) ? 5 : 0;
+        Tmemoria = (this.RButton1T.isSelected()) ? 1 : (this.RButton10T.isSelected()) ? 10 : (this.RButton5T.isSelected()) ? 5 : 1;
         principalRunRobin prunRobin = new principalRunRobin();
         prunRobin.setLabel(Tmemoria);
         MenuPrincipal.panelPrincipal.add(prunRobin).setVisible(true);
@@ -206,9 +206,9 @@ public class periodoQuantum extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton RButton1024;
-    private javax.swing.JRadioButton RButton2048;
-    private javax.swing.JRadioButton RButton4096;
+    private javax.swing.JRadioButton RButton10T;
+    private javax.swing.JRadioButton RButton1T;
+    private javax.swing.JRadioButton RButton5T;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

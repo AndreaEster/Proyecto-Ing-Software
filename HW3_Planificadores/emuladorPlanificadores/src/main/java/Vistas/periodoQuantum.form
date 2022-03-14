@@ -59,11 +59,11 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="RButton1024" min="-2" max="-2" attributes="0"/>
+                          <Component id="RButton1T" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
-                          <Component id="RButton2048" min="-2" max="-2" attributes="0"/>
+                          <Component id="RButton5T" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="RButton4096" min="-2" max="-2" attributes="0"/>
+                          <Component id="RButton10T" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -85,9 +85,9 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="RButton1024" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="RButton4096" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="RButton2048" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RButton1T" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RButton10T" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="RButton5T" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -115,40 +115,40 @@
             <Property name="text" type="java.lang.String" value="&#xbf; QUE PERIODO DEL QUANTUM DESEAS USAR ?"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="RButton1024">
+        <Component class="javax.swing.JRadioButton" name="RButton1T">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="1 T"/>
-            <Property name="name" type="java.lang.String" value="RButton1024" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="RButton1T" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton1024ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton1TActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="RButton4096">
+        <Component class="javax.swing.JRadioButton" name="RButton10T">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="10 T"/>
-            <Property name="name" type="java.lang.String" value="RButton4096" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="RButton10T" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton4096ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton10TActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="RButton2048">
+        <Component class="javax.swing.JRadioButton" name="RButton5T">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="5 T"/>
-            <Property name="name" type="java.lang.String" value="RButton2048" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="RButton5T" noResource="true"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton2048ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RButton5TActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">

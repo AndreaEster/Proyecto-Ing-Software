@@ -12,9 +12,13 @@ public class Proceso {
 
     private int id;
     private String nombre;
+    private int inicialQ = 1;
     private int quantum;
-    private boolean Status;
-    private boolean listo = true;
+    private boolean Status = false;
+    private boolean espera = false;
+    private boolean finalizado = false;
+    private int iDebarra = 1;
+    private int tEjecucion = 0;
 
     /**
      * @return the id
@@ -59,7 +63,7 @@ public class Proceso {
     }
 
     /**
-     * @return the Status
+     * @return
      */
     public boolean isStatus() {
         return Status;
@@ -72,22 +76,74 @@ public class Proceso {
         this.Status = Status;
     }
 
-    public boolean isRun() {
-        return this.isStatus();
+    /**
+     * @return the finalizado
+     */
+    public boolean isFinalizado() {
+        return finalizado;
     }
 
     /**
-     * @return the listo
+     * @param finalizado the finalizado to set
      */
-    public boolean isListo() {
-        return listo;
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
     }
 
     /**
-     * @param listo the listo to set
+     * @return the iDebarra
      */
-    public void setListo(boolean listo) {
-        this.listo = listo;
+    public int getiDebarra() {
+        return iDebarra;
+    }
+
+    /**
+     * @param iDebarra the iDebarra to set
+     */
+    public void setiDebarra(int iDebarra) {
+        this.iDebarra = iDebarra;
+    }
+
+    /**
+     * @return the inicialQ
+     */
+    public int getInicialQ() {
+        return inicialQ;
+    }
+
+    /**
+     * @param inicialQ the inicialQ to set
+     */
+    public void setInicialQ(int inicialQ) {
+        this.inicialQ = inicialQ;
+    }
+
+    /**
+     * @return the espera
+     */
+    public boolean isEspera() {
+        return espera;
+    }
+
+    /**
+     * @param espera the espera to set
+     */
+    public void setEspera(boolean espera) {
+        this.espera = espera;
+    }
+
+    /**
+     * @return the tEjecucion
+     */
+    public int gettEjecucion() {
+        return tEjecucion;
+    }
+
+    /**
+     * @param tEjecucion the tEjecucion to set
+     */
+    public void settEjecucion(int tEjecucion) {
+        this.tEjecucion = tEjecucion;
     }
 
 }

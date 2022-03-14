@@ -5,6 +5,7 @@
 package Vistas;
 
 import clases.AdminProceso;
+import clases.Hilos;
 import clases.Proceso;
 import java.awt.Color;
 import java.awt.Event;
@@ -20,7 +21,7 @@ import javax.swing.border.TitledBorder;
  */
 public class principalRunRobin extends javax.swing.JInternalFrame {
 
-    int periodoQuantum = 0;
+    int periodoQuantum = 1;
 //    int desplazamientoX = 0;
     int id = 0;
     AdminProceso procesos = new AdminProceso();
@@ -53,12 +54,11 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -81,7 +81,7 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         jPanelMemoria.setLayout(jPanelMemoriaLayout);
         jPanelMemoriaLayout.setHorizontalGroup(
             jPanelMemoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 578, Short.MAX_VALUE)
         );
         jPanelMemoriaLayout.setVerticalGroup(
             jPanelMemoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,30 +104,28 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("JLABEL");
 
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextField1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jFormattedTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jFormattedTextField1MouseClicked(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("SELECCIONE UN PROGRAMA Y ASIGNE EL QUANTUM A UTILIZAR");
 
-        jProgressBar1.setForeground(new java.awt.Color(0, 204, 51));
+        jProgressBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jProgressBar1.setForeground(new java.awt.Color(0, 0, 0));
+        jProgressBar1.setStringPainted(true);
 
         jButton2.setText("CORRER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("EL PROCESO EN EJECUCION ES:");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("100 %");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,29 +134,28 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBoxProgramas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanelMemoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jComboBoxProgramas, 0, 256, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(jButton2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel5)))
-                    .addComponent(jPanelMemoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,18 +172,16 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxProgramas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jLabel6))
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,45 +189,50 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        int tmQuantum = Integer.valueOf(this.jTextField1.getText());
+
         Proceso proceso = new Proceso();
         proceso.setId(id);
         proceso.setNombre((String) this.jComboBoxProgramas.getSelectedItem());
-        proceso.setQuantum(1);
+        proceso.setQuantum(tmQuantum);
+        proceso.setInicialQ(tmQuantum);
         proceso.setStatus(false);
 
         procesos.setProceso(proceso);
 
         graficarListo(procesos.getProcesos());
 
+        id++;
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void graficar(LinkedList<Proceso> procesos) {
-        this.jPanelMemoria.removeAll();
-        int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
-        int desplazamientoX = 0;
-
-        for (Proceso proceso : procesos) {
-            JPanel jProceso = new JPanel();
-            JLabel jlbR = new JLabel();
-            String estado = (proceso.isRun()) ? "Run" : "Espera";
-            jlbR.setText(estado);
-
-            jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
-            jProceso.setSize(width, 100);
-            jProceso.setBackground((proceso.isRun()) ? Color.red : Color.orange);
-            jProceso.setBorder(new TitledBorder(proceso.getNombre()));
-            jProceso.add(jlbR);
-
-            desplazamientoX = desplazamientoX + width;
-
-            this.jPanelMemoria.add(jProceso);
-            this.jPanelMemoria.revalidate();
-            this.jPanelMemoria.repaint();
-        }
-
-    }
-
+//    public void graficar(LinkedList<Proceso> procesos) {
+//        this.jPanelMemoria.removeAll();
+//        int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
+//        int desplazamientoX = 0;
+//        
+//        for (Proceso proceso : procesos) {
+//            JPanel jProceso = new JPanel();
+//            JLabel jlbR = new JLabel();
+//            String estado = (proceso.isStatus()) ? "Run" : "Espera";
+//            jlbR.setText(estado);
+//            
+//            jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
+//            jProceso.setSize(width, 100);
+//            jProceso.setBackground((proceso.isStatus()) ? Color.red : Color.orange);
+//            jProceso.setBorder(new TitledBorder(proceso.getNombre()));
+//            jProceso.add(jlbR);
+//            
+//            desplazamientoX = desplazamientoX + width;
+//            
+//            this.jPanelMemoria.add(jProceso);
+//            this.jPanelMemoria.revalidate();
+//            this.jPanelMemoria.repaint();
+//        }
+//        
+//    }
     public void graficarListo(LinkedList<Proceso> procesos) {
         this.jPanelMemoria.removeAll();
         int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
@@ -241,12 +241,12 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
         for (Proceso proceso : procesos) {
             JPanel jProceso = new JPanel();
             JLabel jlbR = new JLabel();
-            String estado = (proceso.isListo()) ? "Listo" : "Espera";
+            String estado = (proceso.isStatus()) ? "Espera" : "Listo";
             jlbR.setText(estado);
 
             jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
             jProceso.setSize(width, 100);
-            jProceso.setBackground((proceso.isListo()) ? Color.gray : Color.orange);
+            jProceso.setBackground((proceso.isStatus()) ? Color.orange : Color.gray);
             jProceso.setBorder(new TitledBorder(proceso.getNombre()));
             jProceso.add(jlbR);
 
@@ -264,13 +264,30 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
     }
 
 
-    private void jFormattedTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jFormattedTextField1MouseClicked
-
-    }//GEN-LAST:event_jFormattedTextField1MouseClicked
-
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
 
     }//GEN-LAST:event_formComponentResized
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //PROBANDO LA PROGRESS BAR
+
+        JOptionPane.showMessageDialog(rootPane, "Comienza la simulacion");
+
+        Hilos hilo = new Hilos();
+        hilo.setBarradeProceso(jProgressBar1);
+        hilo.setProcesos(this.procesos.getProcesos());
+        hilo.setjPanelMemoria(jPanelMemoria);
+        hilo.setTotalQuantum(this.periodoQuantum);
+        hilo.setnProceso(this.jLabel6);
+
+        Thread procesar = new Thread(hilo);
+        procesar.start();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+
+    }//GEN-LAST:event_jTextField1MouseClicked
 
     @Override
     public boolean action(Event evt, Object what) {
@@ -280,15 +297,14 @@ public class principalRunRobin extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBoxProgramas;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanelMemoria;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
 }
