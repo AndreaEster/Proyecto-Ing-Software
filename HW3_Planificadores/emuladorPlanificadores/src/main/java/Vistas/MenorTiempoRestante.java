@@ -4,17 +4,22 @@
  */
 package Vistas;
 
+import javax.swing.BoxLayout;
+
 /**
  *
  * @author marcotulio
  */
 public class MenorTiempoRestante extends javax.swing.JInternalFrame {
-
+    
+    
+    private clases.MenorTiempoRestante.Planificador planificador;
     /**
      * Creates new form MenorTiempoRestante
      */
     public MenorTiempoRestante() {
         initComponents();
+        this.planificador = new clases.MenorTiempoRestante.Planificador(this.listaRegistro, this.tablaProcesos, this.ganttPanel);
     }
 
     /**
@@ -29,17 +34,18 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaProcesos = new javax.swing.JTable();
+        ganttPanel = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        planificaBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        numeroProcesosInput = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        registroPanel = new javax.swing.JScrollPane();
+        listaRegistro = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -57,16 +63,9 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Planificador con algoritmo Menor tiempo restante ");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProcesos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"P0", null, null, null, null, null},
-                {"P1", null, null, null, null, null},
-                {"P2", null, null, null, null, null},
-                {"P3", null, null, null, null, null},
-                {"P4", null, null, null, null, null},
-                {"P5", null, null, null, null, null},
-                {"P6", null, null, null, null, null},
-                {"P7", null, null, null, null, null}
+
             },
             new String [] {
                 "Proceso", "Tiempo de llegada", "Tiempo quemado", "Tiempo de completacion", "Tiempo de respuesta", "Tiempo esperado"
@@ -80,9 +79,9 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
-        table.setMaximumSize(new java.awt.Dimension(2147483647, 200));
-        table.setRowHeight(30);
-        jScrollPane1.setViewportView(table);
+        tablaProcesos.setMaximumSize(new java.awt.Dimension(2147483647, 200));
+        tablaProcesos.setRowHeight(30);
+        jScrollPane1.setViewportView(tablaProcesos);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("TABLA DE EMULACION");
@@ -90,20 +89,24 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("DIAGRAMA DE GANTT");
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Planificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        planificaBtn.setBackground(new java.awt.Color(0, 102, 102));
+        planificaBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        planificaBtn.setForeground(new java.awt.Color(255, 255, 255));
+        planificaBtn.setText("Planificar");
+        planificaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                planificaBtnActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel2.setText("Indique cuantos procesos desea planificar:");
 
-        jTextField1.setText("jTextField1");
+        numeroProcesosInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroProcesosInputActionPerformed(evt);
+            }
+        });
 
         jSeparator3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -112,6 +115,19 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("REGISTRO DE ACTIVIDAD");
+
+        javax.swing.GroupLayout listaRegistroLayout = new javax.swing.GroupLayout(listaRegistro);
+        listaRegistro.setLayout(listaRegistroLayout);
+        listaRegistroLayout.setHorizontalGroup(
+            listaRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 525, Short.MAX_VALUE)
+        );
+        listaRegistroLayout.setVerticalGroup(
+            listaRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 201, Short.MAX_VALUE)
+        );
+
+        registroPanel.setViewportView(listaRegistro);
 
         jLabel6.setText("1- En esta emulacion no se consideran escenarios dinamicos, por lo que no se");
 
@@ -143,7 +159,7 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1147, Short.MAX_VALUE)
+                            .addComponent(jSeparator2)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +180,7 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane4)
+                                        .addComponent(registroPanel)
                                         .addGap(47, 47, 47))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(184, 184, 184)
@@ -175,7 +191,7 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(138, 138, 138)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ganttPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(474, 474, 474)
@@ -187,9 +203,9 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                                 .addGap(343, 343, 343)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(numeroProcesosInput, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(planificaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -201,7 +217,7 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 23, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
@@ -226,7 +242,7 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4))))
+                                .addComponent(registroPanel))))
                     .addComponent(jSeparator3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,29 +253,44 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ganttPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(planificaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(numeroProcesosInput, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void planificaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planificaBtnActionPerformed
+        this.listaRegistro.setLayout(new BoxLayout(listaRegistro, BoxLayout.Y_AXIS));
+        
+        if(this.numeroProcesosInput.getText().equals("")){
+            this.planificador.agregarRegistro("No se especifico un numero de procesos, generando la cantidad por defecto...");
+            this.planificador.generarProcesos(4);
+            this.planificador.planificarProcesos();
+
+        }else{
+            this.planificador.agregarRegistro("Si se especifico el numero de procesos");
+            this.planificador.generarProcesos(Integer.parseInt(this.numeroProcesosInput.getText()));
+            this.planificador.planificarProcesos();
+        }
+    }//GEN-LAST:event_planificaBtnActionPerformed
+
+    private void numeroProcesosInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroProcesosInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_numeroProcesosInputActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane ganttPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -276,12 +307,13 @@ public class MenorTiempoRestante extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable table;
+    private javax.swing.JPanel listaRegistro;
+    private javax.swing.JTextField numeroProcesosInput;
+    private javax.swing.JButton planificaBtn;
+    private javax.swing.JScrollPane registroPanel;
+    private javax.swing.JTable tablaProcesos;
     // End of variables declaration//GEN-END:variables
 }
