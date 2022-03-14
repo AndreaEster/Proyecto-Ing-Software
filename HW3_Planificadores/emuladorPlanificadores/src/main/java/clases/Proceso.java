@@ -15,7 +15,7 @@ public class Proceso {
     private int inicialQ = 1;
     private int quantum;
     private boolean Status = false;
-    private boolean espera = false;
+    private boolean espera = true;
     private boolean finalizado = false;
     private int iDebarra = 1;
     private int tEjecucion = 0;

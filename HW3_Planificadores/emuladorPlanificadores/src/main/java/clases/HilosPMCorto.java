@@ -58,6 +58,13 @@ public class HilosPMCorto implements Runnable {
     private int totalQuantum = 1;
     private int tEjecucion = 0;
 
+    /**
+     * Este proceso ejecuta el algoritmo <B>PROCESO MAS CORTO</B> donde tiene
+     * tres listas, listo espera y finalizado mueve cada proceso segun el estado
+     * en el que se va encontrando hasta finalizar con todos los procesos.
+     * recibe una lista de procesos previamente organizados para su ejecucion
+     *
+     */
     @Override
     public void run() {
 
@@ -65,7 +72,6 @@ public class HilosPMCorto implements Runnable {
 
         while (this.centinela) {
             graficarBarra(0);
-
             graficarListo();
 
             if (!listos.isEmpty()) {
@@ -77,22 +83,29 @@ public class HilosPMCorto implements Runnable {
             }
             if (!espera.isEmpty()) {
                 if (espera.peek().getQuantum() >= 0) {
-                    espera.peek().setQuantum(espera.peek().getQuantum() - totalQuantum);
-                    
+//                    espera.peek().setQuantum(espera.peek().getQuantum() - totalQuantum);
+
                     /**
                      * Se calcula el porcentaje para la ejecucion del proceso
                      */
-                    
-                    int pBarra = Math.round(getPorcentajeBarra((float) Float.valueOf(espera.peek().getiDebarra()), (float) Float.valueOf(espera.peek().getInicialQ())));
+                    int pBarra = Math.round(getPorcentajeBarra((float) espera.peek().getInicialQ()));
                     espera.peek().setStatus(true);
                     espera.peek().setEspera(false);
 
                     graficarListo();
-                    
+
                     this.nProceso.setText("EL PROCESO EN EJECUCION ES:" + espera.peek().getNombre());
-                    for (int i = 1; i <= pBarra; i++) {
-                        espera.peek().setiDebarra(espera.peek().getiDebarra() + 1);
+                    for (int i = 1; i <= espera.peek().getInicialQ(); i++) {
+
+                        espera.peek().setiDebarra(espera.peek().getiDebarra() + pBarra);
+
+                        if (espera.peek().getiDebarra() > 100) {
+                            espera.peek().setiDebarra(100);
+
+                        }
+
                         graficarBarra(espera.peek().getiDebarra());
+                        espera.peek().setQuantum(espera.peek().getQuantum() - 1);
                         esperar();
                     }
 
@@ -122,18 +135,28 @@ public class HilosPMCorto implements Runnable {
         this.barradeProceso.setString("100%");
     }
 
-    public float getPorcentajeBarra(float i, float quantum) {
+    /**
+     * este metodo obtiene el porcentaje de la barra de progreso en base a su
+     * tiempo de ejecucion
+     *
+     * @param quantum
+     * @return
+     */
+    public float getPorcentajeBarra(float quantum) {
         //Obtenemos el porcentaje de ejecucion de la barra
         float resultado = 1;
-        if (i > quantum) {
-            resultado = (float) (quantum / i) * 100;
+        if (quantum > 100) {
+            resultado = (float) (quantum / 100);
         } else {
-            resultado = (float) (i / quantum) * 100;
+            resultado = (float) (100 / quantum);
         }
 
         return resultado;
     }
 
+    /**
+     * con este metodo graficamos los procesos en forma de jpanel ya procesados
+     */
     public void graficarListo() {
         this.jPanelMemoria.removeAll();
 
@@ -183,11 +206,24 @@ public class HilosPMCorto implements Runnable {
         this.jPanelMemoria.repaint();
     }
 
+    /**
+     * Este metodo obtiene el tamano de las particiones de los jpanel
+     *
+     * @param procesos
+     * @param tPanel
+     * @return
+     */
     public int getTParticiones(LinkedList<ProcesoPMCorto> procesos, int tPanel) {
 
         return (int) tPanel / procesos.size();
     }
 
+    /**
+     * Con este metodo podemos graficar la barra de progreso principal segun el
+     * proceso en ejecucion
+     *
+     * @param i
+     */
     public void graficarBarra(int i) {
         this.getBarradeProceso().setValue(i);
         this.getBarradeProceso().setString(String.valueOf(i) + "%");
@@ -195,6 +231,9 @@ public class HilosPMCorto implements Runnable {
         this.getBarradeProceso().repaint();
     }
 
+    /**
+     * Este proceso genera un tiempo de espera en la ejecucion del programa
+     */
     public void esperar() {
         try {
             Thread.sleep(100); //Dormir sistema
@@ -274,17 +313,17 @@ public class HilosPMCorto implements Runnable {
         this.nProceso = nProceso;
     }
 
-    
-    /***
-     * Ordenamos los procesos de manera mas corta a la mas larga para su ejecucion
+    /**
+     * *
+     * Ordenamos los procesos de manera mas corta a la mas larga para su
+     * ejecucion
      */
-    
-    
     private void ordenamientoBurbuja() {
         ProcesoPMCorto temp = new ProcesoPMCorto();
         for (int i = 0; i < this.listos.size() - 1; i++) {
             for (int j = 0; j < this.listos.size() - i - 1; j++) {
                 if (this.listos.get(j + 1).getQuantum() < this.listos.get(j).getQuantum()) {
+
                     temp = this.listos.get(j + 1);
                     this.listos.set(j + 1, this.listos.get(j));
                     this.listos.set(j, temp);

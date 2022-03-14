@@ -58,6 +58,12 @@ public class Hilos implements Runnable {
     private int totalQuantum = 1;
     private int tEjecucion = 0;
 
+    /**
+     * Este proceso ejecuta el algoritmo <B>RUNROBYN</B> donde tiene tres
+     * listas, listo espera y finalizado mueve cada proceso segun el estado en
+     * el que se va encontrando hasta finalizar con todos los procesos
+     *
+     */
     @Override
     public void run() {
         while (this.centinela) {
@@ -114,6 +120,13 @@ public class Hilos implements Runnable {
         this.barradeProceso.setString("100%");
     }
 
+    /**
+     * este metodo obtiene el porcentaje de la barra de progreso en base a su
+     * tiempo de ejecucion
+     *
+     * @param quantum
+     * @return
+     */
     public float getPorcentajeBarra(float i, float quantum) {
         //Obtenemos el porcentaje de ejecucion de la barra
         float resultado = 1;
@@ -126,6 +139,9 @@ public class Hilos implements Runnable {
         return resultado;
     }
 
+    /**
+     * con este metodo graficamos los procesos en forma de jpanel ya procesados
+     */
     public void graficarListo() {
         this.jPanelMemoria.removeAll();
 
@@ -175,11 +191,24 @@ public class Hilos implements Runnable {
         this.jPanelMemoria.repaint();
     }
 
+    /**
+     * Este metodo obtiene el tamano de las particiones de los jpanel
+     *
+     * @param procesos
+     * @param tPanel
+     * @return
+     */
     public int getTParticiones(LinkedList<Proceso> procesos, int tPanel) {
 
         return (int) tPanel / procesos.size();
     }
 
+    /**
+     * Con este metodo podemos graficar la barra de progreso principal segun el
+     * proceso en ejecucion
+     *
+     * @param i
+     */
     public void graficarBarra(int i) {
         this.getBarradeProceso().setValue(i);
         this.getBarradeProceso().setString(String.valueOf(i) + "%");
@@ -187,6 +216,9 @@ public class Hilos implements Runnable {
         this.getBarradeProceso().repaint();
     }
 
+    /**
+     * Este proceso genera un tiempo de espera en la ejecucion del programa
+     */
     public void esperar() {
         try {
             Thread.sleep(100); //Dormir sistema

@@ -37,6 +37,11 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
 
     }
 
+    /**
+     * Este metodo permite la asignacion de tiempo de ejecucion del procesador
+     *
+     * @param quantum
+     */
     public void setLabel(int quantum) {
         this.periodoQuantum = quantum;
     }
@@ -51,7 +56,7 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jPanelMemoria = new javax.swing.JPanel();
+        jPanelProcesos = new javax.swing.JPanel();
         jComboBoxProgramas = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -76,16 +81,16 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("¿QUE ESTA PASANDO EN MI PROCESADOR?");
 
-        jPanelMemoria.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PROCESADOR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        jPanelProcesos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PROCESADOR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
-        javax.swing.GroupLayout jPanelMemoriaLayout = new javax.swing.GroupLayout(jPanelMemoria);
-        jPanelMemoria.setLayout(jPanelMemoriaLayout);
-        jPanelMemoriaLayout.setHorizontalGroup(
-            jPanelMemoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelProcesosLayout = new javax.swing.GroupLayout(jPanelProcesos);
+        jPanelProcesos.setLayout(jPanelProcesosLayout);
+        jPanelProcesosLayout.setHorizontalGroup(
+            jPanelProcesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 578, Short.MAX_VALUE)
         );
-        jPanelMemoriaLayout.setVerticalGroup(
-            jPanelMemoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelProcesosLayout.setVerticalGroup(
+            jPanelProcesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 98, Short.MAX_VALUE)
         );
 
@@ -132,7 +137,7 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelMemoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelProcesos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -163,7 +168,7 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,30 +189,44 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /**
+     * Este boton recolecta la informacion desde la interface proceso a proceso
+     *
+     * @param evt
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        int tmQuantum = Integer.valueOf(this.jTextField1.getText());
+        try {
 
-        ProcesoPMCorto proceso = new ProcesoPMCorto();
-        proceso.setId(id);
-        proceso.setNombre((String) this.jComboBoxProgramas.getSelectedItem());
-        proceso.setQuantum(tmQuantum);
-        proceso.setInicialQ(tmQuantum);
-        proceso.setStatus(false);
+            int tmQuantum = Integer.valueOf(this.jTextField1.getText());
+            ProcesoPMCorto proceso = new ProcesoPMCorto();
+            proceso.setId(id);
+            proceso.setNombre((String) this.jComboBoxProgramas.getSelectedItem());
+            proceso.setQuantum(tmQuantum);
+            proceso.setInicialQ(tmQuantum);
+            proceso.setStatus(false);
 
-        procesos.setProceso(proceso);
+            procesos.setProceso(proceso);
 
-        graficarListo(procesos.getProcesos());
+            graficarListo(procesos.getProcesos());
 
-        id++;
+            id++;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor valido :(");
+            this.jTextField1.setText("");
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Este metodo permite graficar toda la lista de procesos en estado de listo
+     *
+     * @param procesos
+     */
     public void graficarListo(LinkedList<ProcesoPMCorto> procesos) {
-        this.jPanelMemoria.removeAll();
-        int width = getTParticiones(procesos, this.jPanelMemoria.getWidth());
+        this.jPanelProcesos.removeAll();
+        int width = getTParticiones(procesos, this.jPanelProcesos.getWidth());
         int desplazamientoX = 0;
 
         for (ProcesoPMCorto proceso : procesos) {
@@ -216,7 +235,7 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
             String estado = (proceso.isStatus()) ? "Espera" : "Listo";
             jlbR.setText(estado);
 
-            jProceso.setLocation(this.jPanelMemoria.getLocation().x + desplazamientoX, this.jPanelMemoria.getLocation().y - 40);
+            jProceso.setLocation(this.jPanelProcesos.getLocation().x + desplazamientoX, this.jPanelProcesos.getLocation().y - 40);
             jProceso.setSize(width, 100);
             jProceso.setBackground((proceso.isStatus()) ? Color.orange : Color.gray);
             jProceso.setBorder(new TitledBorder(proceso.getNombre()));
@@ -224,12 +243,19 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
 
             desplazamientoX = desplazamientoX + width;
 
-            this.jPanelMemoria.add(jProceso);
-            this.jPanelMemoria.revalidate();
-            this.jPanelMemoria.repaint();
+            this.jPanelProcesos.add(jProceso);
+            this.jPanelProcesos.revalidate();
+            this.jPanelProcesos.repaint();
         }
     }
 
+    /**
+     * Este metodo permite obtener el tammano de las particiones de los jpanel
+     *
+     * @param procesos
+     * @param tPanel
+     * @return
+     */
     public int getTParticiones(LinkedList<ProcesoPMCorto> procesos, int tPanel) {
 
         return (int) tPanel / procesos.size();
@@ -240,15 +266,18 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
 
     }//GEN-LAST:event_formComponentResized
 
+    /**
+     * Este boton recolecta la informacion necesaria para los subprocesos y la
+     * envia para su ejecucion
+     *
+     * @param evt
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //PROBANDO LA PROGRESS BAR
-
-        JOptionPane.showMessageDialog(rootPane, "Comienza la simulacion");
 
         HilosPMCorto hilo = new HilosPMCorto();
         hilo.setBarradeProceso(jProgressBar1);
         hilo.setProcesos(this.procesos.getProcesos());
-        hilo.setjPanelMemoria(jPanelMemoria);
+        hilo.setjPanelMemoria(jPanelProcesos);
         hilo.setTotalQuantum(this.periodoQuantum);
         hilo.setnProceso(this.jLabel6);
 
@@ -273,7 +302,7 @@ public class principalPrimeroProcesoMasCorto extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanelMemoria;
+    private javax.swing.JPanel jPanelProcesos;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
