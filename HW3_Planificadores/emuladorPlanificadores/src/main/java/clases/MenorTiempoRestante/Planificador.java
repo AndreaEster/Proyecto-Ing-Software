@@ -6,10 +6,13 @@ package clases.MenorTiempoRestante;
 
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
@@ -24,11 +27,11 @@ public class Planificador {
     private JPanel listaRegistro;
     private List<Proceso> listaProcesos;
     private JTable tablaProcesos;
-    private JScrollPane ganttPanel;
+    private JPanel ganttPanel;
     private int tiempoAQuemarTotal = 0;
     private int ultimoTiempoDeLlegada = 0;
     
-    public Planificador(JPanel listaRegistro, JTable tablaProcesos, JScrollPane ganttPanel) {
+    public Planificador(JPanel listaRegistro, JTable tablaProcesos, JPanel ganttPanel) {
         this.listaProcesos = new ArrayList<>();
         this.listaRegistro = listaRegistro;
         this.tablaProcesos = tablaProcesos;
@@ -55,7 +58,7 @@ public class Planificador {
                     numProceso,
                     String.format("P%d", numProceso),
                     this.obtenerNumeroAleatorio(0, numProcesos+1),
-                    this.obtenerNumeroAleatorio(1, 3)
+                    this.obtenerNumeroAleatorio(1, 5)
             );
             this.tiempoAQuemarTotal = this.tiempoAQuemarTotal + proceso.getTiempoAQuemar();
             if(proceso.getTiempoLlegada() > this.ultimoTiempoDeLlegada){
@@ -76,14 +79,25 @@ public class Planificador {
     }
     
     public void planificarProcesos(){
-        this.ordenarProcesos();
+        this.ordenarPorTiempoLlegada(this.listaProcesos);
         this.algoritmoSRP(0);
     }
     
     public void algoritmoSRP(int intervaloActual){
         if(intervaloActual > this.ultimoTiempoDeLlegada){
             this.agregarRegistro("Se ah alcanzado el ultimo tiempo de llegada.");
-            this.agregarRegistro("Cambiando al algoritmo FSP...");
+            this.agregarRegistro("Cambiando al algoritmo FCFS...");
+            List<Proceso> tempListaProcesos =new ArrayList<>();
+            for (int i = 0; i < this.listaProcesos.size(); i++) {
+                if(this.listaProcesos.get(i).getTiempoRestante() != 0){
+                    tempListaProcesos.add(this.listaProcesos.get(i));
+                }
+            }
+            
+            if(tempListaProcesos.size() > 0){
+                this.ordenarPorTiempoRestante(tempListaProcesos);
+                this.algoritmoFCFS(tempListaProcesos, intervaloActual);
+            }
         }else{
             List<Proceso> tempListaProcesos =new ArrayList<>();
             for (int i = 0; i < this.listaProcesos.size(); i++) {
@@ -99,12 +113,21 @@ public class Planificador {
             if(tempListaProcesos.size()>0){
                 Proceso procesoSRP = this.obtenerSRP(tempListaProcesos);
                 procesoSRP.quemarTiempo();
+              
+                this.agregarEjecucionDiagrama(procesoSRP.getAlias(), intervaloActual);
                 this.agregarRegistro(String.format(
-                        "Se ah ejecutado un intervalo del proceso %s", procesoSRP.getIdentificador()
+                        "Se ah ejecutado un intervalo del proceso %s", procesoSRP.getAlias()
                 ));
                 this.agregarRegistro(String.format(
-                        "Al proceso %s le quedan %d intervalos", procesoSRP.getIdentificador(), procesoSRP.getTiempoRestante()
+                        "Al proceso %s le quedan %d intervalos", procesoSRP.getAlias(), procesoSRP.getTiempoRestante()
                 ));
+                
+                if(procesoSRP.getTiempoRestante() == 0){
+                    DefaultTableModel model = (DefaultTableModel)this.tablaProcesos.getModel();
+                    model.setValueAt(String.format("%d", intervaloActual+1),procesoSRP.getIdentificador() , 3);
+                    model.setValueAt(String.format("%d", (intervaloActual+1)-procesoSRP.getTiempoLlegada()),procesoSRP.getIdentificador() , 4);
+                    model.setValueAt(String.format("%d", ((intervaloActual+1)-procesoSRP.getTiempoLlegada())-procesoSRP.getTiempoAQuemar()),procesoSRP.getIdentificador() , 5);
+                }
                 algoritmoSRP(intervaloActual+1);
             }
             
@@ -125,13 +148,74 @@ public class Planificador {
         return procesoSRP;
     }
     
-    public void ordenarProcesos(){
-        int n = this.listaProcesos.size();
+    public void ordenarPorTiempoLlegada(List<Proceso> lista){
+        int n = lista.size();
         for (int i = 0; i < n-1; i++)
             for (int j = 0; j < n-i-1; j++)
-                if (this.listaProcesos.get(j).getTiempoLlegada() > this.listaProcesos.get(j+1).getTiempoLlegada()){
-                    this.listaProcesos.add(j+1, this.listaProcesos.remove(j));  
+                if (lista.get(j).getTiempoLlegada() > lista.get(j+1).getTiempoLlegada()){
+                    lista.add(j+1, lista.remove(j));  
                 }
+    }
+    
+    public void ordenarPorTiempoRestante(List<Proceso> lista){
+        int n = lista.size();
+        for (int i = 0; i < n-1; i++)
+            for (int j = 0; j < n-i-1; j++)
+                if (lista.get(j).getTiempoRestante() > lista.get(j+1).getTiempoRestante()){
+                    lista.add(j+1, lista.remove(j));  
+                }
+    }
+    
+    public void algoritmoFCFS(List<Proceso> lista, int intervaloActual){
+        if(lista.size() < 1){
+            this.agregarRegistro(String.format("Se ah completado el ultimo intervalo: %d.",intervaloActual));
+        }else{
+          
+            if(lista.get(0).getTiempoRestante()< 2){
+                Proceso procesoFCFS = lista.remove(0);
+                procesoFCFS.quemarTiempo();
+           
+                this.agregarEjecucionDiagrama(procesoFCFS.getAlias(), intervaloActual);
+                this.agregarRegistro(String.format(
+                        "Se ah ejecutado un intervalo del proceso %s", procesoFCFS.getAlias()
+                ));
+                this.agregarRegistro(String.format(
+                        "Al proceso %s le quedan %d intervalos", procesoFCFS.getAlias(), procesoFCFS.getTiempoRestante()
+                ));
+                DefaultTableModel model = (DefaultTableModel)this.tablaProcesos.getModel();
+                model.setValueAt(String.format("%d", intervaloActual+1),procesoFCFS.getIdentificador() , 3);
+                model.setValueAt(String.format("%d", (intervaloActual+1)-procesoFCFS.getTiempoLlegada()),procesoFCFS.getIdentificador() , 4);
+                model.setValueAt(String.format("%d", ((intervaloActual+1)-procesoFCFS.getTiempoLlegada())-procesoFCFS.getTiempoAQuemar()),procesoFCFS.getIdentificador() , 5);
+            }else{
+                Proceso procesoFCFS = lista.get(0);
+                procesoFCFS.quemarTiempo();
+            
+                this.agregarEjecucionDiagrama(procesoFCFS.getAlias(), intervaloActual);
+                this.agregarRegistro(String.format(
+                        "Se ah ejecutado un intervalo del proceso %s", procesoFCFS.getAlias()
+                ));
+                this.agregarRegistro(String.format(
+                        "Al proceso %s le quedan %d intervalos", procesoFCFS.getAlias(), procesoFCFS.getTiempoRestante()
+                ));
+                if(procesoFCFS.getTiempoRestante() == 0){
+                    DefaultTableModel model = (DefaultTableModel)this.tablaProcesos.getModel();
+                    model.setValueAt(String.format("%d", intervaloActual+1),procesoFCFS.getIdentificador() , 3);
+                    model.setValueAt(String.format("%d", (intervaloActual+1)-procesoFCFS.getTiempoLlegada()),procesoFCFS.getIdentificador() , 4);
+                    model.setValueAt(String.format("%d", ((intervaloActual+1)-procesoFCFS.getTiempoLlegada())-procesoFCFS.getTiempoAQuemar()),procesoFCFS.getIdentificador() , 5);
+                }
+            }
+            
+            this.algoritmoFCFS(lista, intervaloActual+1);
+        }
+    }
+    
+    
+    public void agregarEjecucionDiagrama(String identificadorProceso, int location){
+        JTextPane textPane = new JTextPane();
+        textPane.setText(identificadorProceso);
+        textPane.setSize(this.ganttPanel.getWidth(), this.ganttPanel.getHeight()/9);
+        this.ganttPanel.add(textPane);
+        this.ganttPanel.repaint();
     }
     
     

@@ -27,14 +27,6 @@ public class Proceso {
         this.tiempoQuemado = 0;
     }
 
-    public String getIdentificador() {
-        return alias;
-    }
-
-    public void setIdentificador(int Identificador) {
-        this.identificador = Identificador;
-    }
-
     public int getTiempoLlegada() {
         return tiempoLlegada;
     }
@@ -98,4 +90,14 @@ public class Proceso {
     public void quemarTiempo(){
         this.tiempoQuemado = this.tiempoQuemado + 1;
     }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
+    }
+    
+    
 }
