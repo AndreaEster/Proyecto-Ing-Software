@@ -1,0 +1,76 @@
+body{
+    background-image: url(../Assets/IMG/BackgroundImage.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: grid;
+    grid-template-rows: 8% 84% 8%;
+    min-height: 100%;
+    width: 100%;
+    margin: 0%;
+}
+
+nav, footer{
+    background-color: rgba(60, 58, 58, 0.97);
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+html{
+    height: 100%;
+    
+}
+
+#MainSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#divCarrusel{
+      width: 700px;
+      height: 500px;
+      margin: 50px 0;
+      overflow: hidden;
+    border-radius: 10px;
+
+}
+
+#ulCarrusel{
+    display: flex;
+    padding: 0;
+    width: 400%;
+    animation: slide 15s infinite alternate ease-in-out;
+}
+
+#ulCarrusel li{
+    list-style: none;
+    width: 100%;
+
+}
+
+#divCarrusel img{
+
+    width: 100%;
+}
+
+@keyframes slide{
+    0%{margin-left: 0%;}
+    20% {margin-left: 0%;}
+
+    25%{margin-left: -100%;}
+    45% {margin-left: -100%;}
+
+    50%{margin-left: -200%;}
+    70% {margin-left: -200%;}
+
+    75%{margin-left: -300%;}
+    95% {margin-left: -300%;}
+
+
+
+}
