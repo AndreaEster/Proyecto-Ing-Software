@@ -70,7 +70,35 @@ html{
 
     75%{margin-left: -300%;}
     95% {margin-left: -300%;}
+}
 
+#inputBuscador{
 
+    border-radius: 10px;
+    margin-right: 40px;
+    height: 50%;
+    font-family: cursive;
+}
+
+#navegadorMain{
+
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#btnHaztucita{
+    margin-left: 40px;
+    border: none;
+    color: black;
+    background-color:  rgb(204,124,74);
+
+}
+
+#btnHaztucita:hover{
+    color: rgb(204,124,74);
+    background-color: black;
+    border: black;
 
 }
