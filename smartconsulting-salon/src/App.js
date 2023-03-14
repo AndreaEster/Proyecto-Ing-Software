@@ -15,25 +15,27 @@ function App() {
   const handleClosePopup = () => {
     setShowPopup(false);
   }
+  
   return (
     <div className="App">
       <h1>
         Aqui se desarrollara el proceso de ensamblado
       </h1>
       <Header />
-      <div>
-      <button onClick={handleOpenPopup}>Reservar cita</button>
-      {showPopup && (
+      {showPopup ? (
         <div className="popup">
           <div className="popup-content">
             <button className="close" onClick={handleClosePopup}>X</button>
             <ReservacionFormulario />
           </div>
         </div>
+      ) : (
+        <div>
+          <button onClick={handleOpenPopup}>Reservar cita</button>
+        </div>
       )}
-      </div>      
-        <Footer />
-      </div>
+      <Footer />
+    </div>
   );
 }
 

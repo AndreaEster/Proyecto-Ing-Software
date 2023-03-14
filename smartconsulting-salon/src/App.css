@@ -1,5 +1,5 @@
 .App {
-  background-color: #0077be;
+  background: linear-gradient(to top, #000304 5%, #339ec8 50%,#04253c );
   color: white;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ header {
 }
 
 button {
-  background-color: #4e8bd4; /* un azul vivo */
+  background-color: #6498d7; /* un azul vivo */
   color: white;
   align-self: self-end;
   font-size: 16px;
@@ -62,7 +62,7 @@ button {
 }
 
 button:hover {
-  background-color: #63ace5; /* un azul más claro */
+  background-color: #075998; /* un azul más claro */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -70,7 +70,7 @@ label {
   font-size: 16px;
   position: sticky;
   align-self: self-start;
-  color: #333;
+  color: #ffffff;
 }
 
 
@@ -80,7 +80,7 @@ label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(214, 237, 222);
+  background: linear-gradient(to bottom, #2980b9, #49acee);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   padding: 20px;
