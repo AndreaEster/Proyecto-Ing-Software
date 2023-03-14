@@ -38,3 +38,5 @@ function ReservacionFormulario(props) {
     </form>
   );
 }
+
+export default ReservacionFormulario;
