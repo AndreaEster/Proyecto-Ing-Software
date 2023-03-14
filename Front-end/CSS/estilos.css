@@ -118,3 +118,11 @@ html{
     height: 100%;
 
 }
+
+#footerMain{
+
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
