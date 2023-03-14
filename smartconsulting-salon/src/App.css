@@ -1,38 +1,108 @@
 .App {
+  background-color: #0077be;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.content {
+  flex: 1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 20px;
+  background-color: #002d62;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+.nav-menu li {
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.nav-menu li:last-child {
+  margin-right: 0;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+  color: #66b3ff;
+}
+
+button {
+  background-color: #4e8bd4; /* un azul vivo */
+  color: white;
+  align-self: self-end;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #63ace5; /* un azul más claro */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+label {
+  font-size: 16px;
+  position: sticky;
+  align-self: self-start;
+  color: #333;
+}
+
+
+.popup-content {
+  display: flex;
+  align-self: center;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: rgb(214, 237, 222);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  
 }
 
-.App-link {
-  color: #61dafb;
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.popup-content input,
+.popup-content select,
+.popup-content textarea {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  width: 100%;
 }

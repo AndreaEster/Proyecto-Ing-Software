@@ -1,0 +1,9 @@
+.Header {
+    background: linear-gradient(to right, #4e8bd4, #63ace5); /* un fondo degradado de azules */
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
