@@ -101,6 +101,12 @@ CREATE TABLE inventario (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE imagenes (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  titulo VARCHAR(50) NOT NULL,
+  url VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+);
 
 -----------------
 /*Llenado general de tablas*/
