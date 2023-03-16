@@ -3,6 +3,7 @@ import Footer from './componentes/Footer';
 import Header from './componentes/Header';
 import React, { useState } from 'react';
 import ReservacionFormulario from './Andrea-/ReservacionFormulario';
+import Carrusel from './componentes/Carrusel';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         Aqui se desarrollara el proceso de ensamblado
       </h1>
       <Header />
+      <Carrusel />
       {showPopup ? (
         <div className="popup">
           <div className="popup-content">

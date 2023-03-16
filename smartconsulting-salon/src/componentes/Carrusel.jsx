@@ -8,11 +8,13 @@ function Carrusel() {
     const connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'mypassword',
-      database: 'mydatabase',
+      password: '',
+      database: 'smartconsultingbd',
     });
 
-    connection.query('SELECT * FROM images', (error, results) => {
+    connection.connect();
+    
+    connection.query('SELECT * FROM imagenes', (error, results) => {
       if (error) {
         throw error;
       }
@@ -25,8 +27,8 @@ function Carrusel() {
 
   return (
     <div className="carrusel">
-      {images.map((image) => (
-        <img key={image.id} src={image.url} alt={image.alt} />
+      {images.map((imagenes) => (
+        <img key={imagenes.id} src={imagenes.url} alt={imagenes.titulo} />
       ))}
     </div>
   );

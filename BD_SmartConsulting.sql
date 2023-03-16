@@ -28,7 +28,7 @@ CREATE TABLE usuarios (
     id_empleado INT(11) NOT NULL,
     rol ENUM('administrador', 'usuario','contador') NOT NULL DEFAULT 'usuario',
     PRIMARY KEY (id),
-    UNIQUE KEY (username)
+    UNIQUE KEY (username),
     FOREIGN KEY (id_empleado) REFERENCES empleados(id)
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE citas (
     comentario TEXT,
     PRIMARY KEY (id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id),
     FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
@@ -73,14 +73,6 @@ CREATE TABLE pagos (
     FOREIGN KEY (id_cita) REFERENCES citas(id)
 );
 
-CREATE TABLE empleados (
-    id INT(11) NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
-    email VARCHAR(50),
-    telefono VARCHAR(20),
-    fecha_contratacion DATE NOT NULL,
-    PRIMARY KEY (id)
-);
 
 CREATE TABLE horarios (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -104,7 +96,7 @@ CREATE TABLE inventario (
 CREATE TABLE imagenes (
   id INT(11) NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(50) NOT NULL,
-  url VARCHAR(100) NOT NULL,
+  url VARCHAR(150) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -112,9 +104,9 @@ CREATE TABLE imagenes (
 /*Llenado general de tablas*/
 INSERT INTO empleados (nombre, email, telefono, fecha_contratacion)
 VALUES 
-('Juan Pérez', 'juan.perez@empresa.com', '9988-1234', '2022-01-01', 'contador'),
-('María García', 'maria.garcia@empresa.com', '9977-5678', '2022-01-02', 'usuario'),
-('Pedro González', 'pedro.gonzalez@empresa.com', '9966-9012', '2022-01-03', 'administrador');
+('Juan Pérez', 'juan.perez@empresa.com', '9988-1234', '2022-01-01'),
+('María García', 'maria.garcia@empresa.com', '9977-5678', '2022-01-02'),
+('Pedro González', 'pedro.gonzalez@empresa.com', '9966-9012', '2022-01-03');
 
 INSERT INTO horarios (id_empleado, dia_semana, hora_inicio, hora_fin)
 VALUES 
@@ -147,3 +139,11 @@ VALUES
 ('Plancha de pelo', 2, 2200.00, 'Plancha para alisar el cabello de cerámica y turmalina.'),
 ('Tintes para cabello', 8, 250.00, 'Tintes semipermanentes para el cabello en diferentes tonos.'),
 ('Permanentes para cabello', 5, 400.00, 'Líquidos para hacer permanentes en el cabello en diferentes niveles de ondulación.');
+
+INSERT INTO imagenes (titulo, url) 
+VALUES 
+('peinadosMasculinos1', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).jpg?raw=true'),
+('peinadosMasculinos2', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).png?raw=true'),
+('peinadosMasculinos3', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(2).png?raw=true');
+
+
