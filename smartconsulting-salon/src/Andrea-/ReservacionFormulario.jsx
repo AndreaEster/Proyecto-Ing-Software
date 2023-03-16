@@ -34,7 +34,7 @@ function ReservacionFormulario(props) {
       <label htmlFor="services">Servicios solicitados:</label>
       <input type="text" id="services" value={services} onChange={(e) => setServices(e.target.value)} />
 
-      <button type="submit">Reservar cita</button>
+      <button className="Submiting" type="submit">Reservar cita</button>
     </form>
   );
 }

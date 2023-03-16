@@ -55,16 +55,23 @@ button {
   align-self: self-end;
   font-size: 16px;
   padding: 10px 20px;
+
   border: none;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
+.Submiting{
+  align-self: center;
+}
+
 button:hover {
   background-color: #075998; /* un azul más claro */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
+
+
 
 label {
   font-size: 16px;
@@ -84,6 +91,7 @@ label {
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   padding: 20px;
+  margin: auto;
   max-width: 1000px;
   width: 100%;
   
@@ -103,6 +111,7 @@ label {
   border-radius: 5px;
   border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
   font-size: 18px;
   width: 100%;
 }
