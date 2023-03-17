@@ -16,6 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.6",
     "timers-browserify": "^2.0.12",
     "util": "^0.12.5",
     "web-vitals": "^2.1.4"
