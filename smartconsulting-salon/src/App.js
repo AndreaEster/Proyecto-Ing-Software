@@ -1,12 +1,21 @@
 import './App.css';
 import Footer from './componentes/Footer';
 import Header from './componentes/Header';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReservacionFormulario from './Andrea-/ReservacionFormulario';
 import Carrusel from './componentes/Carrusel';
 
 
 function App() {
+
+  const [imagenes, setImagenes] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/imagenes')
+      .then((response) => response.json())
+      .then((data) => setImagenes(data))
+      .catch((error) => console.log(error));
+  }, []);
   const [showPopup, setShowPopup] = useState(false);
 
   const handleOpenPopup = () => {
@@ -23,7 +32,7 @@ function App() {
         Aqui se desarrollara el proceso de ensamblado
       </h1>
       <Header />
-      <Carrusel />
+      <Carrusel imagenes={imagenes}/>
       {showPopup ? (
         <div className="popup">
           <div className="popup-content">

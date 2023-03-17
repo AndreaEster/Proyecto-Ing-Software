@@ -96,7 +96,7 @@ CREATE TABLE inventario (
 CREATE TABLE imagenes (
   id INT(11) NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(50) NOT NULL,
-  url VARCHAR(150) NOT NULL,
+  url VARCHAR(250) NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -142,8 +142,9 @@ VALUES
 
 INSERT INTO imagenes (titulo, url) 
 VALUES 
-('peinadosMasculinos1', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).jpg?raw=true'),
-('peinadosMasculinos2', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).png?raw=true'),
-('peinadosMasculinos3', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(2).png?raw=true');
+('peinadosMasculinos1', 'https://raw.githubusercontent.com/AndreaEster/Proyecto-Ing-Software/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).jpg?token=GHSAT0AAAAAAB7Y5RUPS3VRSO3ANWL6MTDQZAUWM6A'),
+('peinadosMasculinos2', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).png'),
+('peinadosMasculinos3', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(2).png'),
+('Ejemplo', 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80');
 
 
