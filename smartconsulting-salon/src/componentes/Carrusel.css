@@ -7,11 +7,7 @@
 .Carro {
     display: flex;
     align-items: center;
-    flex-direction: row;
-    width: 700px;
-    height: 500px;
-    margin: 50px 0;
     overflow: hidden;
     border-radius: 10px;
+    
 }
-

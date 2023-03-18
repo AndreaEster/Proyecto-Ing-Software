@@ -142,9 +142,9 @@ VALUES
 
 INSERT INTO imagenes (titulo, url) 
 VALUES 
-('peinadosMasculinos1', 'https://raw.githubusercontent.com/AndreaEster/Proyecto-Ing-Software/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).jpg?token=GHSAT0AAAAAAB7Y5RUPS3VRSO3ANWL6MTDQZAUWM6A'),
-('peinadosMasculinos2', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(1).png'),
-('peinadosMasculinos3', 'https://github.com/AndreaEster/Proyecto-Ing-Software/blob/b60d117ad0793ffcf53e1f826cf5513fb85a8b25/Assets/HOMBREES/peinados/(2).png'),
-('Ejemplo', 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80');
+('Mechas', 'https://i.pinimg.com/564x/6e/48/41/6e4841ab4fe9bce6acd7355829a257a3.jpg'),
+('Entintados', 'https://media.glamour.mx/photos/6190632fa6e030d6480f740c/master/w_1600,c_limit/241386.jpg'),
+('Cortes de Pelo', 'https://i.pinimg.com/564x/df/09/64/df0964413c3ae76fce416653dce8ebba.jpg'),
+('Extenciones', 'http://resizer.sevilla.abc.es/resizer/resizer.php?imagen=https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2020/01/extensiones-cabello-tipos-como-cuidar.jpg&nuevoancho=652');
 
 
