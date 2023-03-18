@@ -17,12 +17,10 @@ const Carrusel = ({ imagenes }) => {
     <div className="Carrusel">
     <Slider className='Carro'{...settings}>
       {imagenes.map((imagen) => (
-        <div className='carta'>
           <div key={imagen.id}>
             <img src={imagen.url} alt={imagen.titulo} />
             <h1>{imagen.titulo}</h1>
           </div>
-        </div>
       ))}
     </Slider>
     </div>   
