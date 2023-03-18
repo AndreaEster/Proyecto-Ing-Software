@@ -4,14 +4,14 @@ import Header from './componentes/Header';
 import React, { useState, useEffect } from 'react';
 import ReservacionFormulario from './Andrea-/ReservacionFormulario';
 import Carrusel from './componentes/Carrusel';
-
+import axios from "axios";
 
 function App() {
 
   const [imagenes, setImagenes] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/imagenes')
+    fetch('http://localhost:3001/api/imagenes/imagenes')
       .then((response) => response.json())
       .then((data) => setImagenes(data))
       .catch((error) => console.log(error));
