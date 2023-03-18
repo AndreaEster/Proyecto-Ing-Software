@@ -8,12 +8,56 @@
   text-align: center;
 }
 
+/*CSS del Footer*/
+
+.footer{
+  position: relative;
+  background-color: #f4edffb6;
+  align-content: bottom;
+}
+
+p.Spamming{
+  font-size: 20px;
+  font-weight: 500;
+  font-style: normal;
+  padding: auto;
+}
+
+.Sociales-titulo{
+  font-size: 32px;
+  font-weight: 400;
+  font-style: oblique;
+}
+
+.Sociales{
+  padding: 15px 30px;
+}
+a{
+  margin: 0 1rem;
+  transition: transform 250ms;
+  display: inline-block;
+}
+
+a:hover{
+  transform: translateY(-2px);
+}
+
+a.facebook{
+  color:#00538b
+}
+
+a.instagram{
+  color:darkmagenta
+}
+
+/*------------------------------*/
+
 .carta{
   border: 1px solid #fff;
   overflow: hidden;
   border-radius: 16px;
   background: black;
-  align-self: center;
+  align-items: center;
 }
 
 .content {
