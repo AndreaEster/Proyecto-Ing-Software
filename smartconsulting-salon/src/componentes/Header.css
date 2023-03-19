@@ -1,9 +1,10 @@
 .Header {
-    background: linear-gradient(to right, #bcffa1, #88e563); /* un fondo degradado de azules */
-    padding: 20px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+      background: linear-gradient(to right, #bcffa1, #88e563); /* un fondo degradado de azules */
+      padding: 20px;
+      color: white;
+      justify-content: space-between;   
+    } 
+    
+.Search-var{
+  align-items:self-end;
+}
