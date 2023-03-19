@@ -32,6 +32,8 @@ function App() {
         Aqui se desarrollara el proceso de ensamblado
       </h1>
       <Header />
+      
+      <Carrusel imagenes />
       <Footer fixed="bottom"/>
     </div>
   );
