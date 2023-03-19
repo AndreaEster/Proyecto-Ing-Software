@@ -32,19 +32,6 @@ function App() {
         Aqui se desarrollara el proceso de ensamblado
       </h1>
       <Header />
-      <Carrusel imagenes={imagenes}/>
-      {showPopup ? (
-        <div className="popup">
-          <div className="popup-content">
-            <button className="close" onClick={handleClosePopup}>X</button>
-            <ReservacionFormulario />
-          </div>
-        </div>
-      ) : (
-        <div>
-          <button onClick={handleOpenPopup}>Reservar cita</button>
-        </div>
-      )}
       <Footer fixed="bottom"/>
     </div>
   );

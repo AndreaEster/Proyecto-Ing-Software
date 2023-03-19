@@ -10,7 +10,7 @@ const Carrusel = ({ imagenes }) => {
     speed: 500,
     initialSlide: 0,
     slidesToShow: 1,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     responsive: [
       {
         breakpoint: 1024,
