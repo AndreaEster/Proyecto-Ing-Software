@@ -2,10 +2,9 @@
   background: linear-gradient(to top, #edb5f3 5%, #e99eeb 15%,#c562c5 );
   color: rgb(0, 0, 0);
   display: flex;
+  position:relative;
   flex-direction: column;
-  min-height: min-content;
   max-height: 2400px;
-  min-width: fit-content;
   max-width: 2400px;
   text-align: center;
 }

@@ -45,7 +45,7 @@ function App() {
           <button onClick={handleOpenPopup}>Reservar cita</button>
         </div>
       )}
-      <Footer sticky="bottom"/>
+      <Footer fixed="bottom"/>
     </div>
   );
 }

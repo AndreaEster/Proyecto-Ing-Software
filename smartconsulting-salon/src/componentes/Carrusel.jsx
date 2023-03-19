@@ -2,10 +2,6 @@ import React from 'react';
 import Slider from 'react-slick';
 import './Carrusel.css';
 
-function NextButton(){
-
-}
-
 
 const Carrusel = ({ imagenes }) => {
   const settings = {
