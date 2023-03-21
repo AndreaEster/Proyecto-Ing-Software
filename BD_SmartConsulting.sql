@@ -142,9 +142,11 @@ VALUES
 
 INSERT INTO imagenes (titulo, url) 
 VALUES 
-('Mechas', 'https://i.pinimg.com/564x/6e/48/41/6e4841ab4fe9bce6acd7355829a257a3.jpg'),
-('Entintados', 'https://media.glamour.mx/photos/6190632fa6e030d6480f740c/master/w_1600,c_limit/241386.jpg'),
-('Cortes de Pelo', 'https://i.pinimg.com/564x/df/09/64/df0964413c3ae76fce416653dce8ebba.jpg'),
-('Extenciones', 'http://resizer.sevilla.abc.es/resizer/resizer.php?imagen=https://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/sites/14/2020/01/extensiones-cabello-tipos-como-cuidar.jpg&nuevoancho=652');
+('Extenciones', 'https://i.pinimg.com/564x/28/4b/8a/284b8a2e808841cb297215c406321a39.jpg'),
+('Tintes de Cabello', 'https://i.pinimg.com/564x/f2/44/53/f244538448882770cba596c750c8464c.jpg'),
+('Cortes de Cabello', 'https://i.pinimg.com/564x/24/48/ee/2448ee159b228843c3a6ff939d1929b5.jpg'),
+('Manicura', 'https://i.pinimg.com/564x/0a/90/32/0a9032d2eab0489c2f7127370545371b.jpg'),
+('Pedicura', 'https://i.pinimg.com/564x/1e/ed/7a/1eed7ab451ee7fd2873274dcc321f757.jpg'),
+('Maquillaje', 'https://i.pinimg.com/564x/07/79/46/077946bc4e8372b4ab01c9fec0473c88.jpg');
 
 

@@ -1,6 +1,5 @@
 .App {
-  background: linear-gradient(to top, #edb5f3 5%, #e99eeb 15%,#c562c5 );
-  color: rgb(0, 0, 0);
+  background:rgb(255, 242, 205);
   display: flex;
   position:relative;
   flex-direction: column;
@@ -9,49 +8,6 @@
   text-align: center;
 }
 
-/*CSS del Footer*/
-
-.footer{
-  position: relative;
-  background-color: #f4edffb6;
-  align-content: bottom;
-}
-
-p.Spamming{
-  font-size: 20px;
-  font-weight: 500;
-  font-style: normal;
-  padding: auto;
-}
-
-.Sociales-titulo{
-  font-size: 32px;
-  font-weight: 400;
-  font-style: oblique;
-}
-
-.Sociales{
-  padding: 15px 30px;
-}
-a{
-  margin: 0 1rem;
-  transition: transform 250ms;
-  display: inline-block;
-}
-
-a:hover{
-  transform: translateY(-2px);
-}
-
-a.facebook{
-  color:#00538b
-}
-
-a.instagram{
-  color:darkmagenta
-}
-
-/*------------------------------*/
 
 .carta{
   border: 1px solid #fff;

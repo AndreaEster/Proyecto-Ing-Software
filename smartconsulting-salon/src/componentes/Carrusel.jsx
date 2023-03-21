@@ -1,56 +1,36 @@
-import React from 'react';
-import Slider from 'react-slick';
-import './Carrusel.css';
+import React, { useState, useEffect } from "react";
+import "./Carrusel.css";
+import { Card, Carousel } from "react-bootstrap"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+const Carrusel = () => {
+  const [imagenes, setImagenes] = useState([]);
 
-const Carrusel = ({ imagenes }) => {
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    initialSlide: 0,
-    slidesToShow: 1,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
+  useEffect(() => {
+    const fetchImagenes = async () => {
+      const res = await fetch('http://localhost:3001/api/imagenes/imagenes');
+      const data = await res.json();
+      setImagenes(data);
+    };
+
+    fetchImagenes();
+  }, []);
 
   return (
-    <div className="Carrusel">
-      <Slider {...settings}>
-        {imagenes.map((item) => (
-            <div className="contenedor-imagenes" key={item.id}>
-              <img src={item.url} alt={item.titulo} />
-              <h1>{item.titulo}</h1>
-            </div>
-        ))}
-      </Slider>
-    </div>   
+    <Carousel>
+      {imagenes.map((imagen) => (
+        <Carousel.Item key={imagen.id}>
+          <Card.Body className='card-body'>
+            <img className="d-row w-10" src={imagen.url} alt={imagen.titulo} />
+            <Card.Title className='carrusel-container-Title w-10' >{imagen.titulo}</Card.Title>
+            <Card.Text className="d-row w-10">Bienvenidos a nuestro salón de belleza. Ofrecemos servicios de calidad a precios accesibles.</Card.Text>
+          </Card.Body>
+        </Carousel.Item>
+      ))}
+    </Carousel>
   );
-};
+}
+
+
 
 export default Carrusel;
