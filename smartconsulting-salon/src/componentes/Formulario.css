@@ -1,0 +1,11 @@
+    .label {
+        color: black;
+    }
+    
+    .modal-header{
+        display: flex;
+        align-items: center;
+        padding-left: 20%;
+    }
+
+

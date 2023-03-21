@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LandingPage.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import Carrusel from './Carrusel';
+import Formulario from './Formulario';
 
 
 function LandingPage() {
+    const [show, setShow] = useState(false);
+
     return (
         <>
             <Navbar bg="light" expand="lg">
@@ -30,8 +33,14 @@ function LandingPage() {
                 </Container>
                 <Container className='boton'>
                     <p>
-                        <Button className='bot-boton' variant="primary" href="#reservacion">Haga su reservación AQUÍ</Button>
-                    </p></Container>
+                        <Button className='bot-boton' variant="primary" onClick={() => setShow(true)}>Haga su reservación AQUÍ</Button>
+                    </p>
+                    <Formulario
+                        estado={show}
+                        cambiar={() => setShow(false)}
+                    />
+                </Container>
+
             </Container>
             <Container fluid>
                 <Carrusel />
