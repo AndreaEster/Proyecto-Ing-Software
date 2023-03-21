@@ -1,0 +1,82 @@
+    .jumbotron {
+    background-image: url('https://www.algedra.ae/assets/imgs/project/cover/ApDU-salon-interior-design.jpg');
+    background-size: fill;
+    display: flex;
+    position:relative;
+    color: rgb(2, 2, 2);
+    height: 530px;
+    flex-direction: column;
+    opacity: 0.7;
+    align-items: baseline;
+
+    
+  }
+  .h1{
+    align-items: baseline;
+  }
+  
+  .boton{
+    display: flex;
+    align-self: baseline;
+    flex-direction: column;
+    position:relative;
+    padding-top: 12vh;
+    padding-bottom: 10px;
+  }
+
+  .bot-boton{
+    background-color: #3f094b;
+    border-color: #1f0225;
+  }
+  .footer{
+    
+    position: relative;
+    background-color: #d8c0ffbd;
+    align-content: bottom;
+    
+    
+  }
+  
+  .p-subt{
+    font-size: 20px;
+    color: #292828;
+  }
+
+  p.Spamming{
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  h3{
+    color: #3f094b;
+
+  }
+  .Sociales-titulo{
+    font-size: 32px;
+    font-weight: 400;
+    font-style: oblique;
+  }
+  
+  .Sociales{
+    padding: 15px 30px;
+  }
+
+  a{
+    margin: 0 1rem;
+    transition: transform 250ms;
+    display: inline-block;
+  }
+  
+  a:hover{
+    transform: translateY(-2px);
+  }
+  
+  a.facebook{
+    color:#00538b
+  }
+  
+  a.instagram{
+    color:darkmagenta
+  }
+  
