@@ -1,25 +1,31 @@
 import './Header.css';
 import React from 'react';
 
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Navbar from 'react-bootstrap/Navbar';
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
+function Header(props) {
+  let navigate = useNavigate();
+  const routeLogin = () => {
+    let login = '/login';
+    navigate(login);
+  }
 
-function Header() {
+  const routeHome = () => {
+    let home = '/'
+    navigate(home);
+  }
+
   return (
-    <Navbar className='Navhead' >
-      <Container className='Container-Header'>
-          <Form className="Search-var">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand onClick={routeHome}>Salón Smart</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Link onClick={routeLogin}>Conectarse</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
