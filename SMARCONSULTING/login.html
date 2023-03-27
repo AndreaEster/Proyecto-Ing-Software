@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <div id="div1"><h1></h1></div>
+  <section>
+    <div class="color"></div>
+    <div class="color"></div>
+    <div class="color"></div>
+    <div class="box">
+      <div class="square" style="--i:0;"></div>
+      <div class="square" style="--i:1;"></div>
+      <div class="square" style="--i:2;"></div>
+      <div class="square" style="--i:3;"></div>
+      <div class="square" style="--i:4;"></div>
+      
+      
+      
+      <div class="container">
+        <div class="from">
+          <h2>Identificate</h2>
+          <form>
+            <div class="inputBox">
+              <input type="text" placeholder="Usuario" name="usuario">
+            </div>
+            <div class="inputBox">
+              <input type="password" placeholder="Contrasena" name="password">
+            </div>
+            <div class="inputBox">
+              <input type="button" value="Ingresar" onclick="login();">
+            </div>
+            <span id="error" style="color: red;font-weight: bold;"></span>
+            <p class="forget"><a href="#">¿Olvidaste tu contraseña?</a></p>
+            <p class="forget"><a href="#">¿No tienes una cuenta? </a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+</body>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/login.js">
+</script>
+</html>
