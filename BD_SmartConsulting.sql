@@ -7,18 +7,22 @@ CREATE TABLE servicios (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
-	imagen_url VARCHAR(255),
+    id_producto INT(11),
+    imagen_url VARCHAR(255),
     PRIMARY KEY (id),
-    UNIQUE KEY (nombre)
+    UNIQUE KEY (nombre),
+    FOREIGN KEY (id_producto) REFERENCES productos(id)
 );
 
 CREATE TABLE usuarios (
     id INT(11) NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('administrador', 'usuario') NOT NULL DEFAULT 'usuario',
+    id_empleado INT(11) NOT NULL,
+    rol ENUM('administrador', 'usuario', 'contador') NOT NULL DEFAULT 'usuario',
     PRIMARY KEY (id),
-    UNIQUE KEY (username)
+    UNIQUE KEY (username),
+    FOREIGN KEY (id_empleado) REFERENCES empleados(id)
 );
 
 CREATE TABLE citas (
@@ -66,7 +70,6 @@ CREATE TABLE empleados (
     email VARCHAR(50),
     telefono VARCHAR(20),
     fecha_contratacion DATE NOT NULL,
-    roles TEXT,
     PRIMARY KEY (id)
 );
 
@@ -87,4 +90,41 @@ CREATE TABLE inventario (
     precio DECIMAL(10,2) NOT NULL,
     descripcion TEXT,
     PRIMARY KEY (id)
+);
+
+CREATE TABLE perfiles (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE servicios_por_cita (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    id_cita INT(11) NOT NULL,
+    id_servicio INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_cita) REFERENCES citas(id),
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+);
+
+CREATE TABLE items_por_pago (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    id_pago INT(11) NOT NULL,
+    id_item INT(11) NOT NULL,
+    cantidad INT(11) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_pago) REFERENCES pagos(id),
+    FOREIGN KEY (id_item) REFERENCES inventario(id)
+);
+
+CREATE TABLE facturas (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    id_pago INT(11) NOT NULL,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_pago) REFERENCES pagos(id)
 );
