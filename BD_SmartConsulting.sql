@@ -32,13 +32,12 @@ CREATE TABLE servicios (
     FOREIGN KEY (id_producto) REFERENCES producto(id)
 );
 
-CREATE TABLE inventario (
-  id int(11) NOT NULL,
+CREATE TABLE imagenes (
+  id int(11) NOT NULL AUTO_INCREMENT,
   nombre varchar(50) NOT NULL,
-  cantidad int(11) NOT NULL,
-  precio decimal(10,0) NOT NULL,
-  descripcion text NOT NULL
+  url varchar(250) NOT NULL
 );
+
 
 
 CREATE TABLE usuarios (
@@ -124,7 +123,22 @@ CREATE TABLE facturas (
     FOREIGN KEY (id_pago) REFERENCES pagos(id)
 );
 
-
+INSERT INTO imagenes (id, nombre, url) 
+VALUES
+(1, '1', './Assets/Carousel/1.jpg'),
+(3, '3', './Assets/Carousel/3.jpg'),
+(4, '4', './Assets/Carousel/4.jpg'),
+(5, '5', './Assets/Carousel/5.jpg'),
+(6, '6', './Assets/Carousel/6.jpg'),
+(7, '7', './Assets/Carousel/7.jpg'),
+(8, '8', './Assets/Carousel/8.jpg'),
+(9, '9', './Assets/Carousel/9.jpg'),
+(10, '10', './Assets/Carousel/10.jpg'),
+(11, '11', './Assets/Carousel/11.jpg'),
+(12, '12', './Assets/Carousel/12.jpg'),
+(13, '13', './Assets/Carousel/13.jpg'),
+(14, '14', './Assets/Carousel/14.jpg'),
+(15, '15', './Assets/Carousel/15.jpg');
 
 INSERT INTO empleados (nombre, email, telefono, fecha_contratacion)
 VALUES 
