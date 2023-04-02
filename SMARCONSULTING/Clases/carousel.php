@@ -1,5 +1,6 @@
 <?php
-include "conexion2.php";
+
+include('conexion2.php');
 $db = new BaseDatos();
 
 $result = array();
@@ -9,7 +10,7 @@ $estado = false;
 
 $data = array();
 foreach ($result as $resultado) {
-   $data[]= $resultado;
+   $data[] = $resultado;
 
 }
 

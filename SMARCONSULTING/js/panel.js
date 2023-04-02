@@ -5,7 +5,7 @@
  */
 function carousel(){
 
-    $.post("Clases/carousel.php",
+    $.post("./Clases/carousel.php",
     {
       usuario: "usuario",
       password: "contrasena"
