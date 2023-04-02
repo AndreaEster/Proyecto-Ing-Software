@@ -3,12 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2023 a las 08:30:55
+-- Tiempo de generación: 02-04-2023 a las 20:28:43
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
-DROP DATABASE IF EXISTS smartconsultingbd;
-CREATE DATABASE smartconsultingbd;
-USE smartconsultingbd;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -115,6 +113,38 @@ INSERT INTO `horarios` (`id`, `id_empleado`, `dia_semana`, `hora_inicio`, `hora_
 (13, 4, 'martes', '09:00:00', '17:00:00'),
 (14, 4, 'sabado', '10:00:00', '14:00:00'),
 (15, 4, 'domingo', '10:00:00', '14:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagenes`
+--
+
+CREATE TABLE `imagenes` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `url` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `imagenes`
+--
+
+INSERT INTO `imagenes` (`id`, `nombre`, `url`) VALUES
+(1, '1', './Assets/Carousel/1.jpg'),
+(3, '3', './Assets/Carousel/3.jpg'),
+(4, '4', './Assets/Carousel/4.jpg'),
+(5, '5', './Assets/Carousel/5.jpg'),
+(6, '6', './Assets/Carousel/6.jpg'),
+(7, '7', './Assets/Carousel/7.jpg'),
+(8, '8', './Assets/Carousel/8.jpg'),
+(9, '9', './Assets/Carousel/9.jpg'),
+(10, '10', './Assets/Carousel/10.jpg'),
+(11, '11', './Assets/Carousel/11.jpg'),
+(12, '12', './Assets/Carousel/12.jpg'),
+(13, '13', './Assets/Carousel/13.jpg'),
+(14, '14', './Assets/Carousel/14.jpg'),
+(15, '15', './Assets/Carousel/15.jpg');
 
 -- --------------------------------------------------------
 
@@ -273,6 +303,12 @@ ALTER TABLE `horarios`
   ADD KEY `id_empleado` (`id_empleado`);
 
 --
+-- Indices de la tabla `imagenes`
+--
+ALTER TABLE `imagenes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `inventario`
 --
 ALTER TABLE `inventario`
@@ -350,6 +386,12 @@ ALTER TABLE `facturas`
 -- AUTO_INCREMENT de la tabla `horarios`
 --
 ALTER TABLE `horarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `imagenes`
+--
+ALTER TABLE `imagenes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
