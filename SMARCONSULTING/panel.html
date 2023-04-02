@@ -70,25 +70,23 @@
                 <label for="textarea2">Comentarios</label>
               </div>
             </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <select id="select-options">
-                  <option value="" disabled selected>Seleccione al empleado</option>
+              <div class="row">
+                <label>Empleados</label>
+                <select class="browser-default" id="empleados01">
+                  <option value="" disabled selected>Selecione un empleado</option>
                 </select>
               </div>
               <div class="row">
-                <div class="input-field col s12">
-                  <select type="select-options-hor" id="select">
-                    <option value="" disabled selected>Seleccione el rango de horario</option>
-                  </select>
-                </div>
+                <label>Horarios</label>
+                <select class="browser-default" id="horarios01">
+                  <option value="" disabled selected>Selecione un Horario</option>
+                </select>
               </div>
               <div class="row">
                 <div class="input-field col s12">
                   <input id="birthdate" type="text" class="datepicker">
                   <label for="birthdate">Fecha</label>
                 </div>
-              </div>
             </div>
           </div>
         </form>
@@ -257,12 +255,15 @@
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/panel.js"></script>
-  <script src="js/cita.js"></script>
   <script src="js/obtenerempleados.js"></script>
-  <script>
+  <script type="text/javascript">
+    panel = new panel();
     $(document).ready(function () {
-      carousel();
+      panel.getEmpleados();
+      panel.getCarousel();
     });
+
+    $('#empleados01').change(e => panel.getHorario(e.target.value));
   </script>
 
 </body>
