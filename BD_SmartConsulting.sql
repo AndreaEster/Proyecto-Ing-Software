@@ -35,7 +35,8 @@ CREATE TABLE servicios (
 CREATE TABLE imagenes (
   id int(11) NOT NULL AUTO_INCREMENT,
   nombre varchar(50) NOT NULL,
-  url varchar(250) NOT NULL
+  url varchar(250) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 
@@ -59,7 +60,6 @@ CREATE TABLE citas (
     email VARCHAR(50),
     telefono VARCHAR(20),
     fecha DATE NOT NULL,
-    hora TIME NOT NULL,
     duracion INT(11) NOT NULL,
     estado ENUM('confirmada', 'cancelada', 'realizada') NOT NULL DEFAULT 'confirmada',
     comentario TEXT,
@@ -110,7 +110,7 @@ CREATE TABLE producto_por_pago (
     precio DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_pago) REFERENCES pagos(id),
-    FOREIGN KEY (id_producto) REFERENCES inventario(id)
+    FOREIGN KEY (id_producto) REFERENCES producto(id)
 );
 
 CREATE TABLE facturas (
