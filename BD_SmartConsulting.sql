@@ -29,7 +29,15 @@ CREATE TABLE servicios (
     imagen_url VARCHAR(255),
     PRIMARY KEY (id),
     UNIQUE KEY (nombre),
-    FOREIGN KEY (id_producto) REFERENCES productos(id)
+    FOREIGN KEY (id_producto) REFERENCES producto(id)
+);
+
+CREATE TABLE inventario (
+  id int(11) NOT NULL,
+  nombre varchar(50) NOT NULL,
+  cantidad int(11) NOT NULL,
+  precio decimal(10,0) NOT NULL,
+  descripcion text NOT NULL
 );
 
 
@@ -162,7 +170,7 @@ VALUES
 INSERT INTO usuarios (username, password, id_empleado, rol) 
 VALUES 
 ('admin', 'password123', 2, '1'),
-('admin-online', 'pass123', 1),
+('admin-online', 'pass123', 1,'2'),
 ('mg-corp1', 'pass456', 3, '3'),
-('pg-corp2', 'pass567', 4);
+('pg-corp2', 'pass567', 4,'4');
 
