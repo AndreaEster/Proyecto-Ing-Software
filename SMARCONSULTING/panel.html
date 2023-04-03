@@ -50,17 +50,17 @@
           <div class="row">
             <div class="input-field col s6">
               <i class="material-icons prefix">account_circle</i>
-              <input id="icon_prefix" type="text" class="validate">
+              <input id="icon_prefix" type="text" class="validate nombre">
               <label for="icon_prefix">Nombre Y Apellidos</label>
             </div>
             <div class="input-field col s6">
               <i class="material-icons prefix">phone</i>
-              <input id="icon_telephone" type="tel" class="validate">
+              <input id="icon_telephone" type="tel" class="validate telefono">
               <label for="icon_telephone">Telefono</label>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
+                <input id="email" type="email" class="validate email">
                 <label for="email">Email</label>
               </div>
             </div>
@@ -70,23 +70,48 @@
                 <label for="textarea2">Comentarios</label>
               </div>
             </div>
-              <div class="row">
-                <label>Empleados</label>
-                <select class="browser-default" id="empleados01">
-                  <option value="" disabled selected>Selecione un empleado</option>
+            <div class="row">
+              <label>Empleados</label>
+              <select class="browser-default" id="empleados01">
+                <option value="" disabled selected>Selecione un empleado</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Horarios</label>
+              <select class="browser-default" id="horarios01">
+                <option value="" disabled selected>Selecione un Horario</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Servicios</label>
+              <select class="browser-default" id="servicios">
+                <option value="" disabled selected>Selecione un Servicio</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Duracion</label>
+              <p class="range-field">
+                <input type="range" id="test5" min="0" max="100" class="duracion"/>
+              </p>
+            </div>
+
+
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="estado">
+                  <option value="confirmada" disabled selected>Seleccione un estado</option>
+                  <option value="confirmada">Confirmada</option>
+                  <option value="realizada">Realizada</option>
+                  <option value="cancelada">Cancelada</option>
                 </select>
+                <label>Estado</label>
               </div>
-              <div class="row">
-                <label>Horarios</label>
-                <select class="browser-default" id="horarios01">
-                  <option value="" disabled selected>Selecione un Horario</option>
-                </select>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="birthdate" type="text" class="datepicker fecha">
+                <label for="birthdate">Fecha</label>
               </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <input id="birthdate" type="text" class="datepicker">
-                  <label for="birthdate">Fecha</label>
-                </div>
             </div>
           </div>
         </form>
@@ -96,8 +121,18 @@
 
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Enviar</a>
+      <!--
+       class modal-close
+      -->
+      <a class="modal-close btn-floating btn-large waves-effect waves-light red left"><i
+          class="material-icons">close</i></a>
+      <button class=" btn waves-effect waves-light" type="submit" name="action" onclick="panel.setCita();">Enviar
+        <i class="material-icons right">send</i>
+      </button>
     </div>
+
+
+
   </div>
 
 
@@ -244,7 +279,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-        
+
       </div>
     </div>
   </footer>
@@ -261,9 +296,11 @@
     $(document).ready(function () {
       panel.getEmpleados();
       panel.getCarousel();
+      panel.getServicios();
     });
 
     $('#empleados01').change(e => panel.getHorario(e.target.value));
+
   </script>
 
 </body>
