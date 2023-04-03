@@ -12,6 +12,7 @@ $estado = false;
 foreach ($result as $resultado) {
     if($resultado["username"]==$usuarioGET && $resultado["password"]==$contrasenaGET){
         $estado = true;
+        
     }
    
 }

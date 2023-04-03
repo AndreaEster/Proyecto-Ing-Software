@@ -5,7 +5,7 @@ $db = new BaseDatos();
 
 $result = array();
 
-$result = $db->getDatos("SELECT * FROM empleados");
+$result = $db->getDatos("SELECT * FROM empleados WHERE id != 1");
 
 /**
  * Se rellena el arreglo relacional unicamente con los
