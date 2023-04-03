@@ -25,7 +25,7 @@ CREATE TABLE servicios (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
-    id_producto INT(11),
+    id_producto INT(11) NOT NULL,
     imagen_url VARCHAR(255),
     PRIMARY KEY (id),
     UNIQUE KEY (nombre),
@@ -188,3 +188,9 @@ VALUES
 ('mg-corp1', 'pass456', 3, '3'),
 ('pg-corp2', 'pass567', 4,'4');
 
+
+INSERT INTO servicios (nombre, precio, id_producto, imagen_url) 
+VALUES 
+('Corte de pelo', 50.00, 1, null),
+('manicura', 150.00, 1, null),
+('Pedicura', 250.00, 1, null);
