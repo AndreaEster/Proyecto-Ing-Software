@@ -10,3 +10,14 @@ function ocultarDiv(){
     $(".usuariosEdit").css("visibility", "hidden");
     $(".usuariosCont").css("visibility", "hidden");
 }
+
+function cargarUsuarios(){
+
+    $.post("Clases/getUsuarios.php", data,
+        function (data, status) {
+          
+            alert (data);
+            
+        },);
+
+}
