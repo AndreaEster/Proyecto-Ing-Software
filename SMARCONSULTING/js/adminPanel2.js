@@ -9,6 +9,7 @@ function ocultarDiv(){
     $(".calendarioCita").css("visibility", "hidden");
     $(".cita").css("visibility", "hidden");
     $(".reporte").css("visibility", "hidden");
+    $(".servicios").css("visibility", "hidden");
     $(".usuariosEdit").css("visibility", "hidden");
     $(".usuariosCont").css("visibility", "hidden");
 
@@ -19,6 +20,7 @@ function ocultarDiv(){
     $(".calendarioCita").removeClass("animate__animated animate__backInUp");
     $(".cita").removeClass("animate__animated animate__backInUp");
     $(".reporte").removeClass("animate__animated animate__backInUp");
+    $(".servicios").removeClass("animate__animated animate__backInUp");
     $(".usuariosEdit").removeClass("animate__animated animate__backInUp");
     $(".usuariosCont").removeClass("animate__animated animate__backInUp");
 
