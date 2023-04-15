@@ -5,7 +5,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/adminStyle.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/adminStyle2.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/animate.min.css"  media="screen,projection"/>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -382,12 +383,12 @@
                 <form>
                   <div class="row">
                     <div class="input-field col s6">
-                      <input id="first_name3" type="text" class="validate">
+                      <input id="first_name3" type="text" class="validate" value="Nombre de usuario">
                       <label for="first_name3">Nombre</label>
                     </div>
                     <div class="input-field col s6">
-                      <input id="first_name9" type="text" class="validate">
-                      <label for="first_name9">ID</label>
+                      <input id="first_name9" type="text" class="validate" disabled="true">
+                      <label for="first_name9"></label>
                     </div>
                   </div>
                   <div class="row">
@@ -522,7 +523,7 @@
       M.AutoInit();
       
    </script>
-   <script src="js/adminPanel.js"></script>
+   <script src="js/adminPanel2.js"></script>
    <script src="js/conexion.js"></script>
    <script>
     var con = new conexion();

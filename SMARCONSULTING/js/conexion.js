@@ -5,7 +5,7 @@ class conexion{
 
 
  cargarUsuarios(){
-
+    $("#tablaUsuarios").html("");
         $.post("Clases/getUsuarios.php", null,
             function (data, status) {
               
