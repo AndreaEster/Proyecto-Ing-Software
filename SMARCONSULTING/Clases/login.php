@@ -19,7 +19,7 @@ foreach ($result as $resultado) {
 
 $data = array(
     'estado' => $estado,
-    'url' => 'panel.html'
+    'url' => 'adminPanel.php'
 );
 $jsonData = json_encode($data);
 
