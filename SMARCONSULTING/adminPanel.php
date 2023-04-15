@@ -117,7 +117,7 @@
           <li>
             <div class="collapsible-header">
               <i class="material-icons">settings_applications</i>
-              Inventario
+              Reportes
               <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
             </div>
             <div class="collapsible-body white center"><b><i class="material-icons deep-purple-text"
