@@ -81,6 +81,24 @@ return $estado;
 
 }
 
+public function eliminar($query){
+    $estado = false;
+    // Crear conexión
+    $conn = mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
+    // Verificar conexión
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $sql = $query;
+    if (mysqli_query($conn, $sql)) {
+        $estado = true;
+    } 
+    
+    mysqli_close($conn);
+    return $estado;
+}
+
+
 }
 
 

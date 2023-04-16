@@ -126,7 +126,7 @@ class panel{
       fecha: $(".fecha").val(),
       hora:$("#horarios01").val(),
       duracion:$(".duracion").val(),
-      estado:$("#estado").val(),
+      estado:"1",
       comentario:$("#textarea2").val()
     },
       function (data, status) {

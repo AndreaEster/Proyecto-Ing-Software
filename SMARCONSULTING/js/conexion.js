@@ -51,6 +51,13 @@ class conexion {
     }
 
     liminarUsuario(id) {
+        $.post("/Clases/admin/eliminarUsuarios.php",
+        {"id":id},
+            function (data,status) {
+                JSON.parse(data);
+            },
+            "dataType"
+        );
         alert("Se va a eliminar el usuario:" + id);
     }
 

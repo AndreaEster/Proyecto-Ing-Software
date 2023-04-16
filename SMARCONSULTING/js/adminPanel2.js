@@ -1,3 +1,6 @@
+
+
+
 function mostrasDiv(clase){
         ocultarDiv();
         $("."+clase).addClass("animate__animated animate__backInUp");
@@ -34,5 +37,27 @@ function cargarUsuarios(){
             alert (data);
             
         },);
+
+};
+
+class adminpanel {
+    adminpanel(){
+
+    }
+getEmpleados(){
+
+    $.post("./Clases/obtenerempleados.php",{
+      "null":null
+    },
+      function (data,status) {
+        const empleados = JSON.parse(data);
+            
+          for (let index = 0; index < empleados.length; index++) {
+                $("#empleados1").append("<option value='"+empleados[index].id+"'>"+empleados[index].nombre+"</option>");
+              }
+        
+      });
+  
+    };
 
 }

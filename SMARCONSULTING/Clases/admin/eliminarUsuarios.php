@@ -1,22 +1,15 @@
 <?php
-include "conexion2.php";
+include "../conexion2.php";
 $db = new BaseDatos();
 
-if (isset($_GET['uid'])){
-    $user_id = $_GET['uid'];
-    
-    $sql = "DELETE FROM usuarios WHERE id = '{$user_id}'";
-    
-    $conn = $db->getDatos($sql);
+$id = $_GET['id'];
 
-    if (!empty($conn)){
-        
-    }
+$sql = "DELETE FROM usuarios WHERE id = '{$id}'";
 
-
+if ($db->eliminar($sql)) {
+    echo "Registro eliminado correctamente.";
+} else {
+    echo "Error al eliminar el registro.";
 }
-
-
-
 
 ?>

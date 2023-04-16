@@ -110,7 +110,7 @@
                       style="font-size: 30px;">chevron_right</i></span>Registrar/Editar</a>
                 <a href="#!" class="collection-item black-text" onclick="mostrasDiv('usuariosCont');"><span
                     class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Cambiar contrasena</a>
+                      style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
               </div>
             </div>
           </li>
@@ -432,17 +432,8 @@
             <div class="row">
               <a class="waves-effect waves-light btn left blue" onclick="con.actualizarUsuario();">Guardar</a>
             </div>
-
-
-
-
             <div class="row">
               <div class="col s12">
-
-
-
-
-
                 <table>
                   <thead>
                     <tr>
@@ -450,7 +441,7 @@
                       <th>Nombre</th>
                       <th>Tipo de usuario</th>
                       <th>Modificar</th>
-                      <th>Borar</th>
+                      <th>Borrar</th>
                     </tr>
                   </thead>
 
@@ -458,11 +449,6 @@
 
                   </tbody>
                 </table>
-
-
-
-
-
               </div>
             </div>
           </form>
@@ -475,27 +461,40 @@
       </div>
 
 
-      <!--Usuarios Cambiar contraseña-->
+      <!--Usuarios Nuevos-->
       <div class="col s6 usuariosCont z-depth-5">
         <div class="col s12">
-          <h3>Modificar contrasena</h3>
+          <h3>Agregar Usuario</h3>
           <br>
-          <h4><b>Nueva contrasena</b></h4>
+          <h4><b>Nueva Usuario al sistema</b></h4>
           <form>
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name3" type="text" class="validate">
-                <label for="first_name3">Usuario</label>
+                <input id="NuevoUsuario" type="text" class="validate">
+                <label for="first_name3">Nuevo Usuario</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name6" type="password" class="validate">
+                <input id="NuevaContra" type="password" class="validate">
                 <label for="first_name6">Nueva Contrasena</label>
               </div>
-              <div class="input-field col s6">
-                <input id="first_name7" type="password" class="validate">
-                <label for="first_name7">Confirmar Contrasena</label>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <select class="browser-default" id="selectRol">
+                  <option value="" disabled selected>Seleccione una opcion</option>
+                  <option value="administrador">administrador</option>
+                  <option value="contador">contador</option>
+                  <option value="usuario">usuario</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <select class="browser-default" id="empleados1">
+                  <option value="" disabled selected>Selecione un empleado</option>
+                </select>
               </div>
             </div>
             <div class="row">
@@ -534,17 +533,17 @@
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript">
-    M.AutoInit();
-
-  </script>
   <script src="js/adminPanel2.js"></script>
   <script src="js/conexion.js"></script>
+  <script type="text/javascript">
+    M.AutoInit();
+    adminpanel = new adminpanel();
+    $(document).ready(function () {
+      adminpanel.getEmpleados();
+    });
+  </script>
   <script>
     var con = new conexion();
-
-
-
   </script>
 </body>
 
