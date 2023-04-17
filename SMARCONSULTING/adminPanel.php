@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-  <!--Import Google Icon Font-->
+<!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
@@ -15,12 +15,27 @@
 
 <body>
 
+<?php
+session_start();
+
+  if ($_SESSION['estado']==false) {
+    
+    header( 'Location: login.html' );
+
+  }
+
+?>
+
+
+
   <nav>
     <div class="nav-wrapper blue-grey z-depth-5">
       <a href="#" class="brand-logo right">
         <div class="chip">
-          <img src="Assets/MUJERES/alisado y permanente/(2).jpg" alt="Contact Person">
-          Generic Person
+          <img src=<?php if ($_SESSION['urlIMG']==" ") {
+            print_r("'".$_SESSION['urlIMG']."'");
+          }else{print_r("'./Assets/usersIMG/default.jpg'");}?> alt="Contact Person">
+          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
         </div>
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -28,6 +43,7 @@
         <li><a href="#"><i class="material-icons left">home</i>Home</a></li>
         <li><a href="#"><i class="material-icons left">dehaze</i>Content</a></li>
         <li><a href="#"><i class="material-icons left">settings</i>Settings</a></li>
+        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerar sesion</a></li>
       </ul>
     </div>
   </nav>
@@ -107,7 +123,7 @@
                 <a href="#!" class="collection-item black-text"
                   onclick="mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
                       class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Registrar/Editar</a>
+                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar</a>
                 <a href="#!" class="collection-item black-text" onclick="mostrasDiv('usuariosCont');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
@@ -390,18 +406,20 @@
       <!--Usuarios modificar-->
       <div class="col s6 usuariosEdit z-depth-5">
         <div class="col s12">
-          <h3>Registrar modificar</h3>
-          <br>
-          <h4><b>Nuevo usuario</b></h4>
+          <h3>Modificar/Eliminar Usuarios</h3>
           <form>
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name3" type="text" class="validate" value="Nombre de usuario">
-                <label for="first_name3">Nombre</label>
+                <input id="first_name3" type="text" class="validate" value="Nombre de usuario" disabled="true">
+                <label for="first_name3">Nombre Actual</label>
               </div>
-              <div class="input-field col s6">
-                <input id="first_name9" type="text" class="validate" disabled="true">
-                <label for="first_name9"></label>
+              <div class="input-field col s3">
+                <input id="first_name9" type="text" class="validate" disabled="true" value="none">
+                <label for="first_name9">id usuario</label>
+              </div>
+              <div class="input-field col s3">
+                <input id="idEmpleadoEditar" type="text" class="validate" disabled="true" value="none">
+                <label for="idEmpleadoEditar">id empleado</label>
               </div>
             </div>
             <div class="row">
@@ -421,16 +439,16 @@
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name4" type="text" class="validate">
+                <input id="first_name4" type="text" class="validate" value="Nombre de usuario">
                 <label for="first_name4">Usuario</label>
               </div>
               <div class="input-field col s6">
-                <input id="first_name5" type="password" class="validate">
+                <input id="first_name5" type="password" class="validate" value="Contrasena">
                 <label for="first_name5">Contrasena</label>
               </div>
             </div>
             <div class="row">
-              <a class="waves-effect waves-light btn left blue" onclick="con.actualizarUsuario();">Guardar</a>
+              <a class="waves-effect waves-light btn left blue" onclick="con.editarUsuarioDB();">Guardar</a>
             </div>
             <div class="row">
               <div class="col s12">
@@ -466,39 +484,41 @@
         <div class="col s12">
           <h3>Agregar Usuario</h3>
           <br>
-          <h4><b>Nueva Usuario al sistema</b></h4>
+          <h4><b>Nuevo Usuario al sistema</b></h4>
           <form>
             <div class="row">
               <div class="input-field col s6">
-                <input id="NuevoUsuario" type="text" class="validate">
-                <label for="first_name3">Nuevo Usuario</label>
+                <input id="NuevoUsuario" type="text" class="validate" required="true">
+                <label for="NuevoUsuario">Nuevo Usuario</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="NuevaContra" type="password" class="validate">
-                <label for="first_name6">Nueva Contrasena</label>
+                <input id="NuevaContra" type="password" class="validate" required="true">
+                <label for="NuevaContra">Nueva Contrasena</label>
               </div>
             </div>
             <div class="row">
               <div class="col s12">
+                <h6>Rol de usuario</h6>
                 <select class="browser-default" id="selectRol">
-                  <option value="" disabled selected>Seleccione una opcion</option>
-                  <option value="administrador">administrador</option>
-                  <option value="contador">contador</option>
-                  <option value="usuario">usuario</option>
+                  <option value="" disabled selected required="true">Seleccione una opcion</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="contador">Contador</option>
+                  <option value="usuario">Usuario</option>
                 </select>
               </div>
             </div>
             <div class="row">
               <div class="col s12">
+                <h6>Empleado</h6>
                 <select class="browser-default" id="empleados1">
-                  <option value="" disabled selected>Selecione un empleado</option>
+                  <option value="" disabled selected required="true">Selecione un empleado</option>
                 </select>
               </div>
             </div>
             <div class="row">
-              <a class="waves-effect waves-light btn left blue">Guardar</a>
+              <a class="waves-effect waves-light btn left blue" onclick="con.guardarUsuario();">Guardar</a>
             </div>
           </form>
           <div class="row">
@@ -548,3 +568,4 @@
 </body>
 
 </html>
+

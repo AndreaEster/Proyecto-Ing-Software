@@ -2,20 +2,21 @@
 
 include "../conexion2.php";
 $db = new BaseDatos();
+$id = $_POST["id"];
 $username = $_POST["username"];
 $password = $_POST["password"];
 $idempleado = $_POST["id_empleado"];
 $rol = $_POST["rol"];
 
-$sql = "INSERT INTO `usuarios` (`id`, `username`, `password`, `id_empleado`, `rol`) VALUES (NULL, '".$username."', '".$password."', '".$idempleado."', '".$rol."');";
+$sql = "UPDATE `usuarios` SET `username` = '".$username."', `password` = '".$password."', `id_empleado` = '".$idempleado."', `rol` = '".$rol."' WHERE `usuarios`.`id` = ".$id.";";
 
 if ($db->insertar($sql)) {
     $data[] = array(
-        'mensaje' => 'Usuario '.$username.' agregada exitosamente'
+        'mensaje' => 'Usuario '.$username.' Actualizado exitosamente'
     );
 } else {
     $data[] = array(
-        'mensaje' => 'Error al agregar al usuario'
+        'mensaje' => 'Error al Actualizar usuario'
     );
 }
 

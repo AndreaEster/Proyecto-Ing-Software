@@ -29,16 +29,7 @@ function ocultarDiv(){
 
 }
 
-function cargarUsuarios(){
 
-    $.post("Clases/getUsuarios.php", data,
-        function (data, status) {
-          
-            alert (data);
-            
-        },);
-
-};
 
 class adminpanel {
     adminpanel(){

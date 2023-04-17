@@ -15,9 +15,22 @@
 </head>
 
 <body>
+<?php
+session_start();
+
+  if ($_SESSION['estado']==false) {
+    
+    header( 'Location: login.html' );
+
+  }
+
+?>
   <nav>
     <div class="nav-wrapper brown lighten-3">
-      <a href="#" class="brand-logo">CONSULTING SALON</a>
+    <a href="#" class="brand-logo">CONSULTING SALON</a>
+    <ul class="right  hide-on-med-and-down">
+      <li><a href="./Clases/admin/logout.php" class="white-text"><i class="material-icons left">close</i>Cerar sesion</a></li>
+    </ul>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
           <nav>
@@ -33,8 +46,13 @@
           </nav>
         </li>
         <li><a class="waves-effect waves-light btn modal-trigger brown darken-1" href="#modal1">Haz tu cita aqui!</a>
+        <div class="chip rigth">
+          <img src=<?php if ($_SESSION['urlIMG']==" ") {
+            print_r("'".$_SESSION['urlIMG']."'");
+          }else{print_r("'./Assets/usersIMG/default.jpg'");}?> alt="Contact Person">
+          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
+        </div>
         </li>
-        <li><a href="login.html">Login</a></li>
       </ul>
     </div>
   </nav>

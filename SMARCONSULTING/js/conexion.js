@@ -32,6 +32,7 @@ class conexion {
                 const user = JSON.parse(data);
 
                 $("#first_name9").val(user[0].id);
+                $("#idEmpleadoEditar").val(user[0].id_empleado);
                 $("#first_name3").val(user[0].username);
                 $("#selecUsuario").val(user[0].tipo);
                 $("#first_name4").val(user[0].username);
@@ -51,32 +52,29 @@ class conexion {
     }
 
     liminarUsuario(id) {
-        $.post("/Clases/admin/eliminarUsuarios.php",
+
+
+        var respuesta = confirm("El usuario se va a eliminar. Desea continuar ?");
+                
+        if(respuesta){
+        $.post("./Clases/admin/eliminarUsuario.php",
         {"id":id},
             function (data,status) {
-                JSON.parse(data);
-            },
-            "dataType"
-        );
-        alert("Se va a eliminar el usuario:" + id);
-    }
-
-    actualizarUsuario() {
-
-        $.post("Clases/setUsuariosById.php", {
-            "id": $("#first_name9").val(),
-            "username": $("#first_name3").val(),
-            "password": $("#first_name4").val(),
-            "tipo": $("#selecUsuario").val()
-        },
-            function (data, status) {
-
-                const user = JSON.parse(data);
-                alert(user[0].mensaje);
+                const result = JSON.parse(data);
+                alert(result[0].mensaje);
             },
         );
+        setTimeout(() => {
+            this.cargarUsuarios();
+          }, 1000);
+
+        }
+
+
+       
     }
 
+    
     cargarInventario() {
         $("#tablaInventario").html("");
         $.post("Clases/getInventario.php", null,
@@ -86,7 +84,7 @@ class conexion {
 
 
                 for (let index = 0; index < this.dataProd.length; index++) {
-                    $("#tablaInventario").append("<tr><td>" + this.dataProd[index].nombre + "</td><td>" + this.dataProd[index].cantidad + "</td><td>" + this.dataProd[index].precio + "<td><td>" + this.dataProd[index].descripcion + "</td><td><a href='#'><i class='material-icons blue-text'>edit</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
+                    $("#tablaInventario").append("<tr><td>" + this.dataProd[index].nombre + "</td><td>" + this.dataProd[index].cantidad + "</td><td>" + this.dataProd[index].precio + "<td><td>" + this.dataProd[index].descripcion + "</td><td><a href='#'><i class='material-icons blue-text'>pageview</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
 
                 }
 
@@ -115,6 +113,45 @@ class conexion {
 
     }
 
+    guardarUsuario(){
+        $.post("Clases/admin/agregarUsuarios.php", {
+            username:$("#NuevoUsuario").val(),
+            password:$("#NuevaContra").val(),
+            id_empleado:$("#empleados1").val(),
+            rol:$("#selectRol").val()
+
+        },
+            function (data, status) {
+
+                const result = JSON.parse(data);
+                alert(result[0].mensaje);
+                
+            },
+        );    
+    }
+
+    editarUsuarioDB(){
+        $.post("Clases/admin/editarUsuarios.php", {
+                id:$("#first_name9").val(),
+                id_empleado:$("#idEmpleadoEditar").val(),
+                rol:$("#selecUsuario").val(),
+                username:$("#first_name4").val(),
+                password:$("#first_name5").val()
+
+        },
+            function (data2, status) {
+
+                const result = JSON.parse(data2);
+                alert(result[0].mensaje);
+                
+            },
+        );   
+        
+        setTimeout(() => {
+            this.cargarUsuarios();
+          }, 1000);
+        
+    }
 
 
 }
