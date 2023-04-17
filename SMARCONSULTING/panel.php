@@ -50,8 +50,8 @@ session_start();
         <li><a class="waves-effect waves-light btn modal-trigger brown darken-1" href="#modal1">Haz tu cita aqui!</a>
         <div class="chip rigth">
           <img src=<?php if ($_SESSION['urlIMG']==" ") {
-            print_r("'".$_SESSION['urlIMG']."'");
-          }else{print_r("'./Assets/usersIMG/default.jpg'");}?> alt="Contact Person">
+            print_r("'./Assets/usersIMG/default.jpg'");
+          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
           <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
         </div>
         </li>

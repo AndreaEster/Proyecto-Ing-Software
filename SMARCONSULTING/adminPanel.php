@@ -37,8 +37,8 @@ session_start();
       <a href="#" class="brand-logo right">
         <div class="chip">
           <img src=<?php if ($_SESSION['urlIMG']==" ") {
-            print_r("'".$_SESSION['urlIMG']."'");
-          }else{print_r("'./Assets/usersIMG/default.jpg'");}?> alt="Contact Person">
+            print_r("'./Assets/usersIMG/default.jpg'");
+          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
           <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
         </div>
       </a>
