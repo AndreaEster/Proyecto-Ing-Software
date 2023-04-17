@@ -18,7 +18,7 @@
 <?php
 session_start();
 
-  if ($_SESSION['estado']==false) {
+  if ($_SESSION['estado']==false && $_SESSION['rol']=="administrador") {
     
     header( 'Location: login.html' );
 
