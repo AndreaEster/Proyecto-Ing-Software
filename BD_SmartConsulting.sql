@@ -47,6 +47,7 @@ CREATE TABLE usuarios (
     password VARCHAR(255) NOT NULL,
     id_empleado INT(11) NOT NULL,
     rol ENUM('administrador', 'usuario', 'contador') NOT NULL DEFAULT 'usuario',
+    img VARCHAR(250),
     PRIMARY KEY (id),
     UNIQUE KEY (username),
     FOREIGN KEY (id_empleado) REFERENCES empleados(id)
