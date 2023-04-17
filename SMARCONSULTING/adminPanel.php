@@ -89,10 +89,10 @@ session_start();
             </div>
             <div class="collapsible-body white">
               <div class="collection">
-                <a href="#!" class="collection-item black-text" onclick="mostrasDiv('calendarioCita');"><span
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Calendario</a>
-                <a href="#!" class="collection-item black-text" onclick="mostrasDiv('cita');"><span class="badge"><i
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
               </div>
             </div>
@@ -106,11 +106,11 @@ session_start();
             <div class="collapsible-body white">
               <div class="collection">
                 <a href="#!" class="collection-item black-text"
-                  onclick="mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
+                  onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
                       class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Productos</a>
                 <a href="#!" class="collection-item black-text"
-                  onclick="mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
+                  onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
                       class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Servicios</a>
               </div>
@@ -125,10 +125,10 @@ session_start();
             <div class="collapsible-body white">
               <div class="collection">
                 <a href="#!" class="collection-item black-text"
-                  onclick="mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
+                  onclick="apanel.mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
                       class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar</a>
-                <a href="#!" class="collection-item black-text" onclick="mostrasDiv('usuariosCont');"><span
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('usuariosCont');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
               </div>
@@ -183,7 +183,7 @@ session_start();
                 </div>
               </div>
               <div class="row">
-                <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
                     class="material-icons">close</i></a>
               </div>
 
@@ -283,7 +283,7 @@ session_start();
             </div>
           </form>
           <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
         </div>
@@ -366,7 +366,7 @@ session_start();
             </div>
           </form>
           <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
         </div>
@@ -397,7 +397,7 @@ session_start();
             </div>
           </form>
           <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
         </div>
@@ -475,7 +475,7 @@ session_start();
             </div>
           </form>
           <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
         </div>
@@ -532,26 +532,10 @@ session_start();
         </div>
         </form>
       </div>
-
-
-
-
-
-
-
-
-
     </div>
   </div>
-
-
-
-
-
-
-
-  </div>
-  </div>
+ </div>
+</div>
 
 
   <!--JavaScript at end of body for optimized loading-->
@@ -559,15 +543,16 @@ session_start();
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/adminPanel2.js"></script>
   <script src="js/conexion.js"></script>
+  <script src="js/SingleTon.js"></script>
   <script type="text/javascript">
     M.AutoInit();
-    adminpanel = new adminpanel();
+    var apanel = new SingleTon(AdminPanel).getInstance();
     $(document).ready(function () {
-      adminpanel.getEmpleados();
+      apanel.getEmpleados();
     });
   </script>
   <script>
-    var con = new conexion();
+    var con = new SingleTon(Conexion).getInstance();
   </script>
 </body>
 

@@ -1,25 +1,10 @@
-
-/**
- * Author Ramon Rivera
- * @returns  JSON con las instacias de las funciones
- * 
- * 
- */
-
-var Conexion = function(){
-    return {
-        cargarUsuarios:cargarUsuarios,
-        editarUsuario:editarUsuario,
-        liminarUsuario:liminarUsuario,
-        cargarInventario:cargarInventario,
-        cargarServicios:cargarServicios,
-        guardarUsuario:guardarUsuario,
-        editarUsuarioDB:editarUsuarioDB
+class conexion {
+    conexion() {
+        this.dataUser2 = 0;
     }
-}
 
 
-function cargarUsuarios(){
+    cargarUsuarios() {
         $("#tablaUsuarios").html("");
         $.post("Clases/getUsuarios.php", null,
             function (data, status) {
@@ -37,7 +22,7 @@ function cargarUsuarios(){
 
     }
 
-function editarUsuario(id) {
+    editarUsuario(id) {
 
         $.post("Clases/getUsuariosById.php", {
             "id": id
@@ -66,7 +51,7 @@ function editarUsuario(id) {
 
     }
 
-function liminarUsuario(id) {
+    liminarUsuario(id) {
 
 
         var respuesta = confirm("El usuario se va a eliminar. Desea continuar ?");
@@ -90,7 +75,7 @@ function liminarUsuario(id) {
     }
 
     
-function cargarInventario() {
+    cargarInventario() {
         $("#tablaInventario").html("");
         $.post("Clases/getInventario.php", null,
             function (data, status) {
@@ -110,7 +95,7 @@ function cargarInventario() {
 
 
 
-function cargarServicios() {
+    cargarServicios() {
         $("#tablaServicios").html("");
         $.post("Clases/getServicio.php", null,
             function (data, status) {
@@ -128,7 +113,7 @@ function cargarServicios() {
 
     }
 
-function guardarUsuario(){
+    guardarUsuario(){
         $.post("Clases/admin/agregarUsuarios.php", {
             username:$("#NuevoUsuario").val(),
             password:$("#NuevaContra").val(),
@@ -146,7 +131,7 @@ function guardarUsuario(){
         );    
     }
 
-function editarUsuarioDB(){
+    editarUsuarioDB(){
         $.post("Clases/admin/editarUsuarios.php", {
                 id:$("#first_name9").val(),
                 id_empleado:$("#idEmpleadoEditar").val(),
@@ -169,3 +154,5 @@ function editarUsuarioDB(){
         
     }
 
+
+}

@@ -1,5 +1,16 @@
 
+/**
+ * Author Ramon Rivera
+ * @returns JSON con las instacias de las funciones
+ */
 
+var AdminPanel = function(){
+  return{
+    mostrasDiv:mostrasDiv,
+    ocultarDiv:ocultarDiv,
+    getEmpleados:getEmpleados
+  }
+}
 
 function mostrasDiv(clase){
         ocultarDiv();
@@ -29,13 +40,7 @@ function ocultarDiv(){
 
 }
 
-
-
-class adminpanel {
-    adminpanel(){
-
-    }
-getEmpleados(){
+function getEmpleados(){
 
     $.post("./Clases/obtenerempleados.php",{
       "null":null
@@ -50,5 +55,3 @@ getEmpleados(){
       });
   
     };
-
-}
