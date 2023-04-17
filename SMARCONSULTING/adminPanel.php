@@ -18,12 +18,16 @@
 <?php
 session_start();
 
-  if ($_SESSION['estado']==false && $_SESSION['rol']=="administrador") {
-    
+  if (!isset($_SESSION['usuarioNombre'])) {
     header( 'Location: login.html' );
-
+}else{
+  
+  if ($_SESSION['estado']==false && $_SESSION['rol']!="administrador") {
+    header( 'Location: login.html' );
+  }else if($_SESSION['estado']==true && $_SESSION['rol']!="administrador"){
+    header( 'Location: login.html' );
   }
-
+}
 ?>
 
 

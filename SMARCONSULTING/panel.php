@@ -18,12 +18,14 @@
 <?php
 session_start();
 
-  if ($_SESSION['estado']==false) {
-    
+  if (!isset($_SESSION['usuarioNombre'])) {
     header( 'Location: login.html' );
-
+}else{
+  
+  if ($_SESSION['estado']==false && $_SESSION['rol']=="administrador") {
+    header( 'Location: login.html' );
   }
-
+}
 ?>
   <nav>
     <div class="nav-wrapper brown lighten-3">
