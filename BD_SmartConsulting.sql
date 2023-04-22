@@ -25,11 +25,9 @@ CREATE TABLE servicios (
     id INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
-    id_producto INT(11) NOT NULL,
     imagen_url VARCHAR(255),
     PRIMARY KEY (id),
-    UNIQUE KEY (nombre),
-    FOREIGN KEY (id_producto) REFERENCES producto(id)
+    UNIQUE KEY (nombre)
 );
 
 CREATE TABLE imagenes (
@@ -101,6 +99,15 @@ CREATE TABLE servicios_por_cita (
     PRIMARY KEY (id),
     FOREIGN KEY (id_cita) REFERENCES citas(id),
     FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+);
+
+CREATE TABLE productos_por_servicio (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    id_producto INT(11) NOT NULL,
+    id_servicio INT(11) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id),
+    FOREIGN KEY (id_producto) REFERENCES producto(id)
 );
 
 CREATE TABLE producto_por_pago (
@@ -180,18 +187,37 @@ VALUES
 ('Secador de pelo', 2, 1200.00, 'Secador de pelo profesional de alta potencia.'),
 ('Plancha de pelo', 2, 2200.00, 'Plancha para alisar el cabello de cerámica y turmalina.'),
 ('Tintes para cabello', 8, 250.00, 'Tintes semipermanentes para el cabello en diferentes tonos.'),
-('Permanentes para cabello', 5, 400.00, 'Líquidos para hacer permanentes en el cabello en diferentes niveles de ondulación.');
+('Esmaletes', 20, 40.00, 'Esmaletes de colores.'),
+('Acetona', 1, 300.00, 'Desmaquillador de uñas.'),
+('Alicate', 6, 100.00, 'Corta unias de uso profesional.'),
+('Algodon', 2, 400.00, 'Son Bolas de Algodon.'),
+('Polimeros de unias', 3, 400.00, 'Polimero especializado en el decorado de uñas.');
 
 INSERT INTO usuarios (username, password, id_empleado, rol) 
 VALUES 
 ('admin', 'password123', 2, '1'),
 ('admin-online', 'pass123', 1,'2'),
 ('mg-corp1', 'pass456', 3, '3'),
-('pg-corp2', 'pass567', 4,'4');
+('pg-corp2', 'pass567', '2');
 
 
-INSERT INTO servicios (nombre, precio, id_producto, imagen_url) 
+INSERT INTO servicios (nombre, precio, imagen_url) 
 VALUES 
-('Corte de pelo', 50.00, 1, null),
-('manicura', 150.00, 1, null),
-('Pedicura', 250.00, 1, null);
+('Corte de pelo', 50.00, null),
+('manicura', 150.00, null),
+('Pedicura', 250.00, null);
+
+
+INSERT INTO productos_por_servicio (id_servicio, id_producto)
+VALUES 
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 10),
+(2, 11),
+(2, 13),
+(3, 10),
+(3, 11),
+(3, 13);
