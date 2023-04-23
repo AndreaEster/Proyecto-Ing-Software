@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-<!--Import Google Icon Font-->
+  <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
@@ -15,20 +15,20 @@
 
 <body>
 
-<?php
-session_start();
+  <?php
+  session_start();
 
   if (!isset($_SESSION['usuarioNombre'])) {
-    header( 'Location: login.html' );
-}else{
-  
-  if ($_SESSION['estado']==false && $_SESSION['rol']!="administrador") {
-    header( 'Location: login.html' );
-  }else if($_SESSION['estado']==true && $_SESSION['rol']!="administrador"){
-    header( 'Location: login.html' );
+    header('Location: login.html');
+  } else {
+
+    if ($_SESSION['estado'] == false && $_SESSION['rol'] != "administrador") {
+      header('Location: login.html');
+    } else if ($_SESSION['estado'] == true && $_SESSION['rol'] != "administrador") {
+      header('Location: login.html');
+    }
   }
-}
-?>
+  ?>
 
 
 
@@ -36,18 +36,20 @@ session_start();
     <div class="nav-wrapper blue-grey z-depth-5">
       <a href="#" class="brand-logo right">
         <div class="chip">
-          <img src=<?php if ($_SESSION['urlIMG']==" ") {
+          <img src=<?php if ($_SESSION['urlIMG'] == " ") {
+            print_r("'" . $_SESSION['urlIMG'] . "'");
+          } else {
             print_r("'./Assets/usersIMG/default.jpg'");
-          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
-          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
+          } ?> alt="Contact Person">
+          <?php print_r($_SESSION['usuarioNombre'] . " " . $_SESSION["rol"]); ?>
         </div>
       </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
       <ul class="left  hide-on-med-and-down">
         <li><a href="#"><i class="material-icons left">home</i>Home</a></li>
         <li><a href="#"><i class="material-icons left">dehaze</i>Content</a></li>
         <li><a href="#"><i class="material-icons left">settings</i>Settings</a></li>
-        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerar sesion</a></li>
+        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerrar sesion</a></li>
       </ul>
     </div>
   </nav>
@@ -92,8 +94,9 @@ session_start();
                 <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Calendario</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span class="badge"><i
-                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Cita</a>
               </div>
             </div>
           </li>
@@ -106,13 +109,29 @@ session_start();
             <div class="collapsible-body white">
               <div class="collection">
                 <a href="#!" class="collection-item black-text"
+                  onclick="apanel.mostrasDiv('reporteCont');con.guardarProducto();"><span class="badge"><i
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Agregar
+                  Productos</a>
+                <a href="#!" class="collection-item black-text"
+                  onclick="apanel.mostrasDiv('reporteEdit');con.cargarInventario();"><span class="badge"><i
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>
+                  Editar/Eliminar Productos</a>
+                <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Productos</a>
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
+                  Productos</a>
+                <a href="#!" class="collection-item black-text"
+                  onclick="apanel.mostrasDiv('servicioCont');con.guardarServicio();"><span class="badge"><i
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Agregar
+                  Servicios</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioEdit');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>
+                  Editar/Eliminar Servicios</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Servicios</a>
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
+                  Disponibles</a>
               </div>
             </div>
           </li>
@@ -529,13 +548,104 @@ session_start();
             <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
+
+
+
+        </div>
+        </form>
+      </div>
+
+      <!---Agregar Servicios--->
+      <div class="col s12 servicioCont z-depth-5">
+        <div class="col s12">
+          <h3>Agregar Servicio</h3>
+          <br>
+          <h4><b>Nuevo Servicio al sistema</b></h4>
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevoServicio" type="text" class="validate" required="true">
+                <label for="NuevoServicio">Nombre Servicio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevaPrecio" type="text" class="validate" required="true">
+                <label for="NuevaPrecio">Precio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <h6>Productos a usar</h6>
+                <select class="browser-default" id="productos1" multiple>
+                  <option value="" disabled selected required="true">Seleccione los Productos Usados</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.guardarServicio();">Guardar</a>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+
+
+
+        </div>
+        </form>
+      </div>
+
+
+      <!--Agregar Productos-->
+      <div class="col s12 reporteCont">
+        <div class="col s10">
+          <h3>Agregar Producto</h3>
+          <br>
+          <h4><b>Nuevo Producto</b></h4>
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevoProducto" type="text" class="validate" required="true">
+                <label for="NuevoProducto">Nombre</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="CantidadProducto" type="text" class="validate" required="true">
+                <label for="CantidadProducto">Cantidad</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="PrecioProducto" type="text" class="validate" required="true">
+                <label for="PrecioProducto">Precio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="DescripcionProducto" type="text" class="validate" required="true">
+                <label for="DescripcionProducto">Descripcion</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.guardarProducto();">Guardar</a>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+
+
+
         </div>
         </form>
       </div>
     </div>
   </div>
- </div>
-</div>
+
 
 
   <!--JavaScript at end of body for optimized loading-->
@@ -549,6 +659,19 @@ session_start();
     var apanel = new SingleTon(AdminPanel).getInstance();
     $(document).ready(function () {
       apanel.getEmpleados();
+      apanel.getProductos();
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function () {
+      $('select').formSelect();
     });
   </script>
   <script>
@@ -557,4 +680,3 @@ session_start();
 </body>
 
 </html>
-
