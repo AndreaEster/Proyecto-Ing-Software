@@ -73,8 +73,7 @@ CREATE TABLE pagos (
     id_usuario INT(11) NOT NULL,
     id_cita INT(11) NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
-    fecha DATE NOT NULL,
-    hora TIME NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT NOW(),
     forma_pago ENUM('efectivo', 'tarjeta_credito', 'tarjeta_debito') NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
@@ -124,8 +123,7 @@ CREATE TABLE producto_por_pago (
 CREATE TABLE facturas (
     id INT(11) NOT NULL AUTO_INCREMENT,
     id_pago INT(11) NOT NULL,
-    fecha DATE NOT NULL,
-    hora TIME NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT NOW(),
     total DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_pago) REFERENCES pagos(id)
@@ -221,3 +219,4 @@ VALUES
 (3, 10),
 (3, 11),
 (3, 13);
+

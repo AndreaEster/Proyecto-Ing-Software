@@ -9,13 +9,14 @@ $result = $db->getDatos("SELECT * FROM producto");
 
 /**
  * Se rellena el arreglo relacional unicamente con los
- * nombres de los empleados
+ * nombres de los productos
  * 
  */
 foreach ($result as $resultado) {
     $nombres[] = array(
-        "nombre"=>$resultado['nombre'],
-        "id"=>$resultado['id']
+        "id" => $resultado['id'],
+        "nombre" => $resultado['nombre']
+
     );
 }
 

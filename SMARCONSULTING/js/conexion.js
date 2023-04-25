@@ -14,8 +14,8 @@ var Conexion = function () {
         cargarInventario: cargarInventario,
         cargarServicios: cargarServicios,
         guardarUsuario: guardarUsuario,
-        guardarProducto:guardarProducto,
-        guardarServicio:guardarServicio,
+        guardarProducto: guardarProducto,
+        guardarServicio: guardarServicio,
         editarUsuarioDB: editarUsuarioDB
     }
 }
@@ -38,6 +38,9 @@ function cargarUsuarios() {
         },);
 
 }
+
+
+
 
 function editarUsuario(id) {
 
@@ -101,7 +104,12 @@ function cargarInventario() {
 
 
             for (let index = 0; index < this.dataProd.length; index++) {
-                $("#tablaInventario").append("<tr><td>" + this.dataProd[index].nombre + "</td><td>" + this.dataProd[index].cantidad + "</td><td>" + this.dataProd[index].precio + "<td><td>" + this.dataProd[index].descripcion + "</td><td><a href='#'><i class='material-icons blue-text'>pageview</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
+                $("#tablaInventario").append(
+                    "<tr><td>" + this.dataProd[index].nombre +
+                    "</td><td>" + this.dataProd[index].cantidad +
+                    "</td><td>" + this.dataProd[index].precio +
+                    "<td><td>" + this.dataProd[index].descripcion +
+                    "</td><td><a href='#'><i class='material-icons blue-text'>pageview</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
 
             }
 
@@ -109,7 +117,6 @@ function cargarInventario() {
         },);
 
 }
-
 
 
 function cargarServicios() {
@@ -129,6 +136,10 @@ function cargarServicios() {
         },);
 
 }
+
+
+
+
 
 function guardarUsuario() {
     $.post("Clases/admin/agregarUsuarios.php", {
@@ -167,21 +178,21 @@ function guardarProducto() {
     );
 }
 
-function guardarServicio(){
+function guardarServicio() {
     $.post("Clases/agregarServicio.php", {
-        nombre:$("#NuevoServicio").val(),
-        precio:$("#NuevaPrecio").val(),
-        id_producto:$("#productos1").val().join(','),
+        nombre: $("#NuevoServicio").val(),
+        precio: $("#NuevaPrecio").val(),
+        id_producto: $("#productos1").val().join(','),
 
     },
         function (data, status) {
 
             const result = JSON.parse(data);
-            M.toast({html: result[0].mensaje, classes: 'rounded', displayLength: 3000});
-            
-            
+            M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+
+
         },
-    );    
+    );
 }
 
 function editarUsuarioDB() {

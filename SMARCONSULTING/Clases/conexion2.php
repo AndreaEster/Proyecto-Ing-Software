@@ -1,5 +1,11 @@
 <?php
 
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'smartconsultingbd');
+
+
 class BaseDatos
 {
 
@@ -7,6 +13,8 @@ class BaseDatos
     private $contrasena = "";
     private $servidor = "localhost";
     private $database = "smartconsultingbd";
+
+
 
     public function __construct()
     {
@@ -18,21 +26,32 @@ class BaseDatos
         return mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
     }
 
+
+
     public function getDatos($stringQuery)
     {
         $conn = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->database);
-        $query = $conn->query($stringQuery);
-        $objArray = array();
-
-        if ($result = $query) {
-            while ($row = $result->fetch_assoc()) {
-                $objArray[] = $row;
-            }
+        if (strpos(strtoupper($stringQuery), 'SUM')||strpos(strtoupper($stringQuery), 'COUNT')!== false) {
+            $result = $conn->query($stringQuery);
+            $count = $result->fetch_array()[0];
             $result->free();
+            return $count;
         }
+         else {
+            $query = $conn->query($stringQuery);
+            $objArray = array();
 
-        return $objArray;
+            if ($result = $query) {
+                while ($row = $result->fetch_assoc()) {
+                    $objArray[] = $row;
+                }
+                $result->free();
+            }
+
+            return $objArray;
+        }
     }
+
 
     public function insertarCita(
         $idusuario,
