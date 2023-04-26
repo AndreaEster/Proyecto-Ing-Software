@@ -128,7 +128,10 @@ function cargarServicios() {
 
 
             for (let index = 0; index < this.dataServ.length; index++) {
-                $("#tablaServicios").append("<tr><td>" + this.dataServ[index].nombre + "</td><td>" + this.dataServ[index].precio + "</td><td><a href='#'><i class='material-icons blue-text'>edit</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
+                $("#tablaServicios").append(
+                    "<tr><td>" + this.dataServ[index].nombre +
+                    "</td><td>" + this.dataServ[index].precio +
+                    "</td><td><a href='#'><i class='material-icons blue-text'>edit</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
 
             }
 
@@ -158,6 +161,7 @@ function guardarUsuario() {
         },
     );
 }
+
 
 
 function guardarProducto() {

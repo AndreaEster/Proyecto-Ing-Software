@@ -31,13 +31,12 @@ class BaseDatos
     public function getDatos($stringQuery)
     {
         $conn = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->database);
-        if (strpos(strtoupper($stringQuery), 'SUM')||strpos(strtoupper($stringQuery), 'COUNT')!== false) {
+        if (strpos(strtoupper($stringQuery), 'SUM') || strpos(strtoupper($stringQuery), 'COUNT') !== false) {
             $result = $conn->query($stringQuery);
             $count = $result->fetch_array()[0];
             $result->free();
             return $count;
-        }
-         else {
+        } else {
             $query = $conn->query($stringQuery);
             $objArray = array();
 
@@ -50,6 +49,29 @@ class BaseDatos
 
             return $objArray;
         }
+    }
+
+    public function getMultiDatos($stringQuery, $tableNames = '')
+    {
+        $conn = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->database);
+
+        // Verificar si se proporcionaron nombres de tabla adicionales
+        if (!empty($tableNames)) {
+            // Unir las tablas adicionales a la consulta
+            $stringQuery .= " JOIN $tableNames";
+        }
+
+        $query = $conn->query($stringQuery);
+        $objArray = array();
+
+        if ($result = $query) {
+            while ($row = $result->fetch_assoc()) {
+                $objArray[] = $row;
+            }
+            $result->free();
+        }
+
+        return $objArray;
     }
 
 
