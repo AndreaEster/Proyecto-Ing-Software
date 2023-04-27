@@ -1,41 +1,32 @@
 .contenedor{
-    background-color: white;
+  background-color: white;
 }
 .menu{
-    height: 900px;
+  height: 900px;
 }
 .contenido{
-    background-color: #f8bbd0;
-    height: 900px;
+  background-color: #f8bbd0;
+  height: 900px;
 }
 .calendarioCita{
-    visibility: hidden;
-    background-color: white;
-    position: absolute;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 .cita{
-    visibility: hidden;
-    background-color: white;
-    position: absolute;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 .reporte{
-    visibility: hidden;
-    background-color: white;
-    position: absolute;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
-}
-.servicios{
   visibility: hidden;
   background-color: white;
   position: absolute;
@@ -45,27 +36,75 @@
   border: 0px solid #000000;
 }
 
+.reporteCont{
+visibility: hidden;
+background-color: white;
+position: absolute;
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
+}
+
+.reporteEdit{
+visibility: hidden;
+background-color: white;
+position: absolute;
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
+}
+
+.servicios{
+visibility: hidden;
+background-color: white;
+position: absolute;
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
+}
+
+.servicioCont{
+visibility: hidden;
+background-color: white;
+position: absolute;
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
+}
+
+.servicioEdit{
+visibility: hidden;
+background-color: white;
+position: absolute;
+border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+border: 0px solid #000000;
+}
+
 .usuariosEdit{
-    visibility: hidden;
-    background-color: white;
-    position: absolute;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 .usuariosCont{
-    visibility: hidden;
-    background-color: white;
-    position: absolute;
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
 }
 
-
-  
 
   
   .calendar {

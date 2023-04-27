@@ -8,13 +8,16 @@
 
 var Conexion = function(){
     return {
-        cargarUsuarios:cargarUsuarios,
-        editarUsuario:editarUsuario,
-        liminarUsuario:liminarUsuario,
-        cargarInventario:cargarInventario,
-        cargarServicios:cargarServicios,
-        guardarUsuario:guardarUsuario,
-        editarUsuarioDB:editarUsuarioDB
+        cargarUsuarios: cargarUsuarios,
+        editarUsuario: editarUsuario,
+        liminarUsuario: liminarUsuario,
+        cargarInventario: cargarInventario,
+        cargarServicios: cargarServicios,
+        cargarCitas:cargarCitas,
+        guardarUsuario: guardarUsuario,
+        guardarProducto: guardarProducto,
+        guardarServicio: guardarServicio,
+        editarUsuarioDB: editarUsuarioDB
     }
 }
 
@@ -29,6 +32,34 @@ function cargarUsuarios(){
 
                 for (let index = 0; index < this.dataUser.length; index++) {
                     $("#tablaUsuarios").append("<tr><td>" + this.dataUser[index].username + "</td><td>" + this.dataUser[index].nombre + "</td><td>" + this.dataUser[index].tipo + "</td><td><a href='#' onclick=con.editarUsuario('" + this.dataUser[index].id + "');><i class='material-icons blue-text'>edit</i></a></td><td><a href='#' onclick=con.liminarUsuario('" + this.dataUser[index].id + "');><i class='material-icons red-text'>delete</i></a></td></tr>");
+
+                }
+
+
+            },);
+
+    }
+
+    function cargarCitas(){
+        $("#tablaCitas").html("");
+        $.post("Clases/obtenercita.php", null,
+            function (data, status) {
+
+                this.dataUser = JSON.parse(data);
+
+
+                for (let index = 0; index < this.dataCita.length; index++) {
+                    $("#tablaCitas").append(
+                        "<tr><td>" + this.dataCita[index].id + 
+                        "</td><td>" + this.dataCita[index].nombre + 
+                        "</td><td>" + this.dataCita[index].email + 
+                        "</td><td>" + this.dataCita[index].telefono + 
+                        "</td><td>" + this.dataCita[index].fecha + 
+                        "</td><td>" + this.dataCita[index].hora + 
+                        "</td><td>" + this.dataCita[index].estado +
+                        "</td><td>" + this.dataCita[index].comentario +  
+                        "</td><td><a href='#' onclick=con.SeleccionarCita('" + this.dataUser[index].id + "');><i class='material-icons blue-text'>edit</i></a></td></tr>"
+                        );
 
                 }
 
@@ -142,6 +173,41 @@ function guardarUsuario(){
                 
             },
         );    
+    }
+
+    function guardarProducto() {
+        $.post("Clases/agregarProducto.php", {
+            nombre: $("#NuevoProducto").val(),
+            cantidad: $("#CantidadProducto").val(),
+            precio: $("#PrecioProducto").val(),
+            descripcion: $("#DescripcionProducto").val()
+    
+        },
+            function (data, status) {
+    
+                const result = JSON.parse(data);
+                M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+    
+    
+            },
+        );
+    }
+    
+    function guardarServicio() {
+        $.post("Clases/agregarServicio.php", {
+            nombre: $("#NuevoServicio").val(),
+            precio: $("#NuevaPrecio").val(),
+            id_producto: $("#productos1").val().join(','),
+    
+        },
+            function (data, status) {
+    
+                const result = JSON.parse(data);
+                M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+    
+    
+            },
+        );
     }
 
 function editarUsuarioDB(){

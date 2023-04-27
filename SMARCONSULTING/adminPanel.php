@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-<!--Import Google Icon Font-->
+  <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
@@ -10,48 +10,82 @@
   <link type="text/css" rel="stylesheet" href="css/animate.min.css" media="screen,projection" />
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
-	<style type="text/css" class="init">
-  </style>
+  <style type="text/css" class="init"></style>
 
   <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" class="init">	
-        /**
-         * Se cargan la tabla de inventario
-         */
-        
-         $(document).ready(function () {
-          
-          con.cargarInventario();
+  <script type="text/javascript" language="javascript" class="init">
+    /**
+     * Se cargan la tabla de Inventario
+     */
 
-          setTimeout(() => {
-            $('#tableInvent').DataTable();
-            $('select').addClass("browser-default");
-          }, 100);
+    $(document).ready(function () {
 
-         });
+      con.cargarInventario();
 
-	</script>
+      setTimeout(() => {
+        $('#tableInvent').DataTable({
 
+        });
+        $('select').addClass("browser-default");
+      }, 100);
+    });
+
+    $(document).ready(function () {
+
+      con.cargarUsuarios();
+
+      setTimeout(() => {
+        $('#tableUsuarios').DataTable({
+
+        });
+        $('select').addClass("browser-default");
+      }, 100);
+    });
+
+    $(document).ready(function () {
+
+      con.cargarServicios();
+
+      setTimeout(() => {
+        $('#tableServicio').DataTable({
+
+        });
+        $('select').addClass("browser-default");
+      }, 100);
+    });
+
+    $(document).ready(function () {
+
+      con.cargarCitas();
+
+      setTimeout(() => {
+        $('#tableCita').DataTable({
+
+        });
+        $('select').addClass("browser-default");
+      }, 100);
+    });
+  </script>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
 
-<?php
-session_start();
+  <?php
+  session_start();
 
   if (!isset($_SESSION['usuarioNombre'])) {
-    header( 'Location: login.html' );
-}else{
-  
-  if ($_SESSION['estado']==false && $_SESSION['rol']!="administrador") {
-    header( 'Location: login.html' );
-  }else if($_SESSION['estado']==true && $_SESSION['rol']!="administrador"){
-    header( 'Location: login.html' );
+    header('Location: login.html');
+  } else {
+
+    if ($_SESSION['estado'] == false && $_SESSION['rol'] != "administrador") {
+      header('Location: login.html');
+    } else if ($_SESSION['estado'] == true && $_SESSION['rol'] != "administrador") {
+      header('Location: login.html');
+    }
   }
-}
-?>
+  ?>
 
 
 
@@ -59,10 +93,12 @@ session_start();
     <div class="nav-wrapper blue-grey z-depth-5">
       <a href="#" class="brand-logo right">
         <div class="chip">
-          <img src=<?php if ($_SESSION['urlIMG']==" ") {
+          <img src=<?php if ($_SESSION['urlIMG'] == " ") {
             print_r("'./Assets/usersIMG/default.jpg'");
-          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
-          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
+          } else {
+            print_r("'" . $_SESSION['urlIMG'] . "'");
+          } ?> alt="Contact Person">
+          <?php print_r($_SESSION['usuarioNombre'] . " " . $_SESSION["rol"]); ?>
         </div>
       </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -70,7 +106,7 @@ session_start();
         <li><a href="#"><i class="material-icons left">home</i>Home</a></li>
         <li><a href="#"><i class="material-icons left">dehaze</i>Content</a></li>
         <li><a href="#"><i class="material-icons left">settings</i>Settings</a></li>
-        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerar sesion</a></li>
+        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerrar sesion</a></li>
       </ul>
     </div>
   </nav>
@@ -99,7 +135,7 @@ session_start();
 
       <div class="row col s12 center">
         <a class="waves-effect waves-light btn white black-text"><i
-            class="material-icons left">add_circle_outline</i>Inicicio</a>
+            class="material-icons left">add_circle_outline</i>Inicio</a>
       </div>
       <div class="itemsMenu col s12">
         <ul class="collapsible z-depth-5">
@@ -115,7 +151,8 @@ session_start();
                 <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Calendario</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span class="badge"><i
+                <a href="#!" class="collection-item black-text"
+                  onclick="apanel.mostrasDiv('cita');con.cargarCita();"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
               </div>
             </div>
@@ -128,14 +165,30 @@ session_start();
             </div>
             <div class="collapsible-body white">
               <div class="collection">
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteCont');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Agregar
+                  Productos</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteEdit');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>
+                  Editar/Eliminar Productos</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Productos</a>
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
+                  Productos</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioCont');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Agregar
+                  Servicios</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioEdit');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>
+                  Editar/Eliminar Servicios</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Servicios</a>
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
+                  Disponibles</a>
               </div>
             </div>
           </li>
@@ -271,37 +324,25 @@ session_start();
       <!--Citas citas-->
       <div class="col s8 cita z-depth-5">
         <div class="col s6">
-          <h3>Cita</h3>
+          <h3>Lista de Citas</h3>
           <form>
             <div class="row">
-              <div class="input-field col s12">
-                <input id="first_name" type="text" class="validate">
-                <label for="first_name">Nombre</label>
-              </div>
-            </div>
-            <div class="row">
-              <label>Servicio</label>
-              <select class="browser-default">
-                <option value="" disabled selected>Seleccione una opcion</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="fecha" type="text" class="datepicker" value="Seleccione una fecha">
-                <label for="fecha"></label>
-              </div>
-              <div class="input-field col s6">
-                <input id="hora" type="text" class="validate">
-                <label for="hora">Hora</label>
-              </div>
-              <div class="row">
-                <div class="input-field col s12">
-                  <textarea id="textarea1" class="materialize-textarea"></textarea>
-                  <label for="textarea1">Comentarios</label>
-                </div>
+              <div class="col s12">
+                <table id="tableCita" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Telefono</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th>Comentario</th>
+                      <th>Seleccionar</th>
+                    </tr>
+                  <tbody id="tablaCitas"></tbody>
+                  </thead>
+                </table>
               </div>
             </div>
           </form>
@@ -316,7 +357,7 @@ session_start();
           <form>
             <div class="row">
               <div class="input-field col s12">
-                <input id="first_name2" type="text" class="validate">
+                <input id="cita_name2" type="text" class="validate">
                 <label for="first_name2">Nombre</label>
               </div>
             </div>
@@ -329,15 +370,7 @@ session_start();
               </select>
             </div>
             <div class="row">
-              <div class="input-field col s12">
-                <textarea id="textarea2" class="materialize-textarea"></textarea>
-                <label for="textarea2">Comentarios</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <a class="waves-effect waves-light btn blue">Buscar</a>
-              </div>
+              <a class="waves-effect waves-light btn left blue">Guardar</a>
             </div>
           </form>
         </div>
@@ -351,36 +384,24 @@ session_start();
         <div class="col s12">
           <h3>Inventario</h3>
           <form>
-            
+
             <div class="row">
               <div class="col s12">
-                
+
                 <table id="tableInvent" class="display" style="width:100%">
                   <thead>
-                    <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio(unitario)</th>
-                    <th></th>
-                    <th>Descripcion</th>
-                    <th>Editar</th>
-                    <th>Borrar</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tablaInventario">
-                    
-                  </tbody>
-                  <tfoot>
                     <tr>
                       <th>Producto</th>
                       <th>Cantidad</th>
                       <th>Precio(unitario)</th>
-                      <th></th>
                       <th>Descripcion</th>
                       <th>Editar</th>
                       <th>Borrar</th>
                     </tr>
-                  </tfoot>
+                  </thead>
+                  <tbody id="tablaInventario">
+
+                  </tbody>
                 </table>
 
               </div>
@@ -402,11 +423,13 @@ session_start();
           <form>
             <div class="row">
               <div class="col s12">
-                <table>
+                <table id="tableServicio" class="display" style="width:100%">
                   <thead>
                     <tr>
                       <th>Servicio</th>
                       <th>Precio</th>
+                      <th>Editar</th>
+                      <th>Borrar</th>
                     </tr>
                   </thead>
 
@@ -456,9 +479,9 @@ session_start();
               <div class="col s12">
                 <select class="browser-default" id="selecUsuario">
                   <option value="" disabled selected>Seleccione una opcion</option>
-                  <option value="administrador">Administrador</option>
-                  <option value="contador">Contador</option>
-                  <option value="usuario">Usuario</option>
+                  <option value="administrador">administrador</option>
+                  <option value="usuario">usuario</option>
+                  <option value="contador">contador</option>
                 </select>
               </div>
             </div>
@@ -477,7 +500,7 @@ session_start();
             </div>
             <div class="row">
               <div class="col s12">
-                <table>
+                <table id="tableUsuarios" class="display" style="width:100%">
                   <thead>
                     <tr>
                       <th>Usuario</th>
@@ -553,10 +576,98 @@ session_start();
         </div>
         </form>
       </div>
+      <!---Agregar Servicios--->
+      <div class="col s10 servicioCont z-depth-5">
+        <div class="col s12">
+          <h3>Agregar Servicio</h3>
+          <br>
+          <h4><b>Nuevo Servicio al sistema</b></h4>
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevoServicio" type="text" class="validate" required="true">
+                <label for="NuevoServicio">Nombre Servicio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevaPrecio" type="text" class="validate" required="true">
+                <label for="NuevaPrecio">Precio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <h6>Productos a usar</h6>
+                <select multiple id="productos1">
+                  <option value='' disabled selected>Seleccione los Productos Usados</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <a id="Sub" class="waves-effect waves-light btn left blue" onclick="con.guardarServicio();">Guardar</a>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+
+
+
+        </div>
+        </form>
+      </div>
+
+
+      <!--Agregar Productos-->
+      <div class="col s8 reporteCont z-depth-5">
+        <div class="col s10">
+          <h3>Agregar Producto</h3>
+          <br>
+          <h4><b>Nuevo Producto</b></h4>
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevoProducto" type="text" class="validate" required="true">
+                <label for="NuevoProducto">Nombre</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="CantidadProducto" type="text" class="validate" required="true">
+                <label for="CantidadProducto">Cantidad</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="PrecioProducto" type="text" class="validate" required="true">
+                <label for="PrecioProducto">Precio</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="DescripcionProducto" type="text" class="validate" required="true">
+                <label for="DescripcionProducto">Descripcion</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.guardarProducto();">Guardar</a>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+
+
+
+        </div>
+        </form>
+      </div>
     </div>
   </div>
- </div>
-</div>
+  </div>
+  </div>
 
 
   <!--JavaScript at end of body for optimized loading-->
@@ -569,6 +680,8 @@ session_start();
     var apanel = new SingleTon(AdminPanel).getInstance();
     $(document).ready(function () {
       apanel.getEmpleados();
+      apanel.getProductos();
+
     });
   </script>
   <script>
@@ -577,4 +690,3 @@ session_start();
 </body>
 
 </html>
-

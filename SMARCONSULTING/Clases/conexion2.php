@@ -54,49 +54,49 @@ class BaseDatos
         $mysqli->close();
     }
 
-public function insertar($query){
+    public function insertar($query)
+    {
 
-    $estado = false;
-// Create connection
-$conn = mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
-// Check connection
-if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-}
-$sql = $query;
-if (mysqli_query($conn, $sql)) {
-      $estado = true;
-} 
+        $estado = false;
+        // Create connection
+        $conn = mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
+        // Check connection
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        $sql = $query;
+        if (mysqli_query($conn, $sql)) {
+            $estado = true;
+        }
 
-/*
+        /*
+        else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+        */
+        mysqli_close($conn);
 
-else {
-      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
+        return $estado;
 
-*/
-mysqli_close($conn);
-
-return $estado;
-
-}
-
-public function eliminar($query){
-    $estado = false;
-    // Crear conexión
-    $conn = mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
-    // Verificar conexión
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
     }
-    $sql = $query;
-    if (mysqli_query($conn, $sql)) {
-        $estado = true;
-    } 
-    
-    mysqli_close($conn);
-    return $estado;
-}
+
+    public function eliminar($query)
+    {
+        $estado = false;
+        // Crear conexión
+        $conn = mysqli_connect($this->servidor, $this->usuario, $this->contrasena, $this->database);
+        // Verificar conexión
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        $sql = $query;
+        if (mysqli_query($conn, $sql)) {
+            $estado = true;
+        }
+
+        mysqli_close($conn);
+        return $estado;
+    }
 
 
 }
