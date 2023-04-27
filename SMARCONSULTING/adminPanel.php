@@ -2,40 +2,56 @@
 <html lang="es">
 
 <head>
-  <!--Import Google Icon Font-->
+<!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/adminStyle2.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/animate.min.css" media="screen,projection" />
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+	<style type="text/css" class="init">
+  </style>
 
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" class="init">	
+        /**
+         * Se cargan la tabla de inventario
+         */
+        
+         $(document).ready(function () {
+          
+          con.cargarInventario();
 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+          setTimeout(() => {
+            $('#tableInvent').DataTable();
+            $('select').addClass("browser-default");
+          }, 100);
+
+         });
+
+	</script>
+
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
 
-  <?php
-  session_start();
+<?php
+session_start();
 
   if (!isset($_SESSION['usuarioNombre'])) {
-    header('Location: login.html');
-  } else {
-
-    if ($_SESSION['estado'] == false && $_SESSION['rol'] != "administrador") {
-      header('Location: login.html');
-    } else if ($_SESSION['estado'] == true && $_SESSION['rol'] != "administrador") {
-      header('Location: login.html');
-    }
+    header( 'Location: login.html' );
+}else{
+  
+  if ($_SESSION['estado']==false && $_SESSION['rol']!="administrador") {
+    header( 'Location: login.html' );
+  }else if($_SESSION['estado']==true && $_SESSION['rol']!="administrador"){
+    header( 'Location: login.html' );
   }
-  ?>
+}
+?>
 
 
 
@@ -43,20 +59,18 @@
     <div class="nav-wrapper blue-grey z-depth-5">
       <a href="#" class="brand-logo right">
         <div class="chip">
-          <img src=<?php if ($_SESSION['urlIMG'] == " ") {
-            print_r("'" . $_SESSION['urlIMG'] . "'");
-          } else {
+          <img src=<?php if ($_SESSION['urlIMG']==" ") {
             print_r("'./Assets/usersIMG/default.jpg'");
-          } ?> alt="Contact Person">
-          <?php print_r($_SESSION['usuarioNombre'] . " " . $_SESSION["rol"]); ?>
+          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
+          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
         </div>
       </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="left  hide-on-med-and-down">
         <li><a href="#"><i class="material-icons left">home</i>Home</a></li>
         <li><a href="#"><i class="material-icons left">dehaze</i>Content</a></li>
         <li><a href="#"><i class="material-icons left">settings</i>Settings</a></li>
-        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerrar sesion</a></li>
+        <li><a href="./Clases/admin/logout.php"><i class="material-icons left">close</i>Cerar sesion</a></li>
       </ul>
     </div>
   </nav>
@@ -101,9 +115,8 @@
                 <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Calendario</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Cita</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('cita');"><span class="badge"><i
+                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
               </div>
             </div>
           </li>
@@ -115,30 +128,14 @@
             </div>
             <div class="collapsible-body white">
               <div class="collection">
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar
-                  Productos</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteEdit');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>
-                  Editar/Eliminar Productos</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
-                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
-                  Productos</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar
-                  Servicios</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioEdit');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>
-                  Editar/Eliminar Servicios</a>
+                      class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Productos</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
-                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
-                  Disponibles</a>
+                      class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Servicios</a>
               </div>
             </div>
           </li>
@@ -354,8 +351,38 @@
         <div class="col s12">
           <h3>Inventario</h3>
           <form>
+            
             <div class="row">
-              <div id="pull_data_inv" class="col s12">
+              <div class="col s12">
+                
+                <table id="tableInvent" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio(unitario)</th>
+                    <th></th>
+                    <th>Descripcion</th>
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tablaInventario">
+                    
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio(unitario)</th>
+                      <th></th>
+                      <th>Descripcion</th>
+                      <th>Editar</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </tfoot>
+                </table>
+
               </div>
             </div>
           </form>
@@ -374,7 +401,19 @@
           <h3>Servicios</h3>
           <form>
             <div class="row">
-              <div id="pull_data_serv" class="col s12">
+              <div class="col s12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Servicio</th>
+                      <th>Precio</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tablaServicios">
+
+                  </tbody>
+                </table>
               </div>
             </div>
           </form>
@@ -437,24 +476,22 @@
               <a class="waves-effect waves-light btn left blue" onclick="con.editarUsuarioDB();">Guardar</a>
             </div>
             <div class="row">
-              <div id="pull_data_user" class="col s12">
-                <!--<div class="table-responsive">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Usuario</th>
-                        <th>Nombre</th>
-                        <th>Tipo de usuario</th>
-                        <th>Modificar</th>
-                        <th>Borrar</th>
-                      </tr>
-                    </thead>
+              <div class="col s12">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Nombre</th>
+                      <th>Tipo de usuario</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </thead>
 
-                    <tbody id="tablaUsuarios">
+                  <tbody id="tablaUsuarios">
 
-                    </tbody>
-                  </table>
-                </div>-->
+                  </tbody>
+                </table>
               </div>
             </div>
           </form>
@@ -513,199 +550,31 @@
             <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
                 class="material-icons">close</i></a>
           </div>
-
-
-
-        </div>
-        </form>
-      </div>
-
-      <!---Agregar Servicios--->
-      <div class="col s10 servicioCont z-depth-5">
-        <div class="col s12">
-          <h3>Agregar Servicio</h3>
-          <br>
-          <h4><b>Nuevo Servicio al sistema</b></h4>
-          <form>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="NuevoServicio" type="text" class="validate" required="true">
-                <label for="NuevoServicio">Nombre Servicio</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="NuevaPrecio" type="text" class="validate" required="true">
-                <label for="NuevaPrecio">Precio</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <h6>Productos a usar</h6>
-                <select multiple id="productos1">
-                  <option value='' disabled selected>Seleccione los Productos Usados</option>
-                </select>
-              </div>
-            </div>
-            <div class="row">
-              <a id="Sub" class="waves-effect waves-light btn left blue" onclick="con.guardarServicio();">Guardar</a>
-            </div>
-          </form>
-          <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
-                class="material-icons">close</i></a>
-          </div>
-
-
-
-        </div>
-        </form>
-      </div>
-
-
-      <!--Agregar Productos-->
-      <div class="col s8 reporteCont z-depth-5">
-        <div class="col s10">
-          <h3>Agregar Producto</h3>
-          <br>
-          <h4><b>Nuevo Producto</b></h4>
-          <form>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="NuevoProducto" type="text" class="validate" required="true">
-                <label for="NuevoProducto">Nombre</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="CantidadProducto" type="text" class="validate" required="true">
-                <label for="CantidadProducto">Cantidad</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="PrecioProducto" type="text" class="validate" required="true">
-                <label for="PrecioProducto">Precio</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="DescripcionProducto" type="text" class="validate" required="true">
-                <label for="DescripcionProducto">Descripcion</label>
-              </div>
-            </div>
-            <div class="row">
-              <a class="waves-effect waves-light btn left blue" onclick="con.guardarProducto();">Guardar</a>
-            </div>
-          </form>
-          <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
-                class="material-icons">close</i></a>
-          </div>
-
-
-
         </div>
         </form>
       </div>
     </div>
   </div>
-
+ </div>
+</div>
 
 
   <!--JavaScript at end of body for optimized loading-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="js/adminPanel2.js"></script>
   <script src="js/conexion.js"></script>
   <script src="js/SingleTon.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
-    $(document).ready(function () {
-      $('.select').formSelect();
-    });
-  </script>
-  <script>
-    function fetch_Data(page) {
-      $.ajax({
-        url: "Clases/fetchinv.php",
-        method: "POST",
-        data: {
-          page: page
-        },
-        success: function (data) {
-          $("#pull_data_inv").html(data);
-        }
-      });
-    }
-
-    fetch_Data();
-
-    $(document).on("click", ".page-item", function () {
-      let page = $(this).attr("id");
-
-      fetch_Data(page);
-    })
-  </script>
-    <script>
-    function fetch_Data(page) {
-      $.ajax({
-        url: "Clases/fetchuser.php",
-        method: "POST",
-        data: {
-          page: page
-        },
-        success: function (data) {
-          $("#pull_data_user").html(data);
-        }
-      });
-    }
-
-    fetch_Data();
-
-    $(document).on("click", ".page-item", function () {
-      let page = $(this).attr("id");
-
-      fetch_Data(page);
-    })
-  </script>
-  <script>
-    function fetch_Data(page) {
-      $.ajax({
-        url: "Clases/fetchser.php",
-        method: "POST",
-        data: {
-          page: page
-        },
-        success: function (data) {
-          $("#pull_data_serv").html(data);
-        }
-      });
-    }
-
-    fetch_Data();
-
-    $(document).on("click", ".page-item", function () {
-      let page = $(this).attr("id");
-
-      fetch_Data(page);
-    })
-  </script>
-
   <script type="text/javascript">
     M.AutoInit();
     var apanel = new SingleTon(AdminPanel).getInstance();
     $(document).ready(function () {
       apanel.getEmpleados();
-      apanel.getProductos();
     });
   </script>
   <script>
     var con = new SingleTon(Conexion).getInstance();
   </script>
-  <script>
-  </script>
-
-
 </body>
 
 </html>
+
