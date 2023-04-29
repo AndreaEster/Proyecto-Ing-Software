@@ -2,6 +2,7 @@
 
 include "../conexion2.php";
 $db = new BaseDatos();
+
 $id = $_POST["id"];
 $username = $_POST["username"];
 $password = $_POST["password"];

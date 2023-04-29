@@ -65,6 +65,18 @@
         $('select').addClass("browser-default");
       }, 100);
     });
+
+    $(document).ready(function () {
+
+      con.cargarEmpleados();
+
+      setTimeout(() => {
+        $('#tableEmpleados').DataTable({
+
+        });
+        $('select').addClass("browser-default");
+      }, 100);
+    });
   </script>
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -169,10 +181,6 @@
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Agregar
                   Productos</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteEdit');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>
-                  Editar/Eliminar Productos</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
@@ -181,10 +189,6 @@
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Agregar
                   Servicios</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioEdit');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>
-                  Editar/Eliminar Servicios</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
@@ -201,9 +205,16 @@
             <div class="collapsible-body white">
               <div class="collection">
                 <a href="#!" class="collection-item black-text"
+                  onclick="apanel.mostrasDiv('empleadoEdit');con.cargarEmpleados();"><span class="badge"><i
+                      class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Empleados</a>
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('empleadoCont');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Agregar Empleado</a>
+                <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
                       class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar</a>
+                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Usuario</a>
                 <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('usuariosCont');"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
@@ -382,9 +393,33 @@
       <!--Reportes-->
       <div class="col s9 reporte z-depth-5">
         <div class="col s12">
-          <h3>Inventario</h3>
+          <h3>Modificar/Eliminar Producto del Inventario</h3>
           <form>
-
+            <div class="row">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="reporteNombre" type="text" class="validate" value="Nombre de usuario" disabled="true">
+                  <label for="reporteNombre">Nombre del producto</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="reporteCant" type="text" class="validate"  value="0" disabled="true">
+                  <label for="reporteCant">Cantidad</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="reportePrecio" type="text" class="validate" value="0.00" disabled="true">
+                  <label for="reportePrecio">Precio</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="reporteDesc" type="text" class="validate" value="none" disabled="true">
+                  <label for="reporteDesc">Descripcion</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.editarProductoDB();">Guardar</a>
+            </div>
             <div class="row">
               <div class="col s12">
 
@@ -419,8 +454,23 @@
       <!---Servicios-->
       <div class="col s9 servicios z-depth-5">
         <div class="col s12">
-          <h3>Servicios</h3>
+          <h3>Modificar/Eliminar Servicios</h3>
           <form>
+            <div class="row">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="nombreServicio" type="text" class="validate" value="Nombre servicio" disabled="true">
+                  <label for="nombreServicio">Nombre Servicio</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="precioServicio" type="text" class="validate" value="0.00" disabled="true">
+                  <label for="precioServicio">Precio</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.editarServcioDB();">Guardar</a>
+            </div>
             <div class="row">
               <div class="col s12">
                 <table id="tableServicio" class="display" style="width:100%">
@@ -576,6 +626,98 @@
         </div>
         </form>
       </div>
+
+
+      <!---Empleados Edit--->
+      <div class="col s6 empleadoEdit z-depth-5">
+        <div class="col s12">
+          <h3>Modificar/Eliminar Empleados</h3>
+          <form>
+            <div class="row">
+              <div class="input-field col s3">
+                <input id="empleadoName" type="text" class="validate" value="Nombre de empleado" disabled="true">
+                <label for="empleadoName">Nombre Completo</label>
+              </div>
+              <div class="input-field col s3">
+                <input id="empleadoEmail" type="text" class="validate" disabled="true" value="algo@email.com">
+                <label for="empleadoEmail">Email</label>
+              </div>
+              <div class="input-field col s3">
+                <input id="telefonoEmpleado" type="text" class="validate" value="telefono">
+                <label for="telefonoEmpleado">Telefono</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.editarEmpleadoDB();">Guardar</a>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <table id="tableEmpleados" class="display" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Telefono</th>
+                      <th>Fecha de Contratacion</th>
+                      <th>Modificar</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tablaEmpleados">
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+        </div>
+        </form>
+      </div>
+
+
+      <!---Agregar Empleados--->
+      <div class="col s6 empleadoCont z-depth-5">
+        <div class="col s12">
+          <h3>Agregar Empleado</h3>
+          <br>
+          <h4><b>Nuevo Usuario al sistema</b></h4>
+          <form>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevoEmpleado" type="text" class="validate" required="true">
+                <label for="NuevoUsuario">Nombre Empleado</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevaEmail" type="password" class="validate" required="true">
+                <label for="NuevaEmail">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="NuevaTel" type="password" class="validate" required="true">
+                <label for="NuevaTel">Telefono</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn left blue" onclick="con.guardarEmpleado();">Guardar</a>
+            </div>
+          </form>
+          <div class="row">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+        </div>
+        </form>
+      </div>
+
+
       <!---Agregar Servicios--->
       <div class="col s10 servicioCont z-depth-5">
         <div class="col s12">

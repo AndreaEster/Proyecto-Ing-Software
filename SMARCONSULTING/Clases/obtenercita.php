@@ -15,7 +15,6 @@ foreach ($result as $resultado) {
         "email" => $resultado["email"],
         "telefono" => $resultado["telefono"],
         "fecha" => $resultado["fecha"],
-        "hora" => $resultado["hora"],
         "estado" => $resultado["estado"],
         "comentario" => $resultado["comentario"]
     );

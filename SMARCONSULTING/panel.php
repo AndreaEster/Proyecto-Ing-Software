@@ -15,24 +15,25 @@
 </head>
 
 <body>
-<?php
-session_start();
+  <?php
+  session_start();
 
   if (!isset($_SESSION['usuarioNombre'])) {
-    header( 'Location: login.html' );
-}else{
-  
-  if ($_SESSION['estado']==false && $_SESSION['rol']=="administrador") {
-    header( 'Location: login.html' );
+    header('Location: login.html');
+  } else {
+
+    if ($_SESSION['estado'] == false && $_SESSION['rol'] == "administrador") {
+      header('Location: login.html');
+    }
   }
-}
-?>
+  ?>
   <nav>
     <div class="nav-wrapper brown lighten-3">
-    <a href="#" class="brand-logo">CONSULTING SALON</a>
-    <ul class="right  hide-on-med-and-down">
-      <li><a href="./Clases/admin/logout.php" class="white-text"><i class="material-icons left">close</i>Cerar sesion</a></li>
-    </ul>
+      <a href="#" class="brand-logo">CONSULTING SALON</a>
+      <ul class="right  hide-on-med-and-down">
+        <li><a href="./Clases/admin/logout.php" class="white-text"><i class="material-icons left">close</i>Cerar
+            sesion</a></li>
+      </ul>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
           <nav>
@@ -48,12 +49,14 @@ session_start();
           </nav>
         </li>
         <li><a class="waves-effect waves-light btn modal-trigger brown darken-1" href="#modal1">Haz tu cita aqui!</a>
-        <div class="chip rigth">
-          <img src=<?php if ($_SESSION['urlIMG']==" ") {
-            print_r("'./Assets/usersIMG/default.jpg'");
-          }else{print_r("'".$_SESSION['urlIMG']."'");}?> alt="Contact Person">
-          <?php print_r($_SESSION['usuarioNombre']." ".$_SESSION["rol"]);?>
-        </div>
+          <div class="chip rigth">
+            <img src=<?php if ($_SESSION['urlIMG'] == " ") {
+              print_r("'./Assets/usersIMG/default.jpg'");
+            } else {
+              print_r("'" . $_SESSION['urlIMG'] . "'");
+            } ?> alt="Contact Person">
+            <?php print_r($_SESSION['usuarioNombre'] . " " . $_SESSION["rol"]); ?>
+          </div>
         </li>
       </ul>
     </div>
@@ -109,16 +112,9 @@ session_start();
               </select>
             </div>
             <div class="row">
-              <label>Duracion</label>
-              <p class="range-field">
-                <input type="range" id="test5" min="0" max="100" class="duracion"/>
-              </p>
-            </div>
-            
-            <div class="row">
               <div class="input-field col s12">
-                <input id="birthdate" type="text" class="datepicker fecha">
-                <label for="birthdate">Fecha</label>
+                <input id="fecha" type="text" class="datepicker">
+                <label for="fecha">Fecha</label>
               </div>
             </div>
           </div>
@@ -270,7 +266,8 @@ session_start();
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Biografia de CONSULTING SALON</h5>
-          <p class="grey-text text-lighten-4">Una empresa de asesoria que empezo como algo familiar para hoy ser una realidad</p>
+          <p class="grey-text text-lighten-4">Una empresa de asesoria que empezo como algo familiar para hoy ser una
+            realidad</p>
 
 
         </div>
@@ -338,17 +335,60 @@ session_start();
 </script>
 <script>
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems);
-  });
+</script>
+<script>
 
-  // Or with jQuery
-
-  $(document).ready(function () {
-    $('.datepicker').datepicker();
-  });
 
 </script>
+<script>
+
+  $(document).ready(function () {
+    var elems = document.querySelectorAll('.datepicker');
+    var options = {
+      i18n: {
+        cancel: 'Cancelar',
+        clear: 'Limpiar',
+        done: 'OK',
+        close: 'Cerrar',
+        defaultDate: 'now',
+        today: 'Hoy',
+        closeOnSelect: false,
+        disableWeekends: false,
+        format: 'yyyy-mm-dd',
+        selectMonths: true,
+        previousMonth: '<',
+        nextMonth: '>',
+        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthsShort: ['Ene', 'Feb', 'Mar', 'Ab', 'May', 'Jun', 'Jul', 'Ag', 'Sept', 'Oct', 'Nov', 'Dic'],
+        firstDay: true,
+        weekdays: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado"],
+        weekdaysShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+        weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+      },
+      disableDayFn: function (date) {
+        var dia_semana = $('#horarios01').find(':selected').val();
+        return date.getDay() !== getDayOfWeek(dia_semana) || date < new Date();
+      }
+    };
+
+    M.Datepicker.init(elems, options);
+
+    $('#horarios01').change(function () {
+      var dia_semana = $(this).find(':selected').val();
+      var newOptions = Object.assign({}, options, {
+        disableWeekends: false,
+        minDate: new Date(),
+      });
+      M.Datepicker.init(elems, newOptions);
+    });
+
+    function getDayOfWeek(day) {
+      var daysOfWeek = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sabado"];
+      return daysOfWeek.indexOf(day);
+    }
+  });
+</script>
+
+
 
 </html>

@@ -5,7 +5,7 @@ $db = new BaseDatos();
 
 $result = array();
 
-$result = $db->getDatos("SELECT * FROM empleados WHERE id != 1");
+$result = $db->getDatos("SELECT * FROM empleados");
 
 /**
  * Se rellena el arreglo relacional unicamente con los
@@ -15,7 +15,9 @@ $result = $db->getDatos("SELECT * FROM empleados WHERE id != 1");
 foreach ($result as $resultado) {
     $nombres[] = array(
         "nombre"=>$resultado['nombre'],
-        "id"=>$resultado['id']
+        "email"=>$resultado['email'],
+        "telefono"=>$resultado['telefono'],
+        "fecha_contratacion"=>$resultado['fecha_contratacion']
     );
 }
 

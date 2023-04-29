@@ -9,15 +9,13 @@ $nombre = $_POST['nombre'];
 $email = $_POST['email'];
 $telefono = $_POST['telefono'];
 $fecha = $_POST["fecha"];
-$hora = $_POST["hora"];
-$duracion = $_POST["duracion"];
 $estado = $_POST["estado"];
 $comentario = $_POST["comentario"];
 
 
 
-$query = "INSERT INTO `citas` (`id`, `id_usuario`, `id_servicio`, `nombre`, `email`, `telefono`, `fecha`, `hora`, `duracion`, `estado`, `comentario`) VALUES".""
-."(NULL, '".$idusuario."', '".$idservicio."', '".$nombre."', '".$email."', '".$telefono."', '".$fecha."', '".$hora."', '".$duracion."', '".$estado."', '".$comentario."');";
+$query = "INSERT INTO `citas` (`id_usuario`, `id_servicio`, `nombre`, `email`, `telefono`, `fecha`, `estado`, `comentario`) VALUES".""
+."(".$idusuario."', '".$idservicio."', '".$nombre."', '".$email."', '".$telefono."', '".$fecha."', '".$estado."', '".$comentario."');";
 
 
 if ($db->insertar($query)) {

@@ -79,7 +79,7 @@ class panel{
       const horarios = JSON.parse(data);
           
         for (let index = 0; index < horarios.length; index++) {
-              $("#horarios01").append("<option value='"+horarios[index].hora_inicio+"'>"+horarios[index].dia_semana+" Hora de inicio:"+horarios[index].hora_inicio+" Hora final:"+horarios[index].hora_fin+"</option>");
+              $("#horarios01").append("<option value='"+horarios[index].dia_semana+"'>"+horarios[index].dia_semana+" Hora de inicio:"+horarios[index].hora_inicio+" Hora final:"+horarios[index].hora_fin+"</option>");
             }
       
     });
@@ -125,8 +125,6 @@ class panel{
       telefono:$(".telefono").val(),
       fecha: $(".fecha").val(),
       hora:$("#horarios01").val(),
-      duracion:$(".duracion").val(),
-      estado:"1",
       comentario:$("#textarea2").val()
     },
       function (data, status) {
