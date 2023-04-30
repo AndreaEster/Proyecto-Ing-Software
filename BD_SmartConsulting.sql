@@ -59,7 +59,7 @@ CREATE TABLE citas (
     email VARCHAR(50),
     telefono VARCHAR(20),
     fecha DATE NOT NULL,
-    duracion INT(11) NOT NULL,
+    dia VARCHAR(50) NOT NULL,
     estado ENUM('confirmada', 'cancelada', 'realizada') NOT NULL DEFAULT 'confirmada',
     comentario TEXT,
     PRIMARY KEY (id),
