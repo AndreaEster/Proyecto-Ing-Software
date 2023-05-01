@@ -120,7 +120,7 @@ CREATE TABLE producto_por_pago (
 );
 
 CREATE TABLE facturas (
-    id INT(11) NOT NULL AUTO_INCREMENT,
+    id INT(11) NOT NULL,
     id_pago INT(11) NOT NULL,
     fecha DATETIME NOT NULL DEFAULT NOW(),
     total DECIMAL(10,2) NOT NULL,

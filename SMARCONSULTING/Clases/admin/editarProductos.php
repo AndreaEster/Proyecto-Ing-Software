@@ -2,13 +2,13 @@
 
 include "../conexion2.php";
 $db = new BaseDatos();
-$id = $_POST["id"];
+
 $nombre= $_POST["nombre"];
 $cantidad= $_POST["cantidad"];
 $precio= $_POST["precio"];
 $descripcion= $_POST["descripcion"];
 
-$sql = "UPDATE `productos` SET `nombre` = '".$nombre."', `cantidad` = '".$cantidad."', `precio` = '".$precio."', `descripcion` = '".$descripcion."' WHERE `productos`.`id` = ".$id.";";
+$sql = "UPDATE `productos` SET `nombre` = '".$nombre."', `cantidad` = '".$cantidad."', `precio` = '".$precio."', `descripcion` = '".$descripcion."' WHERE `productos`.`nombre` = ".$nombre.";";
 
 if ($db->insertar($sql)) {
     $data[] = array(

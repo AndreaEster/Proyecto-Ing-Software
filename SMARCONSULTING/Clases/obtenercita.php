@@ -12,7 +12,6 @@ foreach ($result as $resultado) {
     $Citas[] = array(
         "id" => $resultado["id"],
         "nombre" => $resultado["nombre"],
-        "email" => $resultado["email"],
         "telefono" => $resultado["telefono"],
         "fecha" => $resultado["fecha"],
         "estado" => $resultado["estado"],

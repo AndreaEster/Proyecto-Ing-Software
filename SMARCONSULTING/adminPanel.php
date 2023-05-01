@@ -229,10 +229,9 @@
             </div>
 
             <div class="collapsible-body white center">
-            <div class="collection">
-                <a href="#!" class="collection-item black-text left"
-                  onclick="apanel.mostrasDiv('reportes1');"><span class="badge"><i
-                      class="material-icons deep-purple-text"
+              <div class="collection">
+                <a href="#!" class="collection-item black-text left" onclick="apanel.mostrasDiv('reportes1');"><span
+                    class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Generar reporte</a>
               </div>
             </div>
@@ -349,7 +348,6 @@
                     <tr>
                       <th>Id</th>
                       <th>Nombre</th>
-                      <th>Email</th>
                       <th>Telefono</th>
                       <th>Fecha</th>
                       <th>Estado</th>
@@ -362,39 +360,72 @@
               </div>
             </div>
           </form>
-         </div>
+        </div>
 
         <div class="row col s6 left">
           <div class="row">
-              <label>Estado</label>
-              <select class="browser-default">
-                <option value="" disabled selected>Seleccione una opcion</option>
-                <option value="1">Aprobar</option>
-                <option value="2">Cancelar</option>
-              </select>
+            <label>Estado</label>
+            <select class="browser-default">
+              <option value="" disabled selected>Seleccione una opcion</option>
+              <option value="1">Aprobar</option>
+              <option value="2">Cancelar</option>
+            </select>
+          </div>
+          <div class="row">
+            <a class="waves-effect waves-light btn left blue">Guardar</a>
+          </div>
+        </div>
+
+        <div class="col s12">
+          <div class="row s9 left">
+            <h3>Creacion del pago de Factura</h3>
+            <div class="row col s3">
+              <label id="numeroFactura">Factura #</label><input type="text" class="validate" id="numeroFactura"
+                value="0000-000-000"></input>
             </div>
-            <div class="row">
-              <a class="waves-effect waves-light btn left blue">Guardar</a>
+            <div class="row col s3">
+              <label id="numeroFactura">Fecha: </label><input type="text" class="validate" id="fechaFacturado"
+                value="<?php echo date('Y-m-d'); ?>"></input>
             </div>
+            <div class="row col s3">
+              <label id="numeroFactura">Hora: </label><input type="text" class="validate" id="horaFacturado"
+                value="<?php echo date('H:i:s'); ?>"></input>
+            </div>
+          </div>
+
+        </div>
+        <div class="row col s6 left">
+          <h4>Forma de pago: </h4>
+          <div class="row">
+            <select class="browser-default" id="selectPago" required>
+              <option value="" disabled selected>Seleccione una opcion</option>
+              <option value="efectivo'">Efectivo</option>
+              <option value="tarjeta_credito">Credito</option>
+              <option value="tarjeta_debito">Debito</option>
+            </select>
+          </div>
+          <div class="row">
+            <a class="waves-effect waves-light btn left blue">Guardar</a>
+          </div>
         </div>
         <div class="row col s12 left">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
-                class="material-icons">close</i></a>
-          </div>
+          <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+              class="material-icons">close</i></a>
+        </div>
       </div>
 
 
-        
+
 
       <!--Reportes1-->
       <div class="col s8 reportes1 z-depth-5">
         <div class="col s12">
           <h3>Reportes</h3>
-         </div>
+        </div>
 
-         <form>
-        <div class="row col s6 left">
-          <div class="row">
+        <form>
+          <div class="row col s6 left">
+            <div class="row">
               <label>Tipos de reportes</label>
               <select class="browser-default" id="selectReporte" required>
                 <option value="" disabled selected>Seleccione una opcion</option>
@@ -405,14 +436,15 @@
               </select>
             </div>
             <div class="row">
-            <a class="waves-effect waves-light btn left orange" onclick="con.generarReporte();" type="submit"><i class="material-icons right">save</i>Generar</a>
+              <a class="waves-effect waves-light btn left orange" onclick="con.generarReporte();" type="submit"><i
+                  class="material-icons right">save</i>Generar</a>
             </div>
-        </div>
+          </div>
         </form>
         <div class="row col s12 left">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
-                class="material-icons">close</i></a>
-          </div>
+          <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+              class="material-icons">close</i></a>
+        </div>
       </div>
 
 
@@ -429,21 +461,21 @@
             <div class="row">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="reporteNombre" type="text" class="validate" value="Nombre de usuario" disabled="true">
+                  <input id="reporteNombre" type="text" class="validate" value="Nombre de usuario">
                   <label for="reporteNombre">Nombre del producto</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="reporteCant" type="text" class="validate"  value="0" disabled="true">
+                  <input id="reporteCant" type="text" class="validate" value="0">
                   <label for="reporteCant">Cantidad</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="reportePrecio" type="text" class="validate" value="0.00" disabled="true">
+                  <input id="reportePrecio" type="text" class="validate" value="0.00">
                   <label for="reportePrecio">Precio</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="reporteDesc" type="text" class="validate" value="none" disabled="true">
+                  <input id="reporteDesc" type="text" class="validate" value="none">
                   <label for="reporteDesc">Descripcion</label>
                 </div>
               </div>
@@ -490,11 +522,11 @@
             <div class="row">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="nombreServicio" type="text" class="validate" value="Nombre servicio" disabled="true">
+                  <input id="nombreServicio" type="text" class="validate" value="Nombre servicio">
                   <label for="nombreServicio">Nombre Servicio</label>
                 </div>
                 <div class="input-field col s6">
-                  <input id="precioServicio" type="text" class="validate" value="0.00" disabled="true">
+                  <input id="precioServicio" type="text" class="validate" value="0.00">
                   <label for="precioServicio">Precio</label>
                 </div>
               </div>

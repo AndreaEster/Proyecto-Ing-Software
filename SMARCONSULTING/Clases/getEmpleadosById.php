@@ -10,6 +10,7 @@ $resultEmpleados = $db->getDatos("SELECT * FROM empleados WHERE id = {$id}");
 foreach ($resultEmpleados as $result) {
     
     $empleados[] = array(
+        "id" => $result['id'],
         "nombre" => $result['nombre'],
         "email" => $result['email'],
         "telefono" => $result['telefono'],

@@ -11,8 +11,12 @@ var Conexion = function () {
         cargarUsuarios: cargarUsuarios,
         editarUsuario: editarUsuario,
         editarEmpleado: editarEmpleado,
+        editarServicio: editarServicio,
+        editarProducto: editarProducto,
         liminarUsuario: liminarUsuario,
         eliminarEmpleado: eliminarEmpleado,
+        eliminarProducto: eliminarProducto,
+        eliminarServicio: eliminarServicio,
         cargarInventario: cargarInventario,
         cargarServicios: cargarServicios,
         cargarCitas: cargarCitas,
@@ -33,48 +37,48 @@ function generarReporte() {
 
     switch ($("#selectReporte").val()) {
         case "citas":
-            
-                $.post("Clases/obtenercita.php", null,
+
+            $.post("Clases/obtenercita.php", null,
                 function (data, status) {
                     const citas = JSON.parse(data);
-                    
+
                     reporteCitas(citas);
                 },
-                );
-            
+            );
+
             break;
         case "facturas":
-                $.post("Clases/obtenerFactura.php", null,
-                    function (data, status) {
-                        const facturas = JSON.parse(data);
+            $.post("Clases/obtenerFactura.php", null,
+                function (data, status) {
+                    const facturas = JSON.parse(data);
 
-                        reporteFacturas(facturas);
-                    },
-                );
+                    reporteFacturas(facturas);
+                },
+            );
             break;
-        
-        
+
+
         case "empleados":
             $.post("Clases/getEmpleados.php", null,
-                    function (data, status) {
-                        const empleados = JSON.parse(data);
+                function (data, status) {
+                    const empleados = JSON.parse(data);
 
-                        reporteEmpleados(empleados);
-                    },
-                );
-            
+                    reporteEmpleados(empleados);
+                },
+            );
+
             break;
-        
+
         case "usuarios":
             $.post("Clases/getUsuarios.php", null,
-                    function (data, status) {
-                        const usuarios = JSON.parse(data);
+                function (data, status) {
+                    const usuarios = JSON.parse(data);
 
-                        reporteUsuarios(usuarios);
-                    },
-                );
+                    reporteUsuarios(usuarios);
+                },
+            );
             break;
-    
+
         default:
             alert("No se a seleccionado un tipo de reporte");
             break;
@@ -86,163 +90,163 @@ function generarReporte() {
 
 
 
-function reporteUsuarios(data){
-    
+function reporteUsuarios(data) {
+
     var result = [];
-       
-    for (var i = 0; i < data.length; i ++) {
-      data2 = {
-        id: data[i].id,
-        username: data[i].username,
-        nombre: data[i].nombre,
-        tipo: data[i].tipo
 
-      };
-      result.push(Object.assign({}, data2));
+    for (var i = 0; i < data.length; i++) {
+        data2 = {
+            id: data[i].id,
+            username: data[i].username,
+            nombre: data[i].nombre,
+            tipo: data[i].tipo
+
+        };
+        result.push(Object.assign({}, data2));
     }
-  
-  function createHeaders(keys) {
-    var result = [];
-    for (var i = 0; i < keys.length; i += 1) {
-      result.push({
-        id: keys[i],
-        name: keys[i],
-        prompt: keys[i],
-        width: 65,
-        align: "left",
-        padding: 0
-      });
-    }
-    return result;
-  }
-  
-  var headers = createHeaders([
-    "id",
-    "username",
-    "nombre",
-    "tipo"
-  ]);
-  
-  
-      var doc = new jsPDF( 'p', 'mm', [300, 300]);
-      doc.table(1, 1, result, headers, { autoSize: true });
-      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
-  
-      doc.save(""+$("#selectReporte").val()+".pdf");
 
-}
-
-
-
-function reporteEmpleados(data){
-    
-    var result = [];
-       
-    for (var i = 0; i < data.length; i ++) {
-      data2 = {
-        id: data[i].id,
-        nombre: data[i].nombre,
-        email: data[i].email,
-        telefono: data[i].telefono,
-        fecha_contratacion: data[i].fecha_contratacion
-
-      };
-      result.push(Object.assign({}, data2));
-    }
-  
-  function createHeaders(keys) {
-    var result = [];
-    for (var i = 0; i < keys.length; i += 1) {
-      result.push({
-        id: keys[i],
-        name: keys[i],
-        prompt: keys[i],
-        width: 65,
-        align: "left",
-        padding: 0
-      });
-    }
-    return result;
-  }
-  
-  var headers = createHeaders([
-    "id",
-    "nombre",
-    "email",
-    "telefono",
-    "fecha_contratacion"
-  ]);
-  
-  
-      var doc = new jsPDF( 'p', 'mm', [450, 450]);
-      doc.table(1, 1, result, headers, { autoSize: true });
-      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
-  
-      doc.save(""+$("#selectReporte").val()+".pdf");
-
-}
-
-
-function reporteFacturas(data){
-    
-    var result = [];
-       
-    for (var i = 0; i < data.length; i ++) {
-      data2 = {
-        id: data[i].id,
-        id_pago: data[i].id_pago,
-        fecha: data[i].fecha,
-        hora: data[i].hora,
-        total: data[i].total+" Lps"
-
-      };
-      result.push(Object.assign({}, data2));
-    }
-  
-
-
-
-
-  function createHeaders(keys) {
-    var result = [];
-    for (var i = 0; i < keys.length; i += 1) {
-      result.push({
-        id: keys[i],
-        name: keys[i],
-        prompt: keys[i],
-        width: 65,
-        align: "left",
-        padding: 0
-      });
-    }
-    return result;
-  }
-  
-  var headers = createHeaders([
-    "id",
-    "id_pago",
-    "fecha",
-    "hora",
-    "total"
-  ]);
-  
-  
-      var doc = new jsPDF( 'p', 'mm', [400, 400]);
-      doc.table(1, 1, result, headers, { autoSize: true });
-      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
-  
-      doc.save(""+$("#selectReporte").val()+".pdf");
-
-}
-
-
-function reporteCitas(data){
-    
-    
+    function createHeaders(keys) {
         var result = [];
-       
-        for (var i = 0; i < data.length; i ++) {
-          data2 = {
+        for (var i = 0; i < keys.length; i += 1) {
+            result.push({
+                id: keys[i],
+                name: keys[i],
+                prompt: keys[i],
+                width: 65,
+                align: "left",
+                padding: 0
+            });
+        }
+        return result;
+    }
+
+    var headers = createHeaders([
+        "id",
+        "username",
+        "nombre",
+        "tipo"
+    ]);
+
+
+    var doc = new jsPDF('p', 'mm', [300, 300]);
+    doc.table(1, 1, result, headers, { autoSize: true });
+    doc.setDisplayMode({ zoom: 1, layout: "continuous", pmode: "UseOutlines" });
+
+    doc.save("" + $("#selectReporte").val() + ".pdf");
+
+}
+
+
+
+function reporteEmpleados(data) {
+
+    var result = [];
+
+    for (var i = 0; i < data.length; i++) {
+        data2 = {
+            id: data[i].id,
+            nombre: data[i].nombre,
+            email: data[i].email,
+            telefono: data[i].telefono,
+            fecha_contratacion: data[i].fecha_contratacion
+
+        };
+        result.push(Object.assign({}, data2));
+    }
+
+    function createHeaders(keys) {
+        var result = [];
+        for (var i = 0; i < keys.length; i += 1) {
+            result.push({
+                id: keys[i],
+                name: keys[i],
+                prompt: keys[i],
+                width: 65,
+                align: "left",
+                padding: 0
+            });
+        }
+        return result;
+    }
+
+    var headers = createHeaders([
+        "id",
+        "nombre",
+        "email",
+        "telefono",
+        "fecha_contratacion"
+    ]);
+
+
+    var doc = new jsPDF('p', 'mm', [450, 450]);
+    doc.table(1, 1, result, headers, { autoSize: true });
+    doc.setDisplayMode({ zoom: 1, layout: "continuous", pmode: "UseOutlines" });
+
+    doc.save("" + $("#selectReporte").val() + ".pdf");
+
+}
+
+
+function reporteFacturas(data) {
+
+    var result = [];
+
+    for (var i = 0; i < data.length; i++) {
+        data2 = {
+            id: data[i].id,
+            id_pago: data[i].id_pago,
+            fecha: data[i].fecha,
+            hora: data[i].hora,
+            total: data[i].total + " Lps"
+
+        };
+        result.push(Object.assign({}, data2));
+    }
+
+
+
+
+
+    function createHeaders(keys) {
+        var result = [];
+        for (var i = 0; i < keys.length; i += 1) {
+            result.push({
+                id: keys[i],
+                name: keys[i],
+                prompt: keys[i],
+                width: 65,
+                align: "left",
+                padding: 0
+            });
+        }
+        return result;
+    }
+
+    var headers = createHeaders([
+        "id",
+        "id_pago",
+        "fecha",
+        "hora",
+        "total"
+    ]);
+
+
+    var doc = new jsPDF('p', 'mm', [400, 400]);
+    doc.table(1, 1, result, headers, { autoSize: true });
+    doc.setDisplayMode({ zoom: 1, layout: "continuous", pmode: "UseOutlines" });
+
+    doc.save("" + $("#selectReporte").val() + ".pdf");
+
+}
+
+
+function reporteCitas(data) {
+
+
+    var result = [];
+
+    for (var i = 0; i < data.length; i++) {
+        data2 = {
             id: data[i].id,
             nombre: data[i].nombre,
             email: data[i].email,
@@ -251,30 +255,30 @@ function reporteCitas(data){
             estado: data[i].estado,
             comentario: data[i].comentario
 
-          };
-          result.push(Object.assign({}, data2));
-        }
-      
+        };
+        result.push(Object.assign({}, data2));
+    }
 
 
 
 
-      function createHeaders(keys) {
+
+    function createHeaders(keys) {
         var result = [];
         for (var i = 0; i < keys.length; i += 1) {
-          result.push({
-            id: keys[i],
-            name: keys[i],
-            prompt: keys[i],
-            width: 65,
-            align: "left",
-            padding: 0
-          });
+            result.push({
+                id: keys[i],
+                name: keys[i],
+                prompt: keys[i],
+                width: 65,
+                align: "left",
+                padding: 0
+            });
         }
         return result;
-      }
-      
-      var headers = createHeaders([
+    }
+
+    var headers = createHeaders([
         "id",
         "nombre",
         "email",
@@ -282,15 +286,15 @@ function reporteCitas(data){
         "fecha",
         "estado",
         "comentario"
-      ]);
-      
-      
-          var doc = new jsPDF( 'p', 'mm', [400, 400]);
-          doc.table(1, 1, result, headers, { autoSize: true });
-          doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
-      
-          doc.save(""+$("#selectReporte").val()+".pdf");
-      
+    ]);
+
+
+    var doc = new jsPDF('p', 'mm', [400, 400]);
+    doc.table(1, 1, result, headers, { autoSize: true });
+    doc.setDisplayMode({ zoom: 1, layout: "continuous", pmode: "UseOutlines" });
+
+    doc.save("" + $("#selectReporte").val() + ".pdf");
+
 }
 
 
@@ -321,7 +325,7 @@ function cargarUsuarios() {
 
 }
 
-function cargarEmpleados(){
+function cargarEmpleados() {
     $("#tablaEmpleados").html("");
     $.post("Clases/obtenerempleados.php", null,
         function (data, status) {
@@ -358,7 +362,6 @@ function cargarCitas() {
                 $("#tablaCitas").append(
                     "<tr><td>" + this.dataCita[index].id +
                     "</td><td>" + this.dataCita[index].nombre +
-                    "</td><td>" + this.dataCita[index].email +
                     "</td><td>" + this.dataCita[index].telefono +
                     "</td><td>" + this.dataCita[index].fecha +
                     "</td><td>" + this.dataCita[index].estado +
@@ -374,8 +377,8 @@ function cargarCitas() {
 }
 
 
-function SeleccionarCita(id){
-    alert("Cita seleccionada:"+id);
+function SeleccionarCita(id) {
+    alert("Cita seleccionada:" + id);
 }
 
 function editarUsuario(id) {
@@ -421,6 +424,53 @@ function liminarUsuario(id) {
 
 }
 
+function eliminarProducto(id) {
+
+
+    var respuesta = confirm("El producto se va a eliminar. Desea continuar ?");
+
+    if (respuesta) {
+        $.post("./Clases/admin/eliminarProducto.php",
+            { "id": id },
+            function (data, status) {
+                const result = JSON.parse(data);
+                M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+            },
+        );
+        setTimeout(() => {
+            this.cargarInventario();
+        }, 1000);
+
+    }
+
+
+
+}
+
+function eliminarServicio(id) {
+
+
+    var respuesta = confirm("El servicio se va a eliminar. Desea continuar ?");
+
+    if (respuesta) {
+        $.post("./Clases/admin/eliminarServicio.php",
+            { "id": id },
+            function (data, status) {
+                const result = JSON.parse(data);
+                M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+            },
+        );
+        setTimeout(() => {
+            this.cargarServicios();
+        }, 1000);
+
+    }
+
+
+
+}
+
+
 function editarEmpleado(id) {
 
     $.post("Clases/getEmpleadosById.php", {
@@ -437,6 +487,42 @@ function editarEmpleado(id) {
     );
 
 }
+
+
+function editarProducto(id) {
+
+    $.post("Clases/getProductosById.php", {
+        "id": id
+    },
+        function (data, status) {
+
+            const prod = JSON.parse(data);
+
+            $("#reporteNombre").val(prod[0].nombre);
+            $("#reporteCant").val(prod[0].cantidad);
+            $("#reportePrecio").val(prod[0].precio);
+            $("#reporteDesc").val(prod[0].descripcion);
+        },
+    );
+
+}
+
+function editarServicio(id) {
+
+    $.post("Clases/getServiciosById.php", {
+        "id": id
+    },
+        function (data, status) {
+
+            const serv = JSON.parse(data);
+
+            $("#nombreServicio").val(serv[0].nombre);
+            $("#precioServicio").val(serv[0].precio);
+        },
+    );
+
+}
+
 
 function eliminarEmpleado(id) {
 
@@ -469,7 +555,14 @@ function cargarInventario() {
             this.dataProd = JSON.parse(data);
 
             for (let index = 0; index < this.dataProd.length; index++) {
-                $("#tablaInventario").append("<tr><td>" + this.dataProd[index].nombre + "</td><td>" + this.dataProd[index].cantidad + "</td><td>" + this.dataProd[index].precio + "</td><td>" + this.dataProd[index].descripcion + "</td><td><a href='#'><i class='material-icons blue-text'>pageview</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
+                $("#tablaInventario").append(
+                    "<tr><td>" + this.dataProd[index].nombre +
+                    "</td><td>" + this.dataProd[index].cantidad +
+                    "</td><td>" + this.dataProd[index].precio +
+                    "</td><td>" + this.dataProd[index].descripcion +
+                    "</td><td><a href='#' onclick=con.editarProducto('" + this.dataProd[index].id +
+                    "')><i class='material-icons blue-text'>edit</i></a></td><td><a href='#' onclick=con.eliminarProductoDB('" + this.dataProd[index].id +
+                    "');><i class='material-icons red-text'>delete</i></a></td></tr>");
 
             }
 
@@ -488,7 +581,12 @@ function cargarServicios() {
 
 
             for (let index = 0; index < this.dataServ.length; index++) {
-                $("#tablaServicios").append("<tr><td>" + this.dataServ[index].nombre + "</td><td>" + this.dataServ[index].precio + "</td><td><a href='#'><i class='material-icons blue-text'>edit</i></a></td><td><a href='#'><i class='material-icons red-text'>delete</i></a></td></tr>");
+                $("#tablaServicios").append(
+                    "<tr><td>" + this.dataServ[index].nombre +
+                    "</td><td>" + this.dataServ[index].precio +
+                    "</td><td><a href='#' onclick=con.editarServicio('" + this.dataServ[index].id +
+                    "')><i class='material-icons blue-text'>edit</i></a></td><td><a href='#' onclick=con.eliminarServicio('" + this.dataServ[index].id +
+                    "');><i class='material-icons red-text'>delete</i></a></td></tr>");
 
             }
 
@@ -538,7 +636,7 @@ function guardarEmpleado() {
         nombre: $("#NuevoEmpleado").val(),
         email: $("#NuevaEmail").val(),
         telefono: $("#NuevaTel").val(),
-        
+
 
     },
         function (data, status) {
