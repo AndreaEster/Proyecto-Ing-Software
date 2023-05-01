@@ -14,10 +14,11 @@ $result = $db->getDatos("SELECT * FROM empleados");
  */
 foreach ($result as $resultado) {
     $nombres[] = array(
-        "nombre"=>$resultado['nombre'],
-        "email"=>$resultado['email'],
-        "telefono"=>$resultado['telefono'],
-        "fecha_contratacion"=>$resultado['fecha_contratacion']
+        "id" => $resultado['id'],
+        "nombre" => $resultado['nombre'],
+        "email" => $resultado['email'],
+        "telefono" => $resultado['telefono'],
+        "fecha_contratacion" => $resultado['fecha_contratacion']
     );
 }
 

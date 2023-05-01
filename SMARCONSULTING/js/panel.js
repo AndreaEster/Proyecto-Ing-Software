@@ -79,7 +79,7 @@ class panel{
       const horarios = JSON.parse(data);
           
         for (let index = 0; index < horarios.length; index++) {
-              $("#horarios01").append("<option value='"+horarios[index].dia_semana+"'>"+horarios[index].dia_semana+" Hora de inicio:"+horarios[index].hora_inicio+" Hora final:"+horarios[index].hora_fin+"</option>");
+              $("#horarios01").append("<option value='"+horarios[index].id+"'>"+horarios[index].dia_semana+" Hora de inicio:"+horarios[index].hora_inicio+" Hora final:"+horarios[index].hora_fin+"</option>");
             }
       
     });
@@ -118,13 +118,11 @@ class panel{
   setCita(){
 
     $.post("./Clases/crearcita.php", {
-      id_usuario:"1",
       id_servicio:$("#servicios").val(),
       nombre:$(".nombre").val(),
-      email:$(".email").val(),
       telefono:$(".telefono").val(),
+      dia:$("#horarios01").val(),
       fecha: $(".fecha").val(),
-      hora:$("#horarios01").val(),
       comentario:$("#textarea2").val()
     },
       function (data, status) {

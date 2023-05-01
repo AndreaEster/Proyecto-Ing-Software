@@ -15,13 +15,14 @@ $result = $db->getDatos("SELECT * FROM horarios");
  */
 foreach ($result as $resultado) {
 
-    if($id == $resultado['id_empleado']){
-    $horarios[] = array(
-        "dia_semana"=>$resultado['dia_semana'],
-        "hora_inicio"=>$resultado['hora_inicio'],
-        "hora_fin"=>$resultado['hora_fin']
-    );
-}
+    if ($id == $resultado['id_empleado']) {
+        $horarios[] = array(
+            "id" => $resultado['id'],
+            "dia_semana" => $resultado['dia_semana'],
+            "hora_inicio" => $resultado['hora_inicio'],
+            "hora_fin" => $resultado['hora_fin']
+        );
+    }
 }
 
 /***

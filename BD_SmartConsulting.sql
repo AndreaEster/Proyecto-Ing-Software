@@ -56,7 +56,6 @@ CREATE TABLE citas (
     id_usuario INT(11) NOT NULL,
     id_servicio INT(11) NOT NULL,
     nombre VARCHAR(50) NOT NULL,
-    email VARCHAR(50),
     telefono VARCHAR(20),
     fecha DATE NOT NULL,
     dia VARCHAR(50) NOT NULL,

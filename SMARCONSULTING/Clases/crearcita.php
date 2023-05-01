@@ -3,26 +3,23 @@
 include("conexion2.php");
 $db = new BaseDatos();
 
-$idusuario = $_POST["id_usuario"];
 $idservicio = $_POST["id_servicio"];
 $nombre = $_POST['nombre'];
-$email = $_POST['email'];
 $telefono = $_POST['telefono'];
 $fecha = $_POST["fecha"];
-$estado = $_POST["estado"];
+$dia = $_POST["dia"];
 $comentario = $_POST["comentario"];
 
 
 
-$query = "INSERT INTO `citas` (`id_usuario`, `id_servicio`, `nombre`, `email`, `telefono`, `fecha`, `estado`, `comentario`) VALUES".""
-."(".$idusuario."', '".$idservicio."', '".$nombre."', '".$email."', '".$telefono."', '".$fecha."', '".$estado."', '".$comentario."');";
+$query = "INSERT INTO `citas` (`id_usuario`, `id_servicio`, `nombre`, `telefono`, `fecha`, `dia`, `estado`, `comentario`) VALUES ('1', '" . $idusuario . "', '" . $idservicio . "', '" . $nombre . "', '" . $telefono . "', '" . $fecha . "', '" . $dia . "', '1' , '" . $comentario . "');";
 
 
 if ($db->insertar($query)) {
     $data = array(
         'mensaje' => 'Cita agregada exitosamente'
     );
-}else{
+} else {
     $data = array(
         'mensaje' => 'Error al agregar la cita'
     );
