@@ -30,6 +30,7 @@ function ocultarDiv() {
   $(".usuariosCont").css("visibility", "hidden");
   $(".empleadoEdit").css("visibility", "hidden");
   $(".empleadoCont").css("visibility", "hidden");
+  $(".reportes1").css("visibility", "hidden");
   /***
    * Removiendo la animacion
    */
@@ -44,6 +45,7 @@ function ocultarDiv() {
   $(".usuariosCont").removeClass("animate__animated animate__backInUp");
   $(".empleadoEdit").removeClass("animate__animated animate__backInUp");
   $(".empleadoCont").removeClass("animate__animated animate__backInUp");
+  $(".reportes1").removeClass("animate__animated animate__backInUp");
 
 }
 

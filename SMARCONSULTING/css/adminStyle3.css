@@ -36,6 +36,16 @@
   border: 0px solid #000000;
 }
 
+.reportes1{
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 0px solid #000000;
+}
+
 .reporteCont{
 visibility: hidden;
 background-color: white;

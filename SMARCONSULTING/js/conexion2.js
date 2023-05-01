@@ -23,9 +23,278 @@ var Conexion = function () {
         guardarEmpleado: guardarEmpleado,
         editarUsuarioDB: editarUsuarioDB,
         editarServicioDB: editarServicioDB,
-        editarProductoDB: editarProductoDB
+        editarProductoDB: editarProductoDB,
+        SeleccionarCita: SeleccionarCita,
+        generarReporte: generarReporte
     }
 }
+
+function generarReporte() {
+
+    switch ($("#selectReporte").val()) {
+        case "citas":
+            
+                $.post("Clases/obtenercita.php", null,
+                function (data, status) {
+                    const citas = JSON.parse(data);
+                    
+                    reporteCitas(citas);
+                },
+                );
+            
+            break;
+        case "facturas":
+                $.post("Clases/obtenerFactura.php", null,
+                    function (data, status) {
+                        const facturas = JSON.parse(data);
+
+                        reporteFacturas(facturas);
+                    },
+                );
+            break;
+        
+        
+        case "empleados":
+            $.post("Clases/getEmpleados.php", null,
+                    function (data, status) {
+                        const empleados = JSON.parse(data);
+
+                        reporteEmpleados(empleados);
+                    },
+                );
+            
+            break;
+        
+        case "usuarios":
+            $.post("Clases/getUsuarios.php", null,
+                    function (data, status) {
+                        const usuarios = JSON.parse(data);
+
+                        reporteUsuarios(usuarios);
+                    },
+                );
+            break;
+    
+        default:
+            alert("No se a seleccionado un tipo de reporte");
+            break;
+    }
+
+
+}
+
+
+
+
+function reporteUsuarios(data){
+    
+    var result = [];
+       
+    for (var i = 0; i < data.length; i ++) {
+      data2 = {
+        id: data[i].id,
+        username: data[i].username,
+        nombre: data[i].nombre,
+        tipo: data[i].tipo
+
+      };
+      result.push(Object.assign({}, data2));
+    }
+  
+  function createHeaders(keys) {
+    var result = [];
+    for (var i = 0; i < keys.length; i += 1) {
+      result.push({
+        id: keys[i],
+        name: keys[i],
+        prompt: keys[i],
+        width: 65,
+        align: "left",
+        padding: 0
+      });
+    }
+    return result;
+  }
+  
+  var headers = createHeaders([
+    "id",
+    "username",
+    "nombre",
+    "tipo"
+  ]);
+  
+  
+      var doc = new jsPDF( 'p', 'mm', [300, 300]);
+      doc.table(1, 1, result, headers, { autoSize: true });
+      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
+  
+      doc.save(""+$("#selectReporte").val()+".pdf");
+
+}
+
+
+
+function reporteEmpleados(data){
+    
+    var result = [];
+       
+    for (var i = 0; i < data.length; i ++) {
+      data2 = {
+        id: data[i].id,
+        nombre: data[i].nombre,
+        email: data[i].email,
+        telefono: data[i].telefono,
+        fecha_contratacion: data[i].fecha_contratacion
+
+      };
+      result.push(Object.assign({}, data2));
+    }
+  
+  function createHeaders(keys) {
+    var result = [];
+    for (var i = 0; i < keys.length; i += 1) {
+      result.push({
+        id: keys[i],
+        name: keys[i],
+        prompt: keys[i],
+        width: 65,
+        align: "left",
+        padding: 0
+      });
+    }
+    return result;
+  }
+  
+  var headers = createHeaders([
+    "id",
+    "nombre",
+    "email",
+    "telefono",
+    "fecha_contratacion"
+  ]);
+  
+  
+      var doc = new jsPDF( 'p', 'mm', [450, 450]);
+      doc.table(1, 1, result, headers, { autoSize: true });
+      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
+  
+      doc.save(""+$("#selectReporte").val()+".pdf");
+
+}
+
+
+function reporteFacturas(data){
+    
+    var result = [];
+       
+    for (var i = 0; i < data.length; i ++) {
+      data2 = {
+        id: data[i].id,
+        id_pago: data[i].id_pago,
+        fecha: data[i].fecha,
+        hora: data[i].hora,
+        total: data[i].total+" Lps"
+
+      };
+      result.push(Object.assign({}, data2));
+    }
+  
+
+
+
+
+  function createHeaders(keys) {
+    var result = [];
+    for (var i = 0; i < keys.length; i += 1) {
+      result.push({
+        id: keys[i],
+        name: keys[i],
+        prompt: keys[i],
+        width: 65,
+        align: "left",
+        padding: 0
+      });
+    }
+    return result;
+  }
+  
+  var headers = createHeaders([
+    "id",
+    "id_pago",
+    "fecha",
+    "hora",
+    "total"
+  ]);
+  
+  
+      var doc = new jsPDF( 'p', 'mm', [400, 400]);
+      doc.table(1, 1, result, headers, { autoSize: true });
+      doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
+  
+      doc.save(""+$("#selectReporte").val()+".pdf");
+
+}
+
+
+function reporteCitas(data){
+    
+    
+        var result = [];
+       
+        for (var i = 0; i < data.length; i ++) {
+          data2 = {
+            id: data[i].id,
+            nombre: data[i].nombre,
+            email: data[i].email,
+            telefono: data[i].telefono,
+            fecha: data[i].fecha,
+            estado: data[i].estado,
+            comentario: data[i].comentario
+
+          };
+          result.push(Object.assign({}, data2));
+        }
+      
+
+
+
+
+      function createHeaders(keys) {
+        var result = [];
+        for (var i = 0; i < keys.length; i += 1) {
+          result.push({
+            id: keys[i],
+            name: keys[i],
+            prompt: keys[i],
+            width: 65,
+            align: "left",
+            padding: 0
+          });
+        }
+        return result;
+      }
+      
+      var headers = createHeaders([
+        "id",
+        "nombre",
+        "email",
+        "telefono",
+        "fecha",
+        "estado",
+        "comentario"
+      ]);
+      
+      
+          var doc = new jsPDF( 'p', 'mm', [400, 400]);
+          doc.table(1, 1, result, headers, { autoSize: true });
+          doc.setDisplayMode({zoom:1,layout:"continuous",pmode:"UseOutlines"});
+      
+          doc.save(""+$("#selectReporte").val()+".pdf");
+      
+}
+
+
+
 
 
 function cargarUsuarios() {
@@ -94,7 +363,7 @@ function cargarCitas() {
                     "</td><td>" + this.dataCita[index].fecha +
                     "</td><td>" + this.dataCita[index].estado +
                     "</td><td>" + this.dataCita[index].comentario +
-                    "</td><td><a href='#' onclick=con.SeleccionarCita('" + this.dataCita[index].id + "');><i class='material-icons blue-text'>edit</i></a></td></tr>"
+                    "</td><td><a href='#' onclick=con.SeleccionarCita('" + this.dataCita[index].id + "');><i class='material-icons orange-text'>edit</i></a></td></tr>"
                 );
 
             }
@@ -102,6 +371,11 @@ function cargarCitas() {
 
         },);
 
+}
+
+
+function SeleccionarCita(id){
+    alert("Cita seleccionada:"+id);
 }
 
 function editarUsuario(id) {

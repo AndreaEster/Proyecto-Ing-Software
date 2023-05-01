@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-  <link type="text/css" rel="stylesheet" href="css/adminStyle2.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/adminStyle3.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/animate.min.css" media="screen,projection" />
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
@@ -227,10 +227,15 @@
               Reportes
               <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
             </div>
-            <div class="collapsible-body white center"><b><i class="material-icons deep-purple-text"
-                  style="font-size: 30px;">security</i>
-                <p>Soon...</p>
-              </b></div>
+
+            <div class="collapsible-body white center">
+            <div class="collection">
+                <a href="#!" class="collection-item black-text left"
+                  onclick="apanel.mostrasDiv('reportes1');"><span class="badge"><i
+                      class="material-icons deep-purple-text"
+                      style="font-size: 30px;">chevron_right</i></span>Generar reporte</a>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -334,7 +339,7 @@
 
       <!--Citas citas-->
       <div class="col s8 cita z-depth-5">
-        <div class="col s6">
+        <div class="col s12">
           <h3>Lista de Citas</h3>
           <form>
             <div class="row">
@@ -357,22 +362,10 @@
               </div>
             </div>
           </form>
-          <div class="row">
-            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
-                class="material-icons">close</i></a>
-          </div>
-        </div>
+         </div>
 
-        <div class="col s4 right">
-          <h3>Buscar cita</h3>
-          <form>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="cita_name2" type="text" class="validate">
-                <label for="first_name2">Nombre</label>
-              </div>
-            </div>
-            <div class="row">
+        <div class="row col s6 left">
+          <div class="row">
               <label>Estado</label>
               <select class="browser-default">
                 <option value="" disabled selected>Seleccione una opcion</option>
@@ -383,9 +376,47 @@
             <div class="row">
               <a class="waves-effect waves-light btn left blue">Guardar</a>
             </div>
-          </form>
         </div>
+        <div class="row col s12 left">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
       </div>
+
+
+        
+
+      <!--Reportes1-->
+      <div class="col s8 reportes1 z-depth-5">
+        <div class="col s12">
+          <h3>Reportes</h3>
+         </div>
+
+         <form>
+        <div class="row col s6 left">
+          <div class="row">
+              <label>Tipos de reportes</label>
+              <select class="browser-default" id="selectReporte" required>
+                <option value="" disabled selected>Seleccione una opcion</option>
+                <option value="citas">Citas</option>
+                <option value="facturas">Facturas</option>
+                <option value="empleados">Empleados</option>
+                <option value="usuarios">Usuarios</option>
+              </select>
+            </div>
+            <div class="row">
+            <a class="waves-effect waves-light btn left orange" onclick="con.generarReporte();" type="submit"><i class="material-icons right">save</i>Generar</a>
+            </div>
+        </div>
+        </form>
+        <div class="row col s12 left">
+            <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+                class="material-icons">close</i></a>
+          </div>
+      </div>
+
+
+
 
 
 
@@ -740,7 +771,7 @@
             <div class="row">
               <div class="col s12">
                 <h6>Productos a usar</h6>
-                <select multiple id="productos1">
+                <select id="productos1" class="browser-default">
                   <option value='' disabled selected>Seleccione los Productos Usados</option>
                 </select>
               </div>
@@ -814,8 +845,9 @@
 
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/materialize.min.js"></script>
-  <script src="js/adminPanel2.js"></script>
-  <script src="js/conexion.js"></script>
+  <script src="js/adminPanel3.js"></script>
+  <script src="js/conexion2.js"></script>
+  <script src="js/jspdf.min.js"></script>
   <script src="js/SingleTon.js"></script>
   <script type="text/javascript">
     M.AutoInit();
