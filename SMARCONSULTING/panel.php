@@ -22,9 +22,6 @@
     header('Location: login.html');
   } else {
 
-    if ($_SESSION['estado'] == false && $_SESSION['rol'] == "administrador") {
-      header('Location: login.html');
-    }
   }
   ?>
   <nav>
@@ -51,7 +48,7 @@
         <li><a class="waves-effect waves-light btn modal-trigger brown darken-1" href="#modal1">Haz tu cita aqui!</a>
           <div class="chip rigth">
             <img src=<?php if ($_SESSION['urlIMG'] == " ") {
-              print_r("'./Assets/usersIMG/default.jpg'");
+              print_r("'Assets/usersIMG/default.jpg'");
             } else {
               print_r("'" . $_SESSION['urlIMG'] . "'");
             } ?> alt="Contact Person">

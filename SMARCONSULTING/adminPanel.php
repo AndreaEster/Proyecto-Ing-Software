@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<?php
+
+include 'Clases/conexion2.php';
+//Función para obtener el monto del servicio de una cita
+
+function obtenerMonto($id_citas)
+{
+  $db = new BaseDatos();
+  $conn = $db->conexion();
+  //Consulta SQL para obtener el monto del servicio de la cita
+  $query = "SELECT servicios.precio FROM citas
+              INNER JOIN servicios ON citas.id_servicio = servicios.id
+              WHERE citas.id = $id_citas";
+
+  //Ejecutamos la consulta
+  $resultado = mysqli_query($conn, $query);
+
+  //Obtenemos el resultado de la consulta
+  $monto = mysqli_fetch_assoc($resultado);
+
+  //Retornamos el valor del monto
+  return $monto['precio'];
+}
+?>
+
+
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -89,14 +115,7 @@
 
   if (!isset($_SESSION['usuarioNombre'])) {
     header('Location: login.html');
-  } else {
-
-    if ($_SESSION['estado'] == false && $_SESSION['rol'] != "administrador") {
-      header('Location: login.html');
-    } else if ($_SESSION['estado'] == true && $_SESSION['rol'] != "administrador") {
-      header('Location: login.html');
-    }
-  }
+  } 
   ?>
 
 
@@ -151,6 +170,7 @@
       </div>
       <div class="itemsMenu col s12">
         <ul class="collapsible z-depth-5">
+
           <li>
             <div class="collapsible-header">
               <i class="material-icons">perm_contact_calendar
@@ -164,78 +184,84 @@
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Calendario</a>
                 <a href="#!" class="collection-item black-text"
-                  onclick="apanel.mostrasDiv('cita');con.cargarCita();"><span class="badge"><i
+                  onclick="apanel.mostrasDiv('cita');con.cargarCitas();"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
               </div>
             </div>
           </li>
-          <li>
-            <div class="collapsible-header">
-              <i class="material-icons">business_center</i>
-              Inventario
-              <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
-            </div>
-            <div class="collapsible-body white">
-              <div class="collection">
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar
-                  Productos</a>
-                <a href="#!" class="collection-item black-text"
-                  onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
-                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
-                  Productos</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar
-                  Servicios</a>
-                <a href="#!" class="collection-item black-text"
-                  onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
-                      class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
-                  Disponibles</a>
+          <?php if ($_SESSION["rol"] == "administrador" || $_SESSION["rol"] == "contador"): ?>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">business_center</i>
+                Inventario
+                <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="collapsible-header">
-              <i class="material-icons">group</i>
-              Usuarios
-              <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
-            </div>
-            <div class="collapsible-body white">
-              <div class="collection">
-                <a href="#!" class="collection-item black-text"
-                  onclick="apanel.mostrasDiv('empleadoEdit');con.cargarEmpleados();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Empleados</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('empleadoCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar Empleado</a>
-                <a href="#!" class="collection-item black-text"
-                  onclick="apanel.mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
-                      class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Usuario</a>
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('usuariosCont');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
+              <div class="collapsible-body white">
+                <div class="collection">
+                  <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('reporteCont');"><span
+                      class="badge"><i class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Agregar
+                    Productos</a>
+                  <a href="#!" class="collection-item black-text"
+                    onclick="apanel.mostrasDiv('reporte');con.cargarInventario();"><span class="badge"><i
+                        class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Lista de
+                    Productos</a>
+                  <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('servicioCont');"><span
+                      class="badge"><i class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Agregar
+                    Servicios</a>
+                  <a href="#!" class="collection-item black-text"
+                    onclick="apanel.mostrasDiv('servicios');con.cargarServicios();"><span class="badge"><i
+                        class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Servicios
+                    Disponibles</a>
+                </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="collapsible-header">
-              <i class="material-icons">settings_applications</i>
-              Reportes
-              <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
-            </div>
+            </li>
+          <?php endif; ?>
+          <?php if ($_SESSION["rol"] == "administrador"): ?>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">group</i>
+                Usuarios
+                <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
+              </div>
+              <div class="collapsible-body white">
+                <div class="collection">
+                  <a href="#!" class="collection-item black-text"
+                    onclick="apanel.mostrasDiv('empleadoEdit');con.cargarEmpleados();"><span class="badge"><i
+                        class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Empleados</a>
+                  <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('empleadoCont');"><span
+                      class="badge"><i class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Agregar Empleado</a>
+                  <a href="#!" class="collection-item black-text"
+                    onclick="apanel.mostrasDiv('usuariosEdit');con.cargarUsuarios();"><span class="badge"><i
+                        class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Eliminar/Editar Usuario</a>
+                  <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('usuariosCont');"><span
+                      class="badge"><i class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Agregar Usuarios</a>
+                </div>
+              </div>
+            </li>
+          <?php endif; ?>
+          <?php if ($_SESSION["rol"] == "administrador" || $_SESSION["rol"] == "contador"): ?>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">settings_applications</i>
+                Reportes
+                <span class="badge"><i class="material-icons deep-purple-text" style="font-size: 30px;">archive</i></span>
+              </div>
 
-            <div class="collapsible-body white center">
-              <div class="collection">
-                <a href="#!" class="collection-item black-text left" onclick="apanel.mostrasDiv('reportes1');"><span
-                    class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Generar reporte</a>
+              <div class="collapsible-body white center">
+                <div class="collection">
+                  <a href="#!" class="collection-item black-text left" onclick="apanel.mostrasDiv('reportes1');"><span
+                      class="badge"><i class="material-icons deep-purple-text"
+                        style="font-size: 30px;">chevron_right</i></span>Generar reporte</a>
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
 
@@ -380,16 +406,20 @@
           <div class="row s9 left">
             <h3>Creacion del pago de Factura</h3>
             <div class="row col s3">
-              <label id="numeroFactura">Factura #</label><input type="text" class="validate" id="numeroFactura"
-                value="0000-000-000"></input>
+              <label id="numeroFactura">Factura #</label>
+              <input type="text" class="validate" id="numeroFactura" value="0000-000-000"></input>
             </div>
             <div class="row col s3">
-              <label id="numeroFactura">Fecha: </label><input type="text" class="validate" id="fechaFacturado"
-                value="<?php echo date('Y-m-d'); ?>"></input>
+              <label id="numeroFactura">Fecha: </label>
+              <input type="text" class="validate" id="fechaFacturado" value="<?php echo date('Y-m-d'); ?>"></input>
             </div>
             <div class="row col s3">
-              <label id="numeroFactura">Hora: </label><input type="text" class="validate" id="horaFacturado"
-                value="<?php echo date('H:i:s'); ?>"></input>
+              <label id="numeroFactura">Hora: </label>
+              <input type="text" class="validate" id="horaFacturado" value="<?php echo date('H:i:s'); ?>"></input>
+            </div>
+            <div class="row col s3">
+              <label id="numeroFactura">Monto a pagar </label>
+              <input type="text" class="validate" id="montoFactura" value="<?php echo obtenerMonto(11); ?>"></input>
             </div>
           </div>
 

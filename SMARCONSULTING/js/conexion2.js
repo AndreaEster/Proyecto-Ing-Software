@@ -379,6 +379,7 @@ function cargarCitas() {
 
 function SeleccionarCita(id) {
     alert("Cita seleccionada:" + id);
+
 }
 
 function editarUsuario(id) {

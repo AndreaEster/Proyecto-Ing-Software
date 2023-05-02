@@ -9,23 +9,23 @@ $result = array();
 
 $result = $db->getDatos("SELECT * FROM usuarios");
 $estado = false;
-$url="www.google.com";
+$url = "www.google.com";
 foreach ($result as $resultado) {
-    if($resultado["username"]==$usuarioGET && $resultado["password"]==$contrasenaGET){
+    if ($resultado["username"] == $usuarioGET && $resultado["password"] == $contrasenaGET) {
         $estado = true;
-        $_SESSION["usuarioNombre"]=$usuarioGET;
-        $_SESSION["rol"]=$resultado["rol"];
-        $_SESSION["estado"]=$estado;
-        $_SESSION["urlIMG"]=$resultado["img"];
+        $_SESSION["usuarioNombre"] = $usuarioGET;
+        $_SESSION["rol"] = $resultado["rol"];
+        $_SESSION["estado"] = $estado;
+        $_SESSION["urlIMG"] = $resultado["img"];
 
-        $url = ($resultado["rol"]=="administrador")?"adminPanel.php":"panel.php";
-        
+        $url = "adminPanel.php";
+
     }
-   
+
 }
 
 if ($estado) {
-    
+
 }
 
 $data = array(
