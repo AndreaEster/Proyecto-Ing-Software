@@ -7,17 +7,13 @@ $nombre = $_POST["nombre"];
 $precio = $_POST["precio"];
 $idproductos = $_POST["id_producto"];
 
-$sql = "INSERT INTO servicios (`nombre`, `precio`) VALUES ($nombre, $precio);";
+$sql = "INSERT INTO `servicios` (`id`, `nombre`, `precio`, `id_producto`, `imagen_url`) VALUES (NULL, '".$nombre."', '".$precio."', '".$idproductos."', 'null')";
+
 if ($db->insertar($sql)) {
     $data[] = array(
         'mensaje' => 'Se a agregado un nuevo servicio al Catalogo'
     );
-    $id_servicio = mysqli_insert_id($db->conexion());
-
-    foreach ($id_productos as $id_producto) {
-        $sqlInsertar = "INSERT INTO producto_por_servicio (id_producto,id_servicio,) VALUES ($id_producto ,$id_servicio);";
-        $db->insertar($sqlInsertar);
-    }
+    
 } else {
     $data[] = array(
         'mensaje' => 'Error al agregar Servicio'

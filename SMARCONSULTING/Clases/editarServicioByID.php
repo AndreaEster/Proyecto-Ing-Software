@@ -1,6 +1,6 @@
 <?php
 
-include "../conexion2.php";
+include "./conexion2.php";
 $db = new BaseDatos();
 
 $id = $_POST["id"];

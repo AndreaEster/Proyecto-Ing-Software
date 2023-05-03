@@ -10,6 +10,7 @@ $resultServicios = $db->getDatos("SELECT * FROM servicios WHERE id = {$id}");
 foreach ($resultServicios as $result) {
     
     $servicios[] = array(
+        "id" => $id,
         "nombre" => $result['nombre'],
         "precio" => $result['precio'],
 

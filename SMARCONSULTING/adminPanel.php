@@ -1,32 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<?php
-
-include 'Clases/conexion2.php';
-//Función para obtener el monto del servicio de una cita
-
-function obtenerMonto($id_citas)
-{
-  $db = new BaseDatos();
-  $conn = $db->conexion();
-  //Consulta SQL para obtener el monto del servicio de la cita
-  $query = "SELECT servicios.precio FROM citas
-              INNER JOIN servicios ON citas.id_servicio = servicios.id
-              WHERE citas.id = $id_citas";
-
-  //Ejecutamos la consulta
-  $resultado = mysqli_query($conn, $query);
-
-  //Obtenemos el resultado de la consulta
-  $monto = mysqli_fetch_assoc($resultado);
-
-  //Retornamos el valor del monto
-  return $monto['precio'];
-}
-?>
-
-
 <head>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -182,7 +155,7 @@ function obtenerMonto($id_citas)
               <div class="collection">
                 <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
                     class="badge"><i class="material-icons deep-purple-text"
-                      style="font-size: 30px;">chevron_right</i></span>Calendario</a>
+                      style="font-size: 30px;">chevron_right</i></span>Facturar</a>
                 <a href="#!" class="collection-item black-text"
                   onclick="apanel.mostrasDiv('cita');con.cargarCitas();"><span class="badge"><i
                       class="material-icons deep-purple-text" style="font-size: 30px;">chevron_right</i></span>Cita</a>
@@ -411,15 +384,15 @@ function obtenerMonto($id_citas)
             </div>
             <div class="row col s3">
               <label id="numeroFactura">Fecha: </label>
-              <input type="text" class="validate" id="fechaFacturado" value="<?php echo date('Y-m-d'); ?>"></input>
+              <input type="text" class="validate" id="fechaFacturado" value=""></input>
             </div>
             <div class="row col s3">
               <label id="numeroFactura">Hora: </label>
-              <input type="text" class="validate" id="horaFacturado" value="<?php echo date('H:i:s'); ?>"></input>
+              <input type="text" class="validate" id="horaFacturado" value=""></input>
             </div>
             <div class="row col s3">
               <label id="numeroFactura">Monto a pagar </label>
-              <input type="text" class="validate" id="montoFactura" value="<?php echo obtenerMonto(11); ?>"></input>
+              <input type="text" class="validate" id="montoFactura" value=""></input>
             </div>
           </div>
 
@@ -495,6 +468,10 @@ function obtenerMonto($id_citas)
                   <label for="reporteNombre">Nombre del producto</label>
                 </div>
                 <div class="input-field col s6">
+                  <input id="idproductoM" type="text" class="validate" value="Id del producto" disabled>
+                  <label for="idproductoM">Id</label>
+                </div>
+                <div class="input-field col s6">
                   <input id="reporteCant" type="text" class="validate" value="0">
                   <label for="reporteCant">Cantidad</label>
                 </div>
@@ -554,6 +531,10 @@ function obtenerMonto($id_citas)
                 <div class="input-field col s6">
                   <input id="nombreServicio" type="text" class="validate" value="Nombre servicio">
                   <label for="nombreServicio">Nombre Servicio</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="idServicioM" type="text" class="validate" value="Id del servicio" disabled>
+                  <label for="idServicioM">Id Servicio</label>
                 </div>
                 <div class="input-field col s6">
                   <input id="precioServicio" type="text" class="validate" value="0.00">
@@ -728,15 +709,19 @@ function obtenerMonto($id_citas)
           <form>
             <div class="row">
               <div class="input-field col s3">
-                <input id="empleadoName" type="text" class="validate" value="Nombre de empleado" disabled="true">
+                <input id="empleadoName" type="text" class="validate" value="Nombre de empleado" >
                 <label for="empleadoName">Nombre Completo</label>
               </div>
               <div class="input-field col s3">
-                <input id="empleadoEmail" type="text" class="validate" disabled="true" value="algo@email.com">
+                <input id="idEmpleadoM" type="text" class="validate" value="Id empleado" disabled="true">
+                <label for="idEmpleadoM">Id empleado</label>
+              </div>
+              <div class="input-field col s3">
+                <input id="empleadoEmail" type="email" class="validate" value="algo@email.com">
                 <label for="empleadoEmail">Email</label>
               </div>
               <div class="input-field col s3">
-                <input id="telefonoEmpleado" type="text" class="validate" value="telefono">
+                <input id="telefonoEmpleado" type="tel" class="validate" value="telefono">
                 <label for="telefonoEmpleado">Telefono</label>
               </div>
             </div>
@@ -783,18 +768,18 @@ function obtenerMonto($id_citas)
             <div class="row">
               <div class="input-field col s6">
                 <input id="NuevoEmpleado" type="text" class="validate" required="true">
-                <label for="NuevoUsuario">Nombre Empleado</label>
+                <label for="NuevoEmpleado">Nombre Empleado</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="NuevaEmail" type="password" class="validate" required="true">
+                <input id="NuevaEmail" type="email" class="validate" required="true">
                 <label for="NuevaEmail">Email</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="NuevaTel" type="password" class="validate" required="true">
+                <input id="NuevaTel" type="text" class="validate" required="true">
                 <label for="NuevaTel">Telefono</label>
               </div>
             </div>

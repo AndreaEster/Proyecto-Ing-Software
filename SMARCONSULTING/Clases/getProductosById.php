@@ -10,6 +10,7 @@ $resultProductos = $db->getDatos("SELECT * FROM producto WHERE id = {$id}");
 foreach ($resultProductos as $result) {
     
     $productos[] = array(
+        "id" => $result['id'],
         "nombre" => $result['nombre'],
         "cantidad" => $result['cantidad'],
         "precio" => $result['precio'],

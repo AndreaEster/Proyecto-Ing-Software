@@ -29,9 +29,12 @@ var Conexion = function () {
         editarServicioDB: editarServicioDB,
         editarProductoDB: editarProductoDB,
         SeleccionarCita: SeleccionarCita,
-        generarReporte: generarReporte
+        generarReporte: generarReporte,
+        editarServcioDB: editarServcioDB,
+        editarEmpleadoDB: editarEmpleadoDB
     }
 }
+
 
 function generarReporte() {
 
@@ -480,7 +483,7 @@ function editarEmpleado(id) {
         function (data, status) {
 
             const emp = JSON.parse(data);
-
+            $("#idEmpleadoM").val(emp[0].id);
             $("#empleadoName").val(emp[0].nombre);
             $("#empleadoEmail").val(emp[0].email);
             $("#telefonoEmpleado").val(emp[0].telefono);
@@ -498,7 +501,7 @@ function editarProducto(id) {
         function (data, status) {
 
             const prod = JSON.parse(data);
-
+            $("#idproductoM").val(prod[0].id);
             $("#reporteNombre").val(prod[0].nombre);
             $("#reporteCant").val(prod[0].cantidad);
             $("#reportePrecio").val(prod[0].precio);
@@ -516,13 +519,75 @@ function editarServicio(id) {
         function (data, status) {
 
             const serv = JSON.parse(data);
-
+            $("#idServicioM").val(serv[0].id);
             $("#nombreServicio").val(serv[0].nombre);
             $("#precioServicio").val(serv[0].precio);
         },
     );
 
 }
+
+function editarServcioDB(){
+    $.post("Clases/editarServicioByID.php", {
+        id: $("#idServicioM").val(),
+        nombre: $("#nombreServicio").val(),
+        precio: $("#precioServicio").val()
+
+    },
+    
+        function (data, status) {
+            
+                const result = JSON.parse(data);
+                M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+                
+                $("#idServicioM").val("Id servicio"),
+                $("#nombreServicio").val("Nombre del servicio"),
+                $("#precioServicio").val("0.00");
+        
+        },
+    );
+
+    setTimeout(() => {
+        this.cargarServicios();
+    }, 1000);
+
+}
+
+
+
+function editarEmpleadoDB(){
+    $.post("Clases/editarEmpleadoDB.php", {
+        id: $("#idEmpleadoM").val(),
+        nombre: $("#empleadoName").val(),
+        tel: $("#telefonoEmpleado").val(),
+        email: $("#empleadoEmail").val()
+
+    },
+    
+        function (data, status) {
+            
+            const result = JSON.parse(data);
+            M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+            $("#idEmpleadoM").val("");
+            $("#empleadoName").val("");
+            $("#telefonoEmpleado").val("");
+            $("#empleadoEmail").val("");
+        
+        },
+    );
+
+    setTimeout(() => {
+        this.cargarEmpleados();
+    }, 1000);
+
+}
+
+
+
+
+
+
+
 
 
 function eliminarEmpleado(id) {
@@ -627,6 +692,10 @@ function guardarProducto() {
             const result = JSON.parse(data);
             M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
 
+            $("#NuevoProducto").val("");
+            $("#CantidadProducto").val("");
+            $("#PrecioProducto").val("");
+            $("#DescripcionProducto").val("");
 
         },
     );
@@ -645,6 +714,9 @@ function guardarEmpleado() {
             const result = JSON.parse(data);
             M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
 
+            $("#NuevoEmpleado").val("");
+            $("#NuevaEmail").val("");
+            $("#NuevaTel").val("");
 
         },
     );
@@ -654,14 +726,17 @@ function guardarServicio() {
     $.post("Clases/agregarServicio.php", {
         nombre: $("#NuevoServicio").val(),
         precio: $("#NuevaPrecio").val(),
-        id_producto: $("#productos1").val().join(','),
+        id_producto: $("#productos1").val(),
 
     },
         function (data, status) {
 
             const result = JSON.parse(data);
             M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
-
+            
+            $("#NuevoServicio").val("Nombre de servicio");
+            $("#NuevaPrecio").val("0.00");
+            $("#productos1").val("");
 
         },
     );
@@ -692,6 +767,7 @@ function editarUsuarioDB() {
 
 function editarServicioDB() {
     $.post("Clases/admin/editarServicios.php", {
+        id: $("#idServicioM").val(),
         nombre: $("#nombreServicio").val(),
         precio: $("#precioServicio").val()
 
@@ -712,6 +788,7 @@ function editarServicioDB() {
 
 function editarProductoDB() {
     $.post("Clases/admin/editarProductos.php", {
+        id: $("#idproductoM").val(),
         nombre: $("#reporteNombre").val(),
         cantidad: $("#reporteCant").val(),
         precio: $("#reportePrecio").val(),
@@ -722,6 +799,12 @@ function editarProductoDB() {
 
             const result = JSON.parse(data2);
             M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+
+            $("#idproductoM").val("ID del producto");
+            $("#reporteNombre").val("Nombre");
+            $("#reporteCant").val("0");
+            $("#reportePrecio").val("0.00");
+            $("#reporteDesc").val("");
 
         },
     );
