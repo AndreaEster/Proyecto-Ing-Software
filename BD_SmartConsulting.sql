@@ -48,22 +48,24 @@ CREATE TABLE usuarios (
     img VARCHAR(250),
     PRIMARY KEY (id),
     UNIQUE KEY (username),
-    FOREIGN KEY (id_empleado) REFERENCES empleados(id)
+    FOREIGN KEY (id_empleado) REFERENCES empleados(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE citas (
     id INT(11) NOT NULL AUTO_INCREMENT,
-    id_usuario INT(11) NOT NULL,
-    id_servicio INT(11) NOT NULL,
-    nombre VARCHAR(50) NOT NULL,
-    telefono VARCHAR(20),
-    fecha DATE NOT NULL,
-    dia VARCHAR(50) NOT NULL,
-    estado ENUM('confirmada', 'cancelada', 'realizada') NOT NULL DEFAULT 'confirmada',
-    comentario TEXT,
+	id_usuario int(11) NOT NULL,	
+	id_servicio int(11) NOT NULL,
+	nombre varchar(50) NOT NULL,
+	email varchar(50) DEFAULT NULL,
+	telefono varchar(20) DEFAULT NULL,
+	fecha date NOT NULL,
+	hora time NOT NULL,
+	duracion int(11) NOT NULL,
+	estado enum('confirmada','cancelada','realizada') NOT NULL DEFAULT 'confirmada',
+	comentario text DEFAULT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON UPDATE CASCADE,
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id) ON UPDATE CASCADE
 );
 
 
@@ -76,7 +78,7 @@ CREATE TABLE pagos (
     forma_pago ENUM('efectivo', 'tarjeta_credito', 'tarjeta_debito') NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_cita) REFERENCES citas(id)
+    FOREIGN KEY (id_cita) REFERENCES citas(id) ON UPDATE CASCADE
 );
 
 
@@ -86,8 +88,10 @@ CREATE TABLE horarios (
     dia_semana ENUM('lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo') NOT NULL,
     hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
+    contador INT(11),
+    capacidad_cita INT(11),
     PRIMARY KEY (id),
-    FOREIGN KEY (id_empleado) REFERENCES empleados(id)
+    FOREIGN KEY (id_empleado) REFERENCES empleados(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE servicios_por_cita (
@@ -95,8 +99,8 @@ CREATE TABLE servicios_por_cita (
     id_cita INT(11) NOT NULL,
     id_servicio INT(11) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_cita) REFERENCES citas(id),
-    FOREIGN KEY (id_servicio) REFERENCES servicios(id)
+    FOREIGN KEY (id_cita) REFERENCES citas(id) ON UPDATE CASCADE,
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE productos_por_servicio (
@@ -104,8 +108,8 @@ CREATE TABLE productos_por_servicio (
     id_producto INT(11) NOT NULL,
     id_servicio INT(11) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_servicio) REFERENCES servicios(id),
-    FOREIGN KEY (id_producto) REFERENCES producto(id)
+    FOREIGN KEY (id_servicio) REFERENCES servicios(id) ON UPDATE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES producto(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE producto_por_pago (
@@ -115,8 +119,8 @@ CREATE TABLE producto_por_pago (
     cantidad INT(11) NOT NULL,
     precio DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_pago) REFERENCES pagos(id),
-    FOREIGN KEY (id_producto) REFERENCES producto(id)
+    FOREIGN KEY (id_pago) REFERENCES pagos(id) ON UPDATE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES producto(id) ON UPDATE CASCADE
 );
 
 CREATE TABLE facturas (
@@ -125,7 +129,7 @@ CREATE TABLE facturas (
     fecha DATETIME NOT NULL DEFAULT NOW(),
     total DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_pago) REFERENCES pagos(id)
+    FOREIGN KEY (id_pago) REFERENCES pagos(id) ON UPDATE CASCADE
 );
 
 INSERT INTO imagenes (id, nombre, url) 
@@ -152,26 +156,26 @@ VALUES
 ('María García', 'maria.garcia@empresa.com', '9977-5678', '2022-01-02'),
 ('Pedro González', 'pedro.gonzalez@empresa.com', '9966-9012', '2022-01-03');
 
-INSERT INTO horarios (id_empleado, dia_semana, hora_inicio, hora_fin)
+INSERT INTO horarios (id_empleado, dia_semana, hora_inicio, hora_fin, contador, capacidad_cita)
 VALUES 
-(1, 'lunes', '0:00:01', '23:59:59'),
+(1, 'lunes', '0:00:01', '23:59:59',3,3),
 
-(2, 'lunes', '09:00:00', '17:00:00'),
-(2, 'martes', '09:00:00', '17:00:00'),
-(2, 'miercoles', '09:00:00', '17:00:00'),
-(2, 'sabado', '10:00:00', '14:00:00'),
-(2, 'domingo', '10:00:00', '14:00:00'),
+(2, 'lunes', '09:00:00', '17:00:00',0,3),
+(2, 'martes', '09:00:00', '17:00:00',0,3),
+(2, 'miercoles', '09:00:00', '17:00:00',0,3),
+(2, 'sabado', '10:00:00', '14:00:00',0,3),
+(2, 'domingo', '10:00:00', '14:00:00',0,3),
 
-(3, 'miercoles', '08:00:00', '16:00:00'),
-(3, 'jueves', '08:00:00', '16:00:00'),
-(3, 'viernes', '08:00:00', '16:00:00'),
-(3, 'sabado', '09:00:00', '13:00:00'),
-(3, 'domingo', '09:00:00', '13:00:00'),
+(3, 'miercoles', '08:00:00', '16:00:00',0,3),
+(3, 'jueves', '08:00:00', '16:00:00',0,3),
+(3, 'viernes', '08:00:00', '16:00:00',0,3),
+(3, 'sabado', '09:00:00', '13:00:00',0,3),
+(3, 'domingo', '09:00:00', '13:00:00',0,3),
 
-(4, 'lunes', '09:00:00', '17:00:00'),
-(4, 'martes', '09:00:00', '17:00:00'),
-(4, 'sabado', '10:00:00', '14:00:00'),
-(4, 'domingo', '10:00:00', '14:00:00');
+(4, 'lunes', '09:00:00', '17:00:00',0,3),
+(4, 'martes', '09:00:00', '17:00:00',0,3),
+(4, 'sabado', '10:00:00', '14:00:00',0,3),
+(4, 'domingo', '10:00:00', '14:00:00',0,3);
 
 INSERT INTO producto (nombre, cantidad, precio, descripcion)
 VALUES 
@@ -195,7 +199,7 @@ VALUES
 ('admin', 'password123', 2, '1'),
 ('admin-online', 'pass123', 1,'2'),
 ('mg-corp1', 'pass456', 3, '3'),
-('pg-corp2', 'pass567', '2');
+('pg-corp2', 'pass567', '2','1');
 
 
 INSERT INTO servicios (nombre, precio, imagen_url) 
