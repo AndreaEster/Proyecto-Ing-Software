@@ -1,14 +1,20 @@
 
-class panel{
-    panel(){
-
-    }
-
+var Panel = function() {
+  return{
+    getCarousel:getCarousel,
+    getEmpleados:getEmpleados,
+    getHorario:getHorario,
+    getServicios:getServicios,
+    setCita:setCita,
+    agregarCita:agregarCita
+  }
+  
+}
   /**
    * author Ramon Rivera
    * Esta funcion llama las imagenes desde la base de datos para cargarlas en el carrusel
    */
-  getCarousel(){
+function getCarousel(){
 
     $.post("./Clases/carousel.php",
     {
@@ -45,7 +51,7 @@ class panel{
    * rrellena los campos de empleado
    * no recibe parametros
    */
-  getEmpleados() {
+function getEmpleados() {
 
   $.post("./Clases/obtenerempleados.php",{
     "null":null
@@ -68,7 +74,7 @@ class panel{
    * @param {*} idEmpleado 
    */
 
-  getHorario(idEmpleado){
+function  getHorario(idEmpleado){
       
     $("#horarios01").html("<option value='' disabled selected>Selecione un Horario</option>");
 
@@ -91,7 +97,7 @@ class panel{
    * author Ramon Rivera
    * Devuelve los servicios registrados en la base de datos
    */
-  getServicios(){
+function  getServicios(){
       
     $("#servicios").html("<option value='' disabled selected>Selecione un Servicio</option>");
 
@@ -115,22 +121,45 @@ class panel{
    * no recibe parametros
    */
 
-  setCita(){
-
-    $.post("./Clases/crearcita.php", {
-      id_servicio:$("#servicios").val(),
-      nombre:$(".nombre").val(),
-      telefono:$(".telefono").val(),
-      dia:$("#horarios01").val(),
-      fecha: $(".fecha").val(),
-      comentario:$("#textarea2").val()
+function  setCita(){
+    $.post("./Clases/validarCita.php", {
+      id_horario:$("#horarios01").val()
     },
       function (data, status) {
-        const mensaje = JSON.parse(data);
-        alert(mensaje.mensaje);
+        const result = JSON.parse(data);
         
-      });
+        if (result[0].status=="true") {
+          agregarCita(result[0].contador);
+        }else{
+          M.toast({ html: "Este empleado no puede atender mas citas :'(", classes: 'rounded', displayLength: 3000 });
+        }
+        
+      }
+    );
+   
       
   }
 
-}
+function agregarCita(contador){
+    $.post("./Clases/crearcita.php", {
+      id_servicio:$("#servicios").val(),
+      id_empleado:$("#empleados01").val(),
+      nombre:$(".nombre").val(),
+      telefono:$(".telefono").val(),
+      dia:$("#horarios01").val(),
+      fecha: "03-05-2023",
+      comentario:$("#textarea2").val(),
+      contador: contador
+    },
+      function (data, status) {
+        const result = JSON.parse(data);
+          M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+          $("#servicios").val("");
+          $("#empleados01").val("");
+          $(".nombre").val("");
+          $(".telefono").val("");
+          $("#horarios01").val("");
+          $("#textarea2").val("");
+        
+      });
+  }

@@ -31,10 +31,29 @@ var Conexion = function () {
         SeleccionarCita: SeleccionarCita,
         generarReporte: generarReporte,
         editarServcioDB: editarServcioDB,
-        editarEmpleadoDB: editarEmpleadoDB
+        editarEmpleadoDB: editarEmpleadoDB,
+        actualizarCita: actualizarCita
     }
 }
 
+function actualizarCita(){
+    $.post("./Clases/actualizarCitas.php", {
+        id: $("#idCitas").val(),
+        estado: $("#citaSelect").val()
+    },
+        function (data, status) {
+            const result = JSON.parse(data);
+            M.toast({ html: result[0].mensaje, classes: 'rounded', displayLength: 3000 });
+            
+            $("#idCitas").val("");
+            $("#citaSelect").val("");
+        }
+    );
+    
+    setTimeout(() => {
+        this.cargarCitas();
+    }, 1000);
+}
 
 function generarReporte() {
 
@@ -381,7 +400,17 @@ function cargarCitas() {
 
 
 function SeleccionarCita(id) {
-    alert("Cita seleccionada:" + id);
+    $.post("Clases/getCitasById.php", {
+        id: id
+    },
+        function (data, status) {
+            const result = JSON.parse(data);
+            $("#citaSelect").val(result[0].estado);
+            $("#idCitas").val(result[0].id);
+        }
+    );
+
+
 
 }
 

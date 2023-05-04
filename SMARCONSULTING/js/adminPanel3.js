@@ -8,8 +8,20 @@ var AdminPanel = function () {
     mostrasDiv: mostrasDiv,
     ocultarDiv: ocultarDiv,
     getEmpleados: getEmpleados,
-    getProductos: getProductos
+    getProductos: getProductos,
+    getDate: getDate
   }
+}
+
+function getDate(){
+  let fecha = new Date(),
+  formateada = fecha.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric'
+  });
+
+  $("#fechaEmision").val(formateada);
 }
 
 function mostrasDiv(clase) {

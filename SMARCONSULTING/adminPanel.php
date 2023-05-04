@@ -153,7 +153,7 @@
             </div>
             <div class="collapsible-body white">
               <div class="collection">
-                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');"><span
+                <a href="#!" class="collection-item black-text" onclick="apanel.mostrasDiv('calendarioCita');apanel.getDate();"><span
                     class="badge"><i class="material-icons deep-purple-text"
                       style="font-size: 30px;">chevron_right</i></span>Facturar</a>
                 <a href="#!" class="collection-item black-text"
@@ -249,90 +249,100 @@
 
       <!--Calendario citas-->
       <div class="col s8 calendarioCita z-depth-5">
-        <div class="col s6">
-          <form>
-            <div class="row col s12">
-              <div class="row col s12 black-text">
-                <h3>Fecha</h3>
-                <input type="text" class="datepicker"><label>Chose</label></input>
-                <a class="waves-effect waves-light btn right blue">Buscar</a>
-              </div>
-              <div class="row col s12">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">access_time</i>
-                  <input id="icon_prefix" type="text" class="validate" value="5">
-                  <label for="icon_prefix">Citas hoy</label>
-                </div>
-              </div>
+        <div class="row">
+          <h1>Facturacion</h1>
 
-              <div class="row col s12">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">access_alarm</i>
-                  <input id="icon_prefix" type="text" class="validate" value="5">
-                  <label for="icon_prefix">Citas pendientes</label>
-                </div>
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="numeroFactura" type="text" class="validate" disabled value="0000000-001-01-0001">
+                <label for="numeroFactura">Numero de factura</label>
               </div>
-              <div class="row">
-                <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
-                    class="material-icons">close</i></a>
-              </div>
-
             </div>
-          </form>
-        </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="fechaEmision" type="text" class="validate" disabled value="03-05-2023">
+                <label for="fechaEmision">Fecha de emison</label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="input-field col s6">
+                <input id="nombreClienteFac" type="text" class="validate">
+                <label for="nombreClienteFac">Nombre del cliente</label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col s6">
+            <label>Citas</label>
+            <select class="browser-default">
+              <option value="" disabled selected>Seleccione una cita</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <table class="striped">
+                      <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>Precio unitario</th>
+                            <th>Total</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>secadora</td>
+                          <td>para sercar pelo</td>
+                          <td>1</td>
+                          <td>50.00</td>
+                          <td>50.00</td>
+                        </tr>
+                        <tr>
+                        <td>2</td>
+                          <td>Corte de pelo</td>
+                          <td>n/a</td>
+                          <td>1</td>
+                          <td>500.00</td>
+                          <td>50.00</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+            
 
 
-        <div class="col s4 CalendarioGen right">
-          <br><br>
-          <div class="calendar">
-            <div class="calendar__picture">
-              <h2>12, Miercoles</h2>
-              <h3>Abril</h3>
+              </div>
             </div>
-            <div class="calendar__date">
-              <div class="calendar__day">M</div>
-              <div class="calendar__day">T</div>
-              <div class="calendar__day">W</div>
-              <div class="calendar__day">T</div>
-              <div class="calendar__day">F</div>
-              <div class="calendar__day">S</div>
-              <div class="calendar__day">S</div>
-              <div class="calendar__number"></div>
-              <div class="calendar__number"></div>
-              <div class="calendar__number"></div>
-              <div class="calendar__number">1</div>
-              <div class="calendar__number">2</div>
-              <div class="calendar__number">3</div>
-              <div class="calendar__number">4</div>
-              <div class="calendar__number">5</div>
-              <div class="calendar__number">6</div>
-              <div class="calendar__number">7</div>
-              <div class="calendar__number">8</div>
-              <div class="calendar__number">9</div>
-              <div class="calendar__number">10</div>
-              <div class="calendar__number">11</div>
-              <div class="calendar__number calendar__number--current">12</div>
-              <div class="calendar__number">13</div>
-              <div class="calendar__number">14</div>
-              <div class="calendar__number">15</div>
-              <div class="calendar__number">16</div>
-              <div class="calendar__number">17</div>
-              <div class="calendar__number">18</div>
-              <div class="calendar__number">19</div>
-              <div class="calendar__number">20</div>
-              <div class="calendar__number">21</div>
-              <div class="calendar__number">22</div>
-              <div class="calendar__number">23</div>
-              <div class="calendar__number">24</div>
-              <div class="calendar__number">25</div>
-              <div class="calendar__number">26</div>
-              <div class="calendar__number">27</div>
-              <div class="calendar__number">28</div>
-              <div class="calendar__number">29</div>
-              <div class="calendar__number">30</div>
+            <div class="row">
+              <div class="col s6">
+              <a class="waves-effect waves-light btn-large green darken-4"><i class="material-icons right">add_circle</i>Agregar producto</a>
+              <a class="waves-effect waves-light btn-large green darken-4"><i class="material-icons right">add_circle</i>Agregar servicio</a>
+              </div>
+              <div class="col s6">
+              <a class="waves-effect waves-light btn-large green darken-4 right"><i class="material-icons right">add_shopping_cart</i>Facturar</a>
+              </div>
             </div>
+            <div class="row col s12 left">
+              <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
+                  class="material-icons">close</i></a>
+            </div>
+
+
           </div>
+            
+
         </div>
+
+
+        
       </div>
 
       <!--Citas citas-->
@@ -362,55 +372,27 @@
         </div>
 
         <div class="row col s6 left">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="idCitas" type="text" class="validate" disabled value="Id cita">
+                <label for="idCitas">Id cita</label>
+              </div>
+            </div>
+
           <div class="row">
             <label>Estado</label>
-            <select class="browser-default">
+            <select class="browser-default" id="citaSelect">
               <option value="" disabled selected>Seleccione una opcion</option>
-              <option value="1">Aprobar</option>
-              <option value="2">Cancelar</option>
+              <option value="confirmada">Confirmada</option>
+              <option value="realizada">Finalizar</option>
+              <option value="cancelada">Cancelar</option>
             </select>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn left blue">Guardar</a>
+            <a class="waves-effect waves-light btn left blue" onclick="con.actualizarCita();">Guardar</a>
           </div>
         </div>
 
-        <div class="col s12">
-          <div class="row s9 left">
-            <h3>Creacion del pago de Factura</h3>
-            <div class="row col s3">
-              <label id="numeroFactura">Factura #</label>
-              <input type="text" class="validate" id="numeroFactura" value="0000-000-000"></input>
-            </div>
-            <div class="row col s3">
-              <label id="numeroFactura">Fecha: </label>
-              <input type="text" class="validate" id="fechaFacturado" value=""></input>
-            </div>
-            <div class="row col s3">
-              <label id="numeroFactura">Hora: </label>
-              <input type="text" class="validate" id="horaFacturado" value=""></input>
-            </div>
-            <div class="row col s3">
-              <label id="numeroFactura">Monto a pagar </label>
-              <input type="text" class="validate" id="montoFactura" value=""></input>
-            </div>
-          </div>
-
-        </div>
-        <div class="row col s6 left">
-          <h4>Forma de pago: </h4>
-          <div class="row">
-            <select class="browser-default" id="selectPago" required>
-              <option value="" disabled selected>Seleccione una opcion</option>
-              <option value="efectivo'">Efectivo</option>
-              <option value="tarjeta_credito">Credito</option>
-              <option value="tarjeta_debito">Debito</option>
-            </select>
-          </div>
-          <div class="row">
-            <a class="waves-effect waves-light btn left blue">Guardar</a>
-          </div>
-        </div>
         <div class="row col s12 left">
           <a class="btn-floating btn-large waves-effect waves-light red" onclick="apanel.ocultarDiv();"><i
               class="material-icons">close</i></a>
@@ -893,7 +875,7 @@
   <!--JavaScript at end of body for optimized loading-->
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script src="js/adminPanel3.js"></script>
-  <script src="js/conexion2.js"></script>
+  <script src="js/conexion3.js"></script>
   <script src="js/jspdf.min.js"></script>
   <script src="js/SingleTon.js"></script>
   <script type="text/javascript">
